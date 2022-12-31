@@ -1,0 +1,36 @@
+:root {
+    font-family: Arial;
+    font-size: 16px;
+
+    --bg-dark: #1e1e1e;
+    --bg-color: #242424;
+    --bg-light: #333333;
+    --bg-hover: #555555;
+    --text-white: #dddddd;
+
+    color: var(--text-white);
+    background-color: var(--bg-color);
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: 1px solid var(--text-white);
+    border-radius: 5px;
+    padding: 5px;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    background-color: var(--bg-light);
+}
+
+button:hover {
+    background-color: var(--bg-hover);
+}
+
+button:active {
+    background-color: var(--bg-light);
+}
