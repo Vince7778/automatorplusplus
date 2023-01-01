@@ -22,6 +22,7 @@
     "vite-plugin-monaco-editor": "^1.1.0"
   },
   "dependencies": {
+    "gh-pages": "^4.0.0",
     "monaco-editor": "^0.34.1"
   }
 }
