@@ -3,7 +3,9 @@
     import { compile } from "../parser/compile";
     import Editor from "./Editor.svelte";
 
-    let textareaValue: string;
+    let textareaValue: string = "";
+    let charCount = 0;
+    $: charCount = textareaValue.length;
 
     function runCompile() {
         const editorValue = getEditorValue();
@@ -16,6 +18,7 @@
     <Editor />
     <div class="button-container">
         <div class="col-container">
+            <p>Characters: {charCount}/10000</p>
             <div class="buttons">
                 <button on:click={runCompile}>Compile &#8594;</button>
             </div>
@@ -44,6 +47,7 @@
         height: 100%;
         width: 100%;
         justify-content: center;
+        text-align: center;
     }
 
     .buttons {
@@ -52,7 +56,7 @@
     }
 
     .buttons button {
-        font-size: 20px;
+        font-size: 16px;
         margin-top: 10px;
     }
 

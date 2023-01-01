@@ -1,3 +1,5 @@
+import { reservedLists } from "../editor/syntax";
+
 interface AutoFunction {
     argumentCount: number;
     argumentNames: string[];
@@ -10,9 +12,42 @@ interface ParserState {
     functions: { [key: string]: AutoFunction };
     error: string;
     recursiveDepth: number;
+    tabDepth: number;
 }
 
 const validNameRegex = /^[a-zA-Z][a-zA-Z0-9_-]+$/;
+const customCurrencyRegex = new RegExp(
+    "^" + reservedLists.currencies.source + "$"
+);
+function verifyName(n: string) {
+    if (!n.match(validNameRegex)) {
+        return "Name has invalid characters";
+    }
+    if (
+        reservedLists.keywords.some((x) => x === n) ||
+        reservedLists.arguments.some((x) => x === n) ||
+        n.match(customCurrencyRegex)
+    ) {
+        return "Name is a reserved word";
+    }
+    return "";
+}
+
+function verifyAndSetState(n: string, state: ParserState) {
+    const res = verifyName(n);
+    if (res) {
+        state.error = res;
+        return false;
+    }
+    return true;
+}
+
+function tabTo(str: string, depth: number) {
+    let out = "";
+    for (let i = 0; i < depth; i++) out += "    ";
+    return out + str;
+}
+
 const MAX_RECURSION_DEPTH = 10;
 
 /*
@@ -27,6 +62,10 @@ const curFunction = state.functions[state.curFunctionName];
         */
 
 function parseLine(line: string, state: ParserState): string[] {
+    line = line.trim();
+    if (line.startsWith("//") || line.startsWith("#")) {
+        return [];
+    }
     const tokens = line.split(" ");
     const commandName = tokens[0].toLowerCase();
 
@@ -39,7 +78,11 @@ function parseLine(line: string, state: ParserState): string[] {
             state.error = "Cannot start function inside another function";
             return [];
         }
-        if (!tokens[1].match(validNameRegex)) {
+        if (state.tabDepth !== 0) {
+            state.error = "Functions can only be defined outside of blocks";
+            return [];
+        }
+        if (verifyName(tokens[1])) {
             state.error = "Function has invalid name";
             return [];
         }
@@ -55,7 +98,7 @@ function parseLine(line: string, state: ParserState): string[] {
         };
         for (let i = 2; i < tokens.length; i++) {
             if (!tokens[i]) continue;
-            if (!tokens[i].match(validNameRegex)) {
+            if (verifyName(tokens[i])) {
                 state.error = `Argument ${
                     curFunction.argumentCount + 1
                 } has invalid name`;
@@ -80,6 +123,10 @@ function parseLine(line: string, state: ParserState): string[] {
     }
 
     let result: string[] = [];
+
+    if (line.startsWith("}")) {
+        state.tabDepth--;
+    }
 
     if (commandName === "call") {
         if (state.recursiveDepth >= MAX_RECURSION_DEPTH) {
@@ -126,7 +173,11 @@ function parseLine(line: string, state: ParserState): string[] {
             result.push(...res);
         }
     } else {
-        result = [line];
+        result = [tabTo(line, state.tabDepth)];
+    }
+
+    if (line.endsWith("{")) {
+        state.tabDepth++;
     }
 
     if (state.curFunctionName !== "") {
@@ -147,6 +198,7 @@ export function compile(input: string) {
         functions: {},
         error: "",
         recursiveDepth: 0,
+        tabDepth: 0,
     };
 
     for (const [lineNum, line] of lines.entries()) {

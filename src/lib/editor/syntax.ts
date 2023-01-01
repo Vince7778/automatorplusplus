@@ -2,44 +2,9 @@ import * as Monaco from "monaco-editor";
 
 export const LANG_NAME = "automatorplusplus";
 
-const prefixAll = (f: string, ...p: string[]) => {
-    return [...p.map((xp) => (xp + " " + f).trim())];
-};
-
 const ecList = [...Array(12)].map((_, i) => `ec${i + 1}`);
 
-const identifierList = [
-    "am",
-    ...prefixAll("ip", "", "pending"),
-    ...prefixAll("ep", "", "pending"),
-    ...prefixAll("rm", "", "pending"),
-    ...prefixAll("infinities", "", "banked"),
-    "eternities",
-    "realities",
-    ...prefixAll("tp", "", "pending"),
-    "pending glyph level",
-    "dt",
-    "rg",
-    "rep",
-    ...prefixAll("tt", "", "total"),
-    ...prefixAll("completions", "total", "pending", ...ecList),
-];
-
-const conditionRegex =
-    /(@identifiers|@numbers) @operators (@identifiers|@numbers)/;
-
-const operators = ["<", "<=", ">", ">="];
-
-const keywordRules: Monaco.languages.IMonarchLanguageRule[] = [
-    [/(WAIT) @conditions/, ["keyword"]],
-];
-
-const lang: Monaco.languages.IMonarchLanguage = {
-    ignoreCase: true,
-    defaultToken: "",
-    number: /[1-9][0-9]*(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?/,
-    operators: ["<", "<=", ">", ">="],
-    times: ["s", "sec", "seconds", "ms", "m", "min", "minutes", "h", "hours"],
+export const reservedLists = {
     keywords: [
         "eternity",
         "infinity",
@@ -67,15 +32,24 @@ const lang: Monaco.languages.IMonarchLanguage = {
         "dilation",
         "on",
         "off",
-        "x",
-        "highest",
         "name",
         "ec",
     ],
+    currencies:
+        /(?:am|(?:pending )?rm|(?:pending )?[iet]p|(?:(?:banked )?infin|etern|real)ities|(?:total )?tt|(?:pending|total|ec(?:[1-9]|1[0-2])) completions|pending glyph level)/,
+};
+
+const lang: Monaco.languages.IMonarchLanguage = {
+    ignoreCase: true,
+    defaultToken: "",
+    number: /[1-9][0-9]*(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?/,
+    operators: ["<", "<=", ">", ">="],
+    times: ["s", "sec", "seconds", "ms", "m", "min", "minutes", "h", "hours"],
+    keywords: reservedLists.keywords,
+    arguments: reservedLists.arguments,
+    currencies: reservedLists.currencies,
 
     // lovely, isn't it?
-    currencies:
-        /(?:am|(?:pending )?rm|(?:pending )?[iet]p|(?:(?:banked )?infin|etern|real)ities|(?:total )tt|(?:pending|total|ec(?:[1-9]|1[0-2])) completions|pending glyph level)/,
 
     tokenizer: {
         root: [
@@ -89,7 +63,7 @@ const lang: Monaco.languages.IMonarchLanguage = {
             [/@currencies(?!\w)/, "currency"],
             [/\$\w+/, "variable"],
             [
-                /(?:\w+|black hole)/,
+                /(?:\w+|black hole|x highest)/,
                 {
                     cases: {
                         "@keywords": "keyword",
@@ -131,6 +105,10 @@ export function init() {
     Monaco.languages.register({ id: LANG_NAME });
 
     Monaco.languages.setMonarchTokensProvider(LANG_NAME, lang);
+
+    Monaco.languages.setLanguageConfiguration(LANG_NAME, {
+        brackets: [["{", "}"]],
+    });
 
     Monaco.editor.defineTheme(LANG_NAME, theme);
 }
