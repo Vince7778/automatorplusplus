@@ -34,3 +34,7 @@ button:hover {
 button:active {
     background-color: var(--bg-light);
 }
+
+a:visited {
+    color: mediumpurple;
+}

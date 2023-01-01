@@ -13,6 +13,11 @@ interface ParserState {
     error: string;
     recursiveDepth: number;
     tabDepth: number;
+    settings: ParserSettings;
+}
+
+export interface ParserSettings {
+    minify: boolean;
 }
 
 const validNameRegex = /^[a-zA-Z][a-zA-Z0-9_-]+$/;
@@ -50,16 +55,23 @@ function tabTo(str: string, depth: number) {
 
 const MAX_RECURSION_DEPTH = 10;
 
-/*
-const curFunction = state.functions[state.curFunctionName];
-        if (!curFunction) {
-            state.error = `(Parser error) Function ${state.curFunctionName} could not be found`;
-            return [];
-        }
-        for (const arg of curFunction.argumentNames) {
-            line.replaceAll(`\$${arg}`, )
-        }
-        */
+const replaceRegexes: [RegExp, string][] = [
+    [/ ?([<>]=?|[{}]) ?/gi, "$1"],
+    [/(?:(\d)| )s(?:ec(?:onds)?)?\b/gi, "$1s"],
+    [/(?:(\d)| )m(?:in(?:utes)?)?\b/gi, "$1m"],
+    [/(?:(\d)| )h(?:ours)?\b/gi, "$1h"],
+    [/(?:(\d)| )ms/gi, "$1ms"],
+    [/\bec (\d+)\b/gi, "ec$1"],
+    [/(\d)e\+(\d)/gi, "$1e$2"],
+];
+
+function minifyLine(line: string, state: ParserState) {
+    line = line.trim();
+    for (const rr of replaceRegexes) {
+        line = line.replaceAll(...rr);
+    }
+    return line;
+}
 
 function parseLine(line: string, state: ParserState): string[] {
     line = line.trim();
@@ -102,6 +114,10 @@ function parseLine(line: string, state: ParserState): string[] {
                 state.error = `Argument ${
                     curFunction.argumentCount + 1
                 } has invalid name`;
+                return [];
+            }
+            if (curFunction.argumentNames.some((x) => x === tokens[i])) {
+                state.error = "Function has duplicate argument names.";
                 return [];
             }
             curFunction.argumentCount++;
@@ -173,7 +189,12 @@ function parseLine(line: string, state: ParserState): string[] {
             result.push(...res);
         }
     } else {
-        result = [tabTo(line, state.tabDepth)];
+        // minify line
+        if (state.settings.minify) {
+            result = [minifyLine(line, state)];
+        } else {
+            result = [tabTo(line, state.tabDepth)];
+        }
     }
 
     if (line.endsWith("{")) {
@@ -189,7 +210,7 @@ function parseLine(line: string, state: ParserState): string[] {
     return result;
 }
 
-export function compile(input: string) {
+export function compile(input: string, settings: ParserSettings) {
     const lines = input.split("\n");
 
     let output: string[] = [];
@@ -199,6 +220,7 @@ export function compile(input: string) {
         error: "",
         recursiveDepth: 0,
         tabDepth: 0,
+        settings,
     };
 
     for (const [lineNum, line] of lines.entries()) {

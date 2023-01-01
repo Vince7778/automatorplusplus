@@ -36,7 +36,7 @@ function challenge num amt ttree
             infinity
             eternity respec
         }
-        studies purchase $ttree
+        studies nowait purchase $ttree
         unlock ec$num
         studies nowait purchase epta
         start ec$num
@@ -97,7 +97,9 @@ call waitForTT 600
 call challenge 8 2 ti
 call waitForTT 660
 
+auto infinity 1.2 s
 call challenge 9 3 ta
+auto infinity off
 call waitForTT 858
 
 call challenge 9 5 ta

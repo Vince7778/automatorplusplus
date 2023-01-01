@@ -1,5 +1,9 @@
 <div>
     <h2>Documentation</h2>
+    <a
+        href="https://github.com/Vince7778/automatorplusplus/blob/master/samplescript.app"
+        >Sample script</a
+    >
     <div class="mw">
         <h3>Functions</h3>
         <div class="mb-s">Usage:</div>

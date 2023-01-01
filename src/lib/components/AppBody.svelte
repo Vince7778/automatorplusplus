@@ -1,15 +1,19 @@
 <script lang="ts">
     import { getEditorValue } from "../editor/editor";
-    import { compile } from "../parser/compile";
+    import { compile, type ParserSettings } from "../parser/compile";
     import Editor from "./Editor.svelte";
 
     let textareaValue: string = "";
     let charCount = 0;
     $: charCount = textareaValue.length;
 
+    let settings: ParserSettings = {
+        minify: false,
+    };
+
     function runCompile() {
         const editorValue = getEditorValue();
-        const compiled = compile(editorValue);
+        const compiled = compile(editorValue, settings);
         textareaValue = compiled.join("\n");
     }
 </script>
@@ -21,6 +25,14 @@
             <p>Characters: {charCount}/10000</p>
             <div class="buttons">
                 <button on:click={runCompile}>Compile &#8594;</button>
+                <div style="margin-top: 5px;">
+                    <input
+                        id="minify-input"
+                        type="checkbox"
+                        bind:checked={settings.minify}
+                    />
+                    <label for="minify-input">Minify</label>
+                </div>
             </div>
         </div>
     </div>
