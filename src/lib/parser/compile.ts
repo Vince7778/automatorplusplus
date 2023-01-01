@@ -1,13 +1,15 @@
 import { reservedLists } from "../editor/syntax";
+import { cmdCall } from "./commands/call";
+import { cmdFunction } from "./commands/function";
 
-interface AutoFunction {
+export interface AutoFunction {
     argumentCount: number;
     argumentNames: string[];
     name: string;
     lines: string[];
 }
 
-interface ParserState {
+export interface ParserState {
     curFunctionName: string;
     functions: { [key: string]: AutoFunction };
     error: string;
@@ -18,13 +20,15 @@ interface ParserState {
 
 export interface ParserSettings {
     minify: boolean;
+    keepComments: boolean;
+    addTraceComments: boolean;
 }
 
 const validNameRegex = /^[a-zA-Z][a-zA-Z0-9_-]+$/;
 const customCurrencyRegex = new RegExp(
     "^" + reservedLists.currencies.source + "$"
 );
-function verifyName(n: string) {
+export function verifyName(n: string) {
     if (!n.match(validNameRegex)) {
         return "Name has invalid characters";
     }
@@ -47,13 +51,13 @@ function verifyAndSetState(n: string, state: ParserState) {
     return true;
 }
 
-function tabTo(str: string, depth: number) {
+export function tabTo(str: string, depth: number) {
     let out = "";
     for (let i = 0; i < depth; i++) out += "    ";
     return out + str;
 }
 
-const MAX_RECURSION_DEPTH = 10;
+export const MAX_RECURSION_DEPTH = 10;
 
 const replaceRegexes: [RegExp, string][] = [
     [/ ?([<>]=?|[{}]) ?/gi, "$1"],
@@ -73,59 +77,36 @@ function minifyLine(line: string, state: ParserState) {
     return line;
 }
 
-function parseLine(line: string, state: ParserState): string[] {
+export function parseLine(line: string, state: ParserState): string[] {
     line = line.trim();
-    if (line.startsWith("//") || line.startsWith("#")) {
-        return [];
+
+    // remove inline comments
+    let quoteCount = 0;
+    let commentPos = -1;
+    for (let i = 0; i < line.length; i++) {
+        if (line[i] === '"') {
+            quoteCount++;
+        }
+        if (quoteCount % 2 === 0) {
+            if (
+                line[i] === "#" ||
+                (i < line.length - 1 && line[i] === "/" && line[i + 1] === "/")
+            ) {
+                commentPos = i;
+                break;
+            }
+        }
     }
+
+    if (commentPos > 0 || (commentPos === 0 && !state.settings.keepComments)) {
+        line = line.substring(0, commentPos).trim();
+    }
+
     const tokens = line.split(" ");
     const commandName = tokens[0].toLowerCase();
 
     if (commandName === "function") {
-        if (tokens.length < 2) {
-            state.error = "Function has no name";
-            return [];
-        }
-        if (state.curFunctionName !== "") {
-            state.error = "Cannot start function inside another function";
-            return [];
-        }
-        if (state.tabDepth !== 0) {
-            state.error = "Functions can only be defined outside of blocks";
-            return [];
-        }
-        if (verifyName(tokens[1])) {
-            state.error = "Function has invalid name";
-            return [];
-        }
-        if (state.functions[tokens[1]]) {
-            state.error = "Function already exists";
-            return [];
-        }
-        let curFunction: AutoFunction = {
-            argumentCount: 0,
-            argumentNames: [],
-            name: tokens[1],
-            lines: [],
-        };
-        for (let i = 2; i < tokens.length; i++) {
-            if (!tokens[i]) continue;
-            if (verifyName(tokens[i])) {
-                state.error = `Argument ${
-                    curFunction.argumentCount + 1
-                } has invalid name`;
-                return [];
-            }
-            if (curFunction.argumentNames.some((x) => x === tokens[i])) {
-                state.error = "Function has duplicate argument names.";
-                return [];
-            }
-            curFunction.argumentCount++;
-            curFunction.argumentNames.push(tokens[i]);
-        }
-        state.functions[curFunction.name] = curFunction;
-        state.curFunctionName = curFunction.name;
-        return [];
+        return cmdFunction(line, state);
     }
 
     if (commandName === "endfunction") {
@@ -145,49 +126,9 @@ function parseLine(line: string, state: ParserState): string[] {
     }
 
     if (commandName === "call") {
-        if (state.recursiveDepth >= MAX_RECURSION_DEPTH) {
-            state.error = "Max recursion depth reached";
-            return [];
-        }
-        if (tokens.length < 2) {
-            state.error = "No function being called";
-            return [];
-        }
-        if (tokens[1] === state.curFunctionName) {
-            state.error = "Cannot call function within itself";
-            return [];
-        }
-        const curFunction = state.functions[tokens[1]];
-        if (!curFunction) {
-            state.error = `Function ${tokens[1]} does not exist (yet)`;
-            return [];
-        }
-        if (tokens.length - 2 < curFunction.argumentCount) {
-            state.error = "Not enough arguments";
-            return [];
-        }
-
-        for (let lni = 0; lni < curFunction.lines.length; lni++) {
-            let execLine = curFunction.lines[lni];
-            for (let argi = 0; argi < curFunction.argumentCount; argi++) {
-                execLine = execLine.replaceAll(
-                    `\$${curFunction.argumentNames[argi]}`,
-                    tokens[argi + 2]
-                );
-            }
-            state.recursiveDepth++;
-            let res = parseLine(execLine, state);
-            state.recursiveDepth--;
-            if (state.error) {
-                state.error +=
-                    "\n\tin call to " +
-                    curFunction.name +
-                    " on line " +
-                    (lni + 1);
-                return [];
-            }
-            result.push(...res);
-        }
+        let callRes = cmdCall(line, state);
+        if (state.error) return [];
+        result.push(...callRes);
     } else {
         // minify line
         if (state.settings.minify) {
@@ -235,7 +176,12 @@ export function compile(input: string, settings: ParserSettings) {
         return ["Error: Function " + state.curFunctionName + " never ends"];
     }
 
-    output = output.filter((ln) => ln.length > 0);
+    if (settings.minify) {
+        output = output.filter((ln) => ln.length > 0);
+    } else {
+        // still delete initial and trailing newlines
+        output = output.join("\n").trim().split("\n");
+    }
 
     return output;
 }

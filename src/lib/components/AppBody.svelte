@@ -9,6 +9,8 @@
 
     let settings: ParserSettings = {
         minify: false,
+        keepComments: false,
+        addTraceComments: false,
     };
 
     function runCompile() {
@@ -32,6 +34,24 @@
                         bind:checked={settings.minify}
                     />
                     <label for="minify-input">Minify</label>
+                </div>
+                <div style="margin-top: 5px;">
+                    <input
+                        id="keep-comments-input"
+                        type="checkbox"
+                        bind:checked={settings.keepComments}
+                    />
+                    <label for="keep-comments-input">Keep comments</label>
+                </div>
+                <div style="margin-top: 5px;">
+                    <input
+                        id="add-trace-input"
+                        type="checkbox"
+                        bind:checked={settings.addTraceComments}
+                    />
+                    <label for="add-trace-input"
+                        >Add function call comments</label
+                    >
                 </div>
             </div>
         </div>

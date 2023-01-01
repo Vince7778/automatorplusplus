@@ -15,6 +15,7 @@ export function createEditor(container: HTMLElement) {
         language: LANG_NAME,
         theme: LANG_NAME,
         value: lsValue ?? "",
+        automaticLayout: true,
     });
 
     startSaveInterval();

@@ -19,6 +19,14 @@ endfunction</pre>
         <p>The function can be called after its definition with:</p>
         <pre>call &lt;name&gt; [arg1 value] [arg2 value] ...</pre>
     </div>
+
+    <div class="mw">
+        <h3>Comments</h3>
+        <p>
+            Inline comments are supported, but are always removed during
+            compilation.
+        </p>
+    </div>
 </div>
 
 <style>

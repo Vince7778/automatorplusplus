@@ -53,7 +53,7 @@ const lang: Monaco.languages.IMonarchLanguage = {
 
     tokenizer: {
         root: [
-            [/^(?:\/\/|#).*$/, "comment"],
+            [/(?:\/\/|#).*$/, "comment"],
             { include: "@whitespace" },
             { include: "@time" },
             [/"[^\n]*"/, "string"],
