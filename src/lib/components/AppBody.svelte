@@ -1,5 +1,15 @@
 <script lang="ts">
+    import { getEditorValue } from "../editor/editor";
+    import { compile } from "../parser/compile";
     import Editor from "./Editor.svelte";
+
+    let textareaValue: string;
+
+    function runCompile() {
+        const editorValue = getEditorValue();
+        const compiled = compile(editorValue);
+        textareaValue = compiled.join("\n");
+    }
 </script>
 
 <div class="app-body">
@@ -7,11 +17,11 @@
     <div class="button-container">
         <div class="col-container">
             <div class="buttons">
-                <button>Compile &#8594;</button>
+                <button on:click={runCompile}>Compile &#8594;</button>
             </div>
         </div>
     </div>
-    <textarea />
+    <textarea bind:value={textareaValue} />
 </div>
 
 <style>

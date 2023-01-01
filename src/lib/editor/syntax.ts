@@ -54,6 +54,9 @@ const lang: Monaco.languages.IMonarchLanguage = {
         "until",
         "while",
         "studies",
+        "function",
+        "endfunction",
+        "call",
     ],
     arguments: [
         "nowait",
@@ -84,6 +87,7 @@ const lang: Monaco.languages.IMonarchLanguage = {
             [/[<>]=?/, "operator"],
             [/[{}]/, "@brackets"],
             [/@currencies(?!\w)/, "currency"],
+            [/\$\w+/, "variable"],
             [
                 /(?:\w+|black hole)/,
                 {
