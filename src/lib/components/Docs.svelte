@@ -7,9 +7,9 @@
     <div class="mw">
         <h3>Functions</h3>
         <div class="mb-s">Usage:</div>
-        <pre>function &lt;name&gt; [arg1 name] [arg2 name] ...
+        <pre>function &lt;name&gt; $[arg1 name] $[arg2 name] {"{"}
     (function body)
-endfunction</pre>
+{"}"}</pre>
         <p>
             Defines a function with a given name and some number of arguments.
             Calls to this function will expand out into a copy of the inner

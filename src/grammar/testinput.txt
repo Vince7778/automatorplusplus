@@ -1,3 +1,8 @@
-function waitForTT $amt {
-    call waitForTTTree $amt epta
+if total TT > TT {
+    eternity respec
+}
+auto eternity 20 s
+while total TT < $amt {
+    studies nowait purchase $studytree
+    wait eternity
 }

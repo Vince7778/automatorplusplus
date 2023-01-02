@@ -28,7 +28,8 @@ variable_type:
 	| prestige_type
 	| on_off
 	| string
-	| ID;
+	| ID
+	| NULL;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
 endline: COMMENT | NL | EOF;
@@ -156,9 +157,10 @@ CURRENCY: (P E N D I N G WS)? ([iIeEtT] P | R M)
 	| P E N D I N G WS G L Y P H WS L E V E L;
 
 VARIABLE: '$' ID;
+NULL: N U L L;
 ID: [a-zA-Z][a-zA-Z0-9]*;
 
-STRING: '"' (~["\r\n] | '\\"')*? '"';
+STRING: '"' (~["\r\n] | '\\\\' | '\\"')*? '"';
 
 NL: ('\r'? '\n' | '\r');
 WS: [ \t\f]+ -> skip;

@@ -165,6 +165,15 @@ export function compile(input: string, settings: ParserSettings) {
     parser.buildParseTree = true;
     const tree = parser.main();
 
+    if (parser.numberOfSyntaxErrors > 0) {
+        return "Cannot compile with errors";
+    }
+
     const visitor = new TranspileVisitor();
-    return visitor.visit(tree);
+    const res = visitor.visit(tree);
+
+    if (visitor.state.errors.length > 0) {
+        return visitor.state.errors.join("\n\n");
+    }
+    return res;
 }
