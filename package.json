@@ -7,11 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "antlr4ts": "antlr4ts -visitor ./src/grammar/APPParser.g4"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
     "@tsconfig/svelte": "^3.0.0",
+    "antlr4ts-cli": "^0.5.0-alpha.4",
     "prettier": "^2.8.1",
     "prettier-plugin-svelte": "^2.9.0",
     "svelte": "^3.54.0",
@@ -22,6 +24,8 @@
     "vite-plugin-monaco-editor": "^1.1.0"
   },
   "dependencies": {
+    "antlr4": "^4.12.0-beta.3",
+    "antlr4ts": "^0.5.0-alpha.4",
     "gh-pages": "^4.0.0",
     "monaco-editor": "^0.34.1"
   }
