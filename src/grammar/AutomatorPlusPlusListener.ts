@@ -7,9 +7,11 @@ import { MainContext } from "./AutomatorPlusPlusParser";
 import { LineContext } from "./AutomatorPlusPlusParser";
 import { ComparisonContext } from "./AutomatorPlusPlusParser";
 import { CurrencyContext } from "./AutomatorPlusPlusParser";
+import { Ec_space_numContext } from "./AutomatorPlusPlusParser";
 import { ConditionContext } from "./AutomatorPlusPlusParser";
 import { TimeContext } from "./AutomatorPlusPlusParser";
 import { NumberContext } from "./AutomatorPlusPlusParser";
+import { IntegerContext } from "./AutomatorPlusPlusParser";
 import { FeatureContext } from "./AutomatorPlusPlusParser";
 import { Prestige_typeContext } from "./AutomatorPlusPlusParser";
 import { VariableContext } from "./AutomatorPlusPlusParser";
@@ -95,6 +97,17 @@ export interface AutomatorPlusPlusListener extends ParseTreeListener {
 	exitCurrency?: (ctx: CurrencyContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `AutomatorPlusPlusParser.ec_space_num`.
+	 * @param ctx the parse tree
+	 */
+	enterEc_space_num?: (ctx: Ec_space_numContext) => void;
+	/**
+	 * Exit a parse tree produced by `AutomatorPlusPlusParser.ec_space_num`.
+	 * @param ctx the parse tree
+	 */
+	exitEc_space_num?: (ctx: Ec_space_numContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `AutomatorPlusPlusParser.condition`.
 	 * @param ctx the parse tree
 	 */
@@ -126,6 +139,17 @@ export interface AutomatorPlusPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitNumber?: (ctx: NumberContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AutomatorPlusPlusParser.integer`.
+	 * @param ctx the parse tree
+	 */
+	enterInteger?: (ctx: IntegerContext) => void;
+	/**
+	 * Exit a parse tree produced by `AutomatorPlusPlusParser.integer`.
+	 * @param ctx the parse tree
+	 */
+	exitInteger?: (ctx: IntegerContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AutomatorPlusPlusParser.feature`.

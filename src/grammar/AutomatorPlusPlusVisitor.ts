@@ -7,9 +7,11 @@ import { MainContext } from "./AutomatorPlusPlusParser";
 import { LineContext } from "./AutomatorPlusPlusParser";
 import { ComparisonContext } from "./AutomatorPlusPlusParser";
 import { CurrencyContext } from "./AutomatorPlusPlusParser";
+import { Ec_space_numContext } from "./AutomatorPlusPlusParser";
 import { ConditionContext } from "./AutomatorPlusPlusParser";
 import { TimeContext } from "./AutomatorPlusPlusParser";
 import { NumberContext } from "./AutomatorPlusPlusParser";
+import { IntegerContext } from "./AutomatorPlusPlusParser";
 import { FeatureContext } from "./AutomatorPlusPlusParser";
 import { Prestige_typeContext } from "./AutomatorPlusPlusParser";
 import { VariableContext } from "./AutomatorPlusPlusParser";
@@ -82,6 +84,13 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	visitCurrency?: (ctx: CurrencyContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.ec_space_num`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitEc_space_num?: (ctx: Ec_space_numContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.condition`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -101,6 +110,13 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	 * @return the visitor result
 	 */
 	visitNumber?: (ctx: NumberContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.integer`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitInteger?: (ctx: IntegerContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.feature`.

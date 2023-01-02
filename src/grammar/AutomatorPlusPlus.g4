@@ -4,17 +4,19 @@ options {
 }
 
 // base types
-main: line+ EOF;
+main: line+;
 line: command_c | NL | COMMENT;
 comparison: (currency | number) OPER (currency | number);
-currency: CURRENCY | variable;
+currency: CURRENCY | variable | ec_space_num K_COMPLETIONS;
+
+// needed to allow variables to change ec number
+ec_space_num: EC_NUM | K_EC integer;
+
 condition: comparison | prestige_type;
 time: number DURATION | variable;
 number: INT | FLOAT | variable;
-feature:
-	K_DILATION
-	| (EC_NUM | K_EC (INT | variable))
-	| variable;
+integer: INT | variable;
+feature: K_DILATION | ec_space_num | variable;
 prestige_type: K_INFINITY | K_ETERNITY | K_REALITY | variable;
 variable: VARIABLE;
 variable_def: VARIABLE;
@@ -25,17 +27,18 @@ variable_type:
 	| feature
 	| prestige_type
 	| on_off
-	| string;
+	| string
+	| ID;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
-endline: COMMENT | NL;
+endline: COMMENT | NL | EOF;
 block: '{' endline line*? '}' endline;
 arguments: variable_def arguments?;
 argument_values: variable_type argument_values?;
 
 study_tree: study_atom (','? study_atom)*;
-study_atom: special_studies | INT | study_range | variable;
-study_range: INT '-' INT;
+study_atom: special_studies | integer | study_range | variable;
+study_range: integer '-' integer;
 special_studies:
 	K_ANTIMATTER
 	| K_INFINITY
@@ -59,8 +62,8 @@ notify: K_NOTIFY string endline;
 if_c: K_IF comparison block;
 while_c: K_WHILE comparison block;
 until: K_UNTIL comparison block;
-function_c: K_FUNCTION ID arguments block;
-call: K_CALL ID arguments endline;
+function_c: K_FUNCTION ID arguments? block;
+call: K_CALL ID argument_values? endline;
 
 studies_args:
 	K_RESPEC
@@ -98,7 +101,7 @@ DURATION:
 	| H (O U R S?)?
 	| M S;
 
-INT: [1-9] [0-9]*;
+INT: '0' | [1-9] [0-9]*;
 FLOAT: INT ('.' [0-9]*)? (E [+-]? [0-9]+)?;
 
 OPER: [<>] '='?;
@@ -139,11 +142,14 @@ K_ON: O N;
 K_OFF: O F F;
 K_XHIGHEST: X WS+ H I G H E S T;
 K_EC: E C;
+K_COMPLETIONS: C O M P L E T I O N S;
 
 EC_NUM: E C [1-9][0-9]?;
 
 CURRENCY: (P E N D I N G WS)? ([iIeEtT] P | R M)
 	| A M
+	| D T
+	| R (G | E P)
 	| ((B A N K E D WS)? I N F I N | E T E R N | R E A L) I T I E S
 	| (T O T A L WS)? T T
 	| (P E N D I N G | T O T A L | E C ([1-9] | '1' [0-2])) WS C O M P L E T I O N S

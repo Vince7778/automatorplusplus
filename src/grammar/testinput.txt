@@ -1,1 +1,3 @@
-notify "hi"
+function waitForTT $amt {
+    call waitForTTTree $amt epta
+}
