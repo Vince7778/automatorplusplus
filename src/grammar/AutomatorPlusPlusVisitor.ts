@@ -5,6 +5,7 @@ import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
 import { MainContext } from "./AutomatorPlusPlusParser";
 import { LineContext } from "./AutomatorPlusPlusParser";
+import { CommentContext } from "./AutomatorPlusPlusParser";
 import { ComparisonContext } from "./AutomatorPlusPlusParser";
 import { CurrencyContext } from "./AutomatorPlusPlusParser";
 import { Ec_space_numContext } from "./AutomatorPlusPlusParser";
@@ -68,6 +69,13 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	 * @return the visitor result
 	 */
 	visitLine?: (ctx: LineContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.comment`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitComment?: (ctx: CommentContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.comparison`.

@@ -2,13 +2,20 @@ import type { AutomatorPlusPlusVisitor } from "../../grammar/AutomatorPlusPlusVi
 import { AbstractParseTreeVisitor } from "antlr4ts/tree/AbstractParseTreeVisitor";
 import type { TerminalNode } from "antlr4ts/tree/TerminalNode";
 import type { ParserRuleContext, Token } from "antlr4ts";
-import { tabTo } from "./compile";
+import { tabTo, type ParserSettings } from "./compile";
 import type {
     BlockContext,
     CallContext,
+    CommentContext,
     CurrencyContext,
     Function_cContext,
+    If_cContext,
+    LineContext,
+    NumberContext,
+    TimeContext,
+    UntilContext,
     VariableContext,
+    While_cContext,
 } from "../../grammar/AutomatorPlusPlusParser";
 import type { ParseTree } from "antlr4ts/tree/ParseTree";
 import { isNumeric } from "../utils";
@@ -27,6 +34,7 @@ interface APPVariable {
 
 interface APPStackFrame {
     funcName: string;
+    calledFrom?: Token;
     vars: APPVariable[];
 }
 
@@ -35,12 +43,14 @@ class ParserState {
     funcs: { [key: string]: APPFunction };
     stack: APPStackFrame[];
     errors: string[];
+    settings: ParserSettings;
 
-    constructor() {
+    constructor(settings: ParserSettings) {
         this.tabDepth = 0;
         this.funcs = {};
         this.stack = [];
         this.errors = [];
+        this.settings = settings;
     }
 }
 
@@ -51,7 +61,10 @@ function createError(state: ParserState, err: string, tok?: Token) {
     }
     out += `: ${err}`;
     for (let framei = state.stack.length - 1; framei >= 0; framei--) {
-        out += `\n\tin function ${state.stack[framei].funcName}`;
+        const frame = state.stack[framei];
+        out += `\n\tin function ${frame.funcName}`;
+        if (frame.calledFrom)
+            out += ` called from line ${frame.calledFrom.line}`;
     }
     state.errors.push(out);
 }
@@ -72,9 +85,9 @@ export class TranspileVisitor
 {
     state: ParserState;
 
-    constructor() {
+    constructor(settings: ParserSettings) {
         super();
-        this.state = new ParserState();
+        this.state = new ParserState(settings);
     }
 
     protected defaultResult(): string {
@@ -86,7 +99,27 @@ export class TranspileVisitor
     }
 
     cmdVisit(ctx: ParserRuleContext): string {
-        return tabTo(this.sepVisit(ctx, " "), this.state.tabDepth);
+        const visited = this.sepVisit(ctx, " ");
+        return this.state.settings.minify
+            ? visited
+            : tabTo(visited, this.state.tabDepth);
+    }
+
+    blockVisit(ctx: If_cContext | While_cContext | UntilContext): string {
+        let agg = "";
+        if (ctx.childCount > 0) {
+            for (const child of ctx.children) {
+                const res = this.visit(child);
+                // need to remove space before { if minifying
+                if (child.text.startsWith("{") && this.state.settings.minify)
+                    agg += res;
+                else agg += " " + res;
+            }
+        }
+        const res = agg.trim() + (agg.endsWith("\n") ? "\n" : "");
+        return this.state.settings.minify
+            ? res
+            : tabTo(res, this.state.tabDepth);
     }
 
     sepVisit(ctx: ParserRuleContext, sep: string): string {
@@ -106,9 +139,18 @@ export class TranspileVisitor
         return node.text;
     }
 
-    visitEndline = () => {
-        return "\n";
-    };
+    visitLine(ctx: LineContext): string {
+        if (ctx.NL() && this.state.settings.minify) return "";
+        if (ctx.comment() && !this.state.settings.keepComments) return "";
+        return this.visitChildren(ctx);
+    }
+
+    visitComment(ctx: CommentContext): string {
+        if (!this.state.settings.keepComments) return "\n";
+        return this.visitChildren(ctx);
+    }
+
+    visitEndline = () => "\n";
 
     visitBlock(ctx: BlockContext): string {
         this.state.tabDepth++;
@@ -117,7 +159,7 @@ export class TranspileVisitor
             for (const child of ctx.children) {
                 let res = this.visit(child);
                 // fix close paren tabbing
-                if (res === "}") {
+                if (res === "}" && !this.state.settings.minify) {
                     res = tabTo(res, this.state.tabDepth - 1);
                 }
                 agg.push(res);
@@ -224,9 +266,13 @@ export class TranspileVisitor
         const stackFrame: APPStackFrame = {
             funcName: func.name,
             vars: namedVarList,
+            calledFrom: ctx.start,
         };
         this.state.stack.push(stackFrame);
         let res = this.visitFunctionFromCall(func.ctx);
+        if (this.state.settings.addTraceComments) {
+            res = `# Calling ${func.name}\n` + res;
+        }
         this.state.stack.pop();
         return res;
     }
@@ -245,11 +291,28 @@ export class TranspileVisitor
         return vari.value.toString();
     }
 
+    visitTime(ctx: TimeContext): string {
+        if (!this.state.settings.minify || !ctx.DURATION())
+            return this.visitChildren(ctx);
+
+        const dur = this.visit(ctx.DURATION());
+        const num = this.visit(ctx.number() ?? ctx.variable());
+        if (dur.startsWith("s")) return num + "s";
+        if (dur.startsWith("ms")) return num + "ms";
+        if (dur.startsWith("m")) return num + "m";
+        return num + "h";
+    }
+
+    visitNumber(ctx: NumberContext): string {
+        return this.visitChildren(ctx).replace("+", "");
+    }
+
     // a bunch here that only need to be space separated
     visitArguments = (ctx) => this.sepVisit(ctx, " ");
     visitArgument_values = (ctx) => this.sepVisit(ctx, "%%%");
     visitCondition = (ctx) => this.sepVisit(ctx, " ");
-    visitComparison = (ctx) => this.sepVisit(ctx, " ");
+    visitComparison = (ctx) =>
+        this.sepVisit(ctx, this.state.settings.minify ? "" : " ");
     visitStudies_args = (ctx) => this.sepVisit(ctx, " ");
     visitPrestige_args = (ctx) => this.sepVisit(ctx, " ");
 
@@ -263,7 +326,7 @@ export class TranspileVisitor
     visitAuto = (ctx) => this.cmdVisit(ctx);
     visitBlack_hole = (ctx) => this.cmdVisit(ctx);
     visitNotify = (ctx) => this.cmdVisit(ctx);
-    visitIf_c = (ctx) => this.cmdVisit(ctx);
-    visitWhile_c = (ctx) => this.cmdVisit(ctx);
-    visitUntil = (ctx) => this.cmdVisit(ctx);
+    visitIf_c = (ctx) => this.blockVisit(ctx);
+    visitWhile_c = (ctx) => this.blockVisit(ctx);
+    visitUntil = (ctx) => this.blockVisit(ctx);
 }

@@ -169,7 +169,7 @@ export function compile(input: string, settings: ParserSettings) {
         return "Cannot compile with errors";
     }
 
-    const visitor = new TranspileVisitor();
+    const visitor = new TranspileVisitor(settings);
     const res = visitor.visit(tree);
 
     if (visitor.state.errors.length > 0) {

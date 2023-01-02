@@ -5,7 +5,8 @@ options {
 
 // base types
 main: line+;
-line: command_c | NL | COMMENT;
+line: command_c | NL | comment;
+comment: COMMENT;
 comparison: (currency | number) OPER (currency | number);
 currency: CURRENCY | variable | ec_space_num K_COMPLETIONS;
 
@@ -13,7 +14,7 @@ currency: CURRENCY | variable | ec_space_num K_COMPLETIONS;
 ec_space_num: EC_NUM | K_EC integer;
 
 condition: comparison | prestige_type;
-time: number DURATION | variable;
+time: number DURATION | variable DURATION?;
 number: INT | FLOAT | variable;
 integer: INT | variable;
 feature: K_DILATION | ec_space_num | variable;
@@ -32,7 +33,7 @@ variable_type:
 	| NULL;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
-endline: COMMENT | NL | EOF;
+endline: comment | NL | EOF;
 block: '{' endline line*? '}' endline;
 arguments: variable_def arguments?;
 argument_values: variable_type argument_values?;
