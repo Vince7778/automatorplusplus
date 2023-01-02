@@ -1,6 +1,11 @@
+import antlr4 from "antlr4";
+import { CharStreams, CommonTokenStream } from "antlr4ts";
+import { AutomatorPlusPlusLexer } from "../../grammar/AutomatorPlusPlusLexer";
+import { AutomatorPlusPlusParser } from "../../grammar/AutomatorPlusPlusParser";
 import { reservedLists } from "../editor/syntax";
 import { cmdCall } from "./commands/call";
 import { cmdFunction } from "./commands/function";
+import { TranspileVisitor } from "./visitor";
 
 export interface AutoFunction {
     argumentCount: number;
@@ -152,36 +157,14 @@ export function parseLine(line: string, state: ParserState): string[] {
 }
 
 export function compile(input: string, settings: ParserSettings) {
-    const lines = input.split("\n");
+    const inputStream = CharStreams.fromString(input);
+    const lexer = new AutomatorPlusPlusLexer(inputStream);
+    const tokens = new CommonTokenStream(lexer);
+    const parser = new AutomatorPlusPlusParser(tokens);
 
-    let output: string[] = [];
-    let state: ParserState = {
-        curFunctionName: "",
-        functions: {},
-        error: "",
-        recursiveDepth: 0,
-        tabDepth: 0,
-        settings,
-    };
+    parser.buildParseTree = true;
+    const tree = parser.main();
 
-    for (const [lineNum, line] of lines.entries()) {
-        const parsed = parseLine(line, state);
-        if (state.error) {
-            return ["Error on line " + (lineNum + 1) + ": " + state.error];
-        }
-        if (parsed.length > 0) output.push(...parsed);
-    }
-
-    if (state.curFunctionName !== "") {
-        return ["Error: Function " + state.curFunctionName + " never ends"];
-    }
-
-    if (settings.minify) {
-        output = output.filter((ln) => ln.length > 0);
-    } else {
-        // still delete initial and trailing newlines
-        output = output.join("\n").trim().split("\n");
-    }
-
-    return output;
+    const visitor = new TranspileVisitor();
+    return visitor.visit(tree);
 }

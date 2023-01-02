@@ -1,8 +1,11 @@
 grammar AutomatorPlusPlus;
+options {
+	language = JavaScript;
+}
 
 // base types
 main: line+ EOF;
-line: command | NL | COMMENT;
+line: command_c | NL | COMMENT;
 comparison: (currency | number) OPER (currency | number);
 currency: CURRENCY | variable;
 condition: comparison | prestige_type;
@@ -30,9 +33,8 @@ block: '{' endline line*? '}' endline;
 arguments: variable_def arguments?;
 argument_values: variable_type argument_values?;
 
-study_list: (special_studies | INT | study_range | variable) (
-		','? study_list
-	)?;
+study_tree: study_atom (','? study_atom)*;
+study_atom: special_studies | INT | study_range | variable;
 study_range: INT '-' INT;
 special_studies:
 	K_ANTIMATTER
@@ -50,40 +52,42 @@ wait: K_WAIT condition endline;
 studies: K_STUDIES studies_args endline;
 prestige: prestige_args endline;
 unlock: K_UNLOCK K_NOWAIT? feature endline;
-start: K_START feature endline;
+start_c: K_START feature endline;
 auto: K_AUTO prestige_type auto_setting endline;
 black_hole: K_BLACK_HOLE on_off endline;
 notify: K_NOTIFY string endline;
 if_c: K_IF comparison block;
 while_c: K_WHILE comparison block;
 until: K_UNTIL comparison block;
-function: K_FUNCTION ID arguments block;
+function_c: K_FUNCTION ID arguments block;
 call: K_CALL ID arguments endline;
 
 studies_args:
 	K_RESPEC
 	| K_NOWAIT? (
 		K_LOAD (K_ID (INT | variable) | K_NAME (ID | variable))
-		| K_PURCHASE (study_list | ID)
+		| K_PURCHASE (study_tree | ID)
 	);
 prestige_args:
 	K_INFINITY K_NOWAIT?
 	| (K_ETERNITY | K_REALITY) K_NOWAIT? K_RESPEC?;
 auto_setting: on_off | time | number (K_XHIGHEST | currency);
 
-command:
+command_c:
 	wait
 	| pause
 	| studies
 	| prestige
 	| unlock
-	| start
+	| start_c
 	| auto
 	| black_hole
 	| notify
 	| if_c
 	| while_c
-	| until;
+	| until
+	| function_c
+	| call;
 
 COMMENT_START: '//' | '#';
 COMMENT: COMMENT_START ~('\n' | '\r')+ NL;

@@ -16,7 +16,7 @@
     function runCompile() {
         const editorValue = getEditorValue();
         const compiled = compile(editorValue, settings);
-        textareaValue = compiled.join("\n");
+        textareaValue = compiled;
     }
 </script>
 
