@@ -1,54 +1,20 @@
-import { reservedLists } from "../editor/syntax";
-import { cmdCall } from "./commands/call";
-import { cmdFunction } from "./commands/function";
-
-export interface AutoFunction {
-    argumentCount: number;
-    argumentNames: string[];
-    name: string;
-    lines: string[];
-}
-
-export interface ParserState {
-    curFunctionName: string;
-    functions: { [key: string]: AutoFunction };
-    error: string;
-    recursiveDepth: number;
-    tabDepth: number;
-    settings: ParserSettings;
-}
-
+import antlr4 from "antlr4";
+import {
+    CharStreams,
+    CommonTokenStream,
+    ConsoleErrorListener,
+    Parser,
+    Token,
+    type ANTLRErrorListener,
+} from "antlr4ts";
+import { AutomatorPlusPlusLexer } from "../../grammar/AutomatorPlusPlusLexer";
+import { AutomatorPlusPlusParser } from "../../grammar/AutomatorPlusPlusParser";
+import { TranspileVisitor } from "./visitor";
+import * as monaco from "monaco-editor";
 export interface ParserSettings {
     minify: boolean;
     keepComments: boolean;
     addTraceComments: boolean;
-}
-
-const validNameRegex = /^[a-zA-Z][a-zA-Z0-9_-]+$/;
-const customCurrencyRegex = new RegExp(
-    "^" + reservedLists.currencies.source + "$"
-);
-export function verifyName(n: string) {
-    if (!n.match(validNameRegex)) {
-        return "Name has invalid characters";
-    }
-    if (
-        reservedLists.keywords.some((x) => x === n) ||
-        reservedLists.arguments.some((x) => x === n) ||
-        n.match(customCurrencyRegex)
-    ) {
-        return "Name is a reserved word";
-    }
-    return "";
-}
-
-function verifyAndSetState(n: string, state: ParserState) {
-    const res = verifyName(n);
-    if (res) {
-        state.error = res;
-        return false;
-    }
-    return true;
 }
 
 export function tabTo(str: string, depth: number) {
@@ -59,129 +25,91 @@ export function tabTo(str: string, depth: number) {
 
 export const MAX_RECURSION_DEPTH = 10;
 
-const replaceRegexes: [RegExp, string][] = [
-    [/ ?([<>]=?|[{}]) ?/gi, "$1"],
-    [/(?:(\d)| )s(?:ec(?:onds)?)?\b/gi, "$1s"],
-    [/(?:(\d)| )m(?:in(?:utes)?)?\b/gi, "$1m"],
-    [/(?:(\d)| )h(?:ours)?\b/gi, "$1h"],
-    [/(?:(\d)| )ms/gi, "$1ms"],
-    [/\bec (\d+)\b/gi, "ec$1"],
-    [/(\d)e\+(\d)/gi, "$1e$2"],
-];
-
-function minifyLine(line: string, state: ParserState) {
-    line = line.trim();
-    for (const rr of replaceRegexes) {
-        line = line.replaceAll(...rr);
-    }
-    return line;
-}
-
-export function parseLine(line: string, state: ParserState): string[] {
-    line = line.trim();
-
-    // remove inline comments
-    let quoteCount = 0;
-    let commentPos = -1;
-    for (let i = 0; i < line.length; i++) {
-        if (line[i] === '"') {
-            quoteCount++;
-        }
-        if (quoteCount % 2 === 0) {
-            if (
-                line[i] === "#" ||
-                (i < line.length - 1 && line[i] === "/" && line[i + 1] === "/")
-            ) {
-                commentPos = i;
-                break;
-            }
-        }
-    }
-
-    if (commentPos > 0 || (commentPos === 0 && !state.settings.keepComments)) {
-        line = line.substring(0, commentPos).trim();
-    }
-
-    const tokens = line.split(" ");
-    const commandName = tokens[0].toLowerCase();
-
-    if (commandName === "function") {
-        return cmdFunction(line, state);
-    }
-
-    if (commandName === "endfunction") {
-        if (!state.curFunctionName) {
-            state.error = "Function was never started";
-            return [];
-        }
-
-        state.curFunctionName = "";
-        return [];
-    }
-
-    let result: string[] = [];
-
-    if (line.startsWith("}")) {
-        state.tabDepth--;
-    }
-
-    if (commandName === "call") {
-        let callRes = cmdCall(line, state);
-        if (state.error) return [];
-        result.push(...callRes);
-    } else {
-        // minify line
-        if (state.settings.minify) {
-            result = [minifyLine(line, state)];
-        } else {
-            result = [tabTo(line, state.tabDepth)];
-        }
-    }
-
-    if (line.endsWith("{")) {
-        state.tabDepth++;
-    }
-
-    if (state.curFunctionName !== "") {
-        const curFunction = state.functions[state.curFunctionName];
-        curFunction.lines.push(...result);
-        return [];
-    }
-
-    return result;
-}
-
 export function compile(input: string, settings: ParserSettings) {
-    const lines = input.split("\n");
+    const lexer = createLexer(input);
 
-    let output: string[] = [];
-    let state: ParserState = {
-        curFunctionName: "",
-        functions: {},
-        error: "",
-        recursiveDepth: 0,
-        tabDepth: 0,
-        settings,
-    };
+    const parser = createParserFromLexer(lexer);
 
-    for (const [lineNum, line] of lines.entries()) {
-        const parsed = parseLine(line, state);
-        if (state.error) {
-            return ["Error on line " + (lineNum + 1) + ": " + state.error];
+    parser.buildParseTree = true;
+    const tree = parser.main();
+
+    if (parser.numberOfSyntaxErrors > 0) {
+        return "Cannot compile with errors";
+    }
+
+    const visitor = new TranspileVisitor(settings);
+    const res = visitor.visit(tree);
+
+    if (visitor.state.errors.length > 0) {
+        return visitor.state.errors.join("\n\n");
+    }
+    return res;
+}
+
+export function createLexer(input: string) {
+    const inputStream = CharStreams.fromString(input);
+    const lexer = new AutomatorPlusPlusLexer(inputStream);
+
+    return lexer;
+}
+
+export function createParserFromLexer(lexer: AutomatorPlusPlusLexer) {
+    const tokens = new CommonTokenStream(lexer);
+    return new AutomatorPlusPlusParser(tokens);
+}
+
+export class MError {
+    startLineNumber: number;
+    endLineNumber: number;
+    startColumn: number;
+    endColumn: number;
+    message: string;
+    severity: monaco.MarkerSeverity;
+    constructor(
+        startLine: number,
+        endLine: number,
+        startCol: number,
+        endCol: number,
+        message: string
+    ) {
+        this.startLineNumber = startLine;
+        this.endLineNumber = endLine;
+        this.startColumn = startCol;
+        this.endColumn = endCol;
+        this.message = message;
+        this.severity = monaco.MarkerSeverity.Error;
+    }
+}
+
+class CollectorErrorListener implements ANTLRErrorListener<Token> {
+    errors: MError[] = [];
+    constructor(errors: MError[]) {
+        this.errors = errors;
+    }
+    syntaxError(
+        recognizer,
+        offendingSymbol: Token,
+        line: number,
+        column: number,
+        msg: string,
+        e
+    ) {
+        column++; // 1 indexed?
+        var endColumn = column + 1;
+        if (offendingSymbol.text) {
+            endColumn = column + offendingSymbol.text.length;
         }
-        if (parsed.length > 0) output.push(...parsed);
+        this.errors.push(new MError(line, line, column, endColumn, msg));
     }
+}
 
-    if (state.curFunctionName !== "") {
-        return ["Error: Function " + state.curFunctionName + " never ends"];
-    }
-
-    if (settings.minify) {
-        output = output.filter((ln) => ln.length > 0);
-    } else {
-        // still delete initial and trailing newlines
-        output = output.join("\n").trim().split("\n");
-    }
-
-    return output;
+export function validate(input: string): MError[] {
+    let errors: MError[] = [];
+    const lexer = createLexer(input);
+    const parser = createParserFromLexer(lexer);
+    parser.removeErrorListeners();
+    const listener = new CollectorErrorListener(errors);
+    parser.addErrorListener(listener);
+    const tree = parser.main();
+    return errors;
 }

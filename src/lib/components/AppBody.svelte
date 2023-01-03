@@ -7,6 +7,9 @@
     let charCount = 0;
     $: charCount = textareaValue.length;
 
+    let shouldBeRed = false;
+    $: shouldBeRed = charCount > 10000;
+
     let settings: ParserSettings = {
         minify: false,
         keepComments: false,
@@ -16,7 +19,7 @@
     function runCompile() {
         const editorValue = getEditorValue();
         const compiled = compile(editorValue, settings);
-        textareaValue = compiled.join("\n");
+        textareaValue = compiled;
     }
 </script>
 
@@ -24,7 +27,7 @@
     <Editor />
     <div class="button-container">
         <div class="col-container">
-            <p>Characters: {charCount}/10000</p>
+            <p class:red={shouldBeRed}>Characters: {charCount}/10000</p>
             <div class="buttons">
                 <button on:click={runCompile}>Compile &#8594;</button>
                 <div style="margin-top: 5px;">
@@ -99,5 +102,9 @@
         border: 1px solid var(--text-white);
         border-radius: 5px;
         padding: 5px;
+    }
+
+    .red {
+        color: orangered;
     }
 </style>

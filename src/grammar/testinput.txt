@@ -1,0 +1,6 @@
+// hi
+function what {
+
+}
+
+call what ^$##$*GADF
