@@ -4,7 +4,7 @@ options {
 }
 
 // base types
-main: line+;
+main: line+ EOF;
 line: command_c | NL | comment;
 comment: COMMENT;
 comparison: (currency | number) OPER (currency | number);
@@ -30,11 +30,11 @@ variable_type:
 	| on_off
 	| string
 	| ID
-	| NULL;
+	| K_NULL;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
-endline: comment | NL | EOF;
-block: '{' endline line*? '}' endline;
+endline: comment | NL;
+block: LBRACE endline line*? RBRACE endline;
 arguments: variable_def arguments?;
 argument_values: variable_type argument_values?;
 
@@ -158,10 +158,12 @@ CURRENCY: (P E N D I N G WS)? ([iIeEtT] P | R M)
 	| P E N D I N G WS G L Y P H WS L E V E L;
 
 VARIABLE: '$' ID;
-NULL: N U L L;
+K_NULL: N U L L;
 ID: [a-zA-Z][a-zA-Z0-9]*;
 
 STRING: '"' (~["\r\n] | '\\\\' | '\\"')*? '"';
+LBRACE: '{';
+RBRACE: '}';
 
 NL: ('\r'? '\n' | '\r');
 WS: [ \t\f]+ -> skip;

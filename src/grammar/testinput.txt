@@ -1,8 +1,4 @@
-if total TT > TT {
-    eternity respec
-}
-auto eternity 20 s
-while total TT < $amt {
-    studies nowait purchase $studytree
-    wait eternity
+// hi
+funtion what {
+
 }

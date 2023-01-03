@@ -192,7 +192,6 @@ export class TranspileVisitor
             name,
             args: args ? this.visit(args).split(" ") : [],
         };
-        console.log(fn);
         this.state.funcs[name] = fn;
         return "";
     }
