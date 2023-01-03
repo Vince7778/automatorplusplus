@@ -28,11 +28,12 @@ variable_type:
 	| feature
 	| prestige_type
 	| on_off
-	| string
+	| rawstring
 	| ID
 	| K_NULL;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
+rawstring: string;
 endline: comment | NL;
 block: LBRACE endline line*? RBRACE endline;
 arguments: variable_def arguments?;
@@ -66,6 +67,7 @@ while_c: K_WHILE comparison block;
 until: K_UNTIL comparison block;
 function_c: K_FUNCTION ID arguments? block;
 call: K_CALL ID argument_values? endline;
+raw: K_RAW string endline;
 
 studies_args:
 	K_RESPEC
@@ -92,7 +94,8 @@ command_c:
 	| while_c
 	| until
 	| function_c
-	| call;
+	| call
+	| raw;
 
 COMMENT_START: '//' | '#';
 COMMENT: COMMENT_START ~('\n' | '\r')+ NL;
@@ -128,6 +131,7 @@ K_WHILE: W H I L E;
 K_UNTIL: U N T I L;
 K_FUNCTION: F U N C T I O N;
 K_CALL: C A L L;
+K_RAW: R A W;
 
 K_ANTIMATTER: A N T I M A T T E R;
 K_INFINITY: I N F I N I T Y;
@@ -161,7 +165,7 @@ VARIABLE: '$' ID;
 K_NULL: N U L L;
 ID: [a-zA-Z][a-zA-Z0-9]*;
 
-STRING: '"' (~["\r\n] | '\\\\' | '\\"')*? '"';
+STRING: '"' (~["\\\r\n] | '\\\\' | '\\"')*? '"';
 LBRACE: '{';
 RBRACE: '}';
 
@@ -194,3 +198,5 @@ fragment W: ('w' | 'W');
 fragment X: ('x' | 'X');
 fragment Y: ('y' | 'Y');
 fragment Z: ('z' | 'Z');
+
+CATCHALL: .;

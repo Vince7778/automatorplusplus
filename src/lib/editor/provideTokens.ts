@@ -104,6 +104,6 @@ function transformTokenName(tk: string) {
     if (tk === "EC_NUM" || tk === "CURRENCY") return "currency";
     if (tk === "COMMENT") return "comment";
     if (tk === "ID") return "identifier";
-    console.log(tk);
+    if (tk === "CATCHALL") return "invalid";
     return tk;
 }

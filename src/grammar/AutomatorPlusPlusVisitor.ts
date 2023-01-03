@@ -20,6 +20,7 @@ import { Variable_defContext } from "./AutomatorPlusPlusParser";
 import { Variable_typeContext } from "./AutomatorPlusPlusParser";
 import { On_offContext } from "./AutomatorPlusPlusParser";
 import { StringContext } from "./AutomatorPlusPlusParser";
+import { RawstringContext } from "./AutomatorPlusPlusParser";
 import { EndlineContext } from "./AutomatorPlusPlusParser";
 import { BlockContext } from "./AutomatorPlusPlusParser";
 import { ArgumentsContext } from "./AutomatorPlusPlusParser";
@@ -42,6 +43,7 @@ import { While_cContext } from "./AutomatorPlusPlusParser";
 import { UntilContext } from "./AutomatorPlusPlusParser";
 import { Function_cContext } from "./AutomatorPlusPlusParser";
 import { CallContext } from "./AutomatorPlusPlusParser";
+import { RawContext } from "./AutomatorPlusPlusParser";
 import { Studies_argsContext } from "./AutomatorPlusPlusParser";
 import { Prestige_argsContext } from "./AutomatorPlusPlusParser";
 import { Auto_settingContext } from "./AutomatorPlusPlusParser";
@@ -174,6 +176,13 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	 * @return the visitor result
 	 */
 	visitString?: (ctx: StringContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.rawstring`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRawstring?: (ctx: RawstringContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.endline`.
@@ -328,6 +337,13 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	 * @return the visitor result
 	 */
 	visitCall?: (ctx: CallContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.raw`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRaw?: (ctx: RawContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.studies_args`.

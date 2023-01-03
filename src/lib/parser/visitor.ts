@@ -12,6 +12,9 @@ import type {
     If_cContext,
     LineContext,
     NumberContext,
+    RawContext,
+    RawstringContext,
+    StringContext,
     TimeContext,
     UntilContext,
     VariableContext,
@@ -42,6 +45,7 @@ class ParserState {
     tabDepth: number;
     funcs: { [key: string]: APPFunction };
     stack: APPStackFrame[];
+    globalVars: APPVariable[];
     errors: string[];
     settings: ParserSettings;
 
@@ -51,6 +55,7 @@ class ParserState {
         this.stack = [];
         this.errors = [];
         this.settings = settings;
+        this.globalVars = [];
     }
 }
 
@@ -71,12 +76,14 @@ function createError(state: ParserState, err: string, tok?: Token) {
 
 function getVariable(state: ParserState, name: string) {
     // look thru call stack
-    for (let framei = state.stack.length - 1; framei >= 0; framei--) {
-        const frame = state.stack[framei];
-        const found = frame.vars.find((v) => v.name === name);
-        return found;
-    }
-    return null;
+    // can only use global variables or current scope ones
+    return (
+        state.stack[state.stack.length - 1]?.vars.find(
+            (v) => v.name === name
+        ) ??
+        state.globalVars.find((v) => v.name === name) ??
+        null
+    );
 }
 
 export class TranspileVisitor
@@ -186,6 +193,14 @@ export class TranspileVisitor
 
     visitFunction_c(ctx: Function_cContext): string {
         const name = this.visit(ctx.ID());
+        if (this.state.funcs[name]) {
+            createError(
+                this.state,
+                `Function ${name} already exists`,
+                ctx.ID().symbol
+            );
+            return "";
+        }
         const args = ctx.arguments();
         let fn: APPFunction = {
             ctx,
@@ -223,12 +238,7 @@ export class TranspileVisitor
                 continue;
             }
             if (arg.startsWith('"') && arg.endsWith('"')) {
-                varList.push(
-                    arg
-                        .substring(1, arg.length - 1)
-                        .replace("\\\\", "\\")
-                        .replace('\\"', '"')
-                );
+                varList.push(arg.substring(1, arg.length - 1));
                 continue;
             }
 
@@ -304,6 +314,44 @@ export class TranspileVisitor
 
     visitNumber(ctx: NumberContext): string {
         return this.visitChildren(ctx).replace("+", "");
+    }
+
+    visitString(ctx: StringContext): string {
+        // need to replace variables
+        let txt = this.visitChildren(ctx);
+        if (!txt.startsWith('"')) {
+            // was a numerical variable
+            txt = '"' + txt + '"';
+        }
+        if (this.state.stack.length > 0) {
+            for (const vari of this.state.stack[this.state.stack.length - 1]
+                .vars) {
+                txt = txt.replaceAll(vari.name, vari.value.toString());
+            }
+        }
+        for (const vari of this.state.globalVars) {
+            txt = txt.replaceAll(vari.name, vari.value.toString());
+        }
+        if (txt.includes("$")) {
+            createError(
+                this.state,
+                "Cannot have $ in a string without a corresponding variable",
+                ctx.start
+            );
+            return "";
+        }
+        return txt;
+    }
+
+    visitRawstring(ctx: RawstringContext): string {
+        let txt = this.visitChildren(ctx);
+        txt = txt.replaceAll('\\"', '"').replaceAll("\\\\", "\\");
+        return txt;
+    }
+
+    visitRaw(ctx: RawContext): string {
+        let txt = this.visit(ctx.string());
+        return txt.substring(1, txt.length - 1) + "\n";
     }
 
     // a bunch here that only need to be space separated

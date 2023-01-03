@@ -38,3 +38,14 @@ button:active {
 a:visited {
     color: mediumpurple;
 }
+
+pre,
+code {
+    border: 1px solid var(--bg-hover);
+    padding: 3px;
+    border-radius: 3px;
+}
+
+code {
+    line-height: 1.8em;
+}

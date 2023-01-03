@@ -23,7 +23,6 @@ export function createEditor(container: HTMLElement) {
     editor.onDidChangeModelContent((e) => {
         const val = editor.getValue();
         let errs = validate(val);
-        console.log(errs);
         Monaco.editor.setModelMarkers(editor.getModel(), "owner", errs);
     });
 
@@ -31,5 +30,6 @@ export function createEditor(container: HTMLElement) {
 }
 
 export function getEditorValue() {
+    if (!editor) window.location.reload();
     return editor.getValue();
 }

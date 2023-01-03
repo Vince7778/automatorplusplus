@@ -95,7 +95,6 @@ class CollectorErrorListener implements ANTLRErrorListener<Token> {
         e
     ) {
         column++; // 1 indexed?
-        console.log("wowza");
         var endColumn = column + 1;
         if (offendingSymbol.text) {
             endColumn = column + offendingSymbol.text.length;
@@ -111,7 +110,6 @@ export function validate(input: string): MError[] {
     parser.removeErrorListeners();
     const listener = new CollectorErrorListener(errors);
     parser.addErrorListener(listener);
-    console.log(listener.errors);
     const tree = parser.main();
     return errors;
 }

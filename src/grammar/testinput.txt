@@ -1,4 +1,6 @@
 // hi
-funtion what {
+function what {
 
 }
+
+call what ^$##$*GADF
