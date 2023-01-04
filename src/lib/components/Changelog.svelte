@@ -4,7 +4,15 @@
 
 <div style="min-width: 300px; width: 60%;">
     <Collapsible header="Changelog" headerElem="h2">
-        <Collapsible header="0.2.0 (current)">
+        <Collapsible header="0.2.1 (current)">
+            <ul>
+                <li>Fixed <code>until (prestige)</code></li>
+                <li>
+                    Allow using a variable in place of "ec#" for completions
+                </li>
+            </ul>
+        </Collapsible>
+        <Collapsible header="0.2.0">
             <ul>
                 <li><b>Completely reworked parser system</b></li>
                 <li>

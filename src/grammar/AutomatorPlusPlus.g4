@@ -11,7 +11,7 @@ comparison: (currency | number) OPER (currency | number);
 currency: CURRENCY | variable | ec_space_num K_COMPLETIONS;
 
 // needed to allow variables to change ec number
-ec_space_num: EC_NUM | K_EC integer;
+ec_space_num: EC_NUM | K_EC integer | variable;
 
 condition: comparison | prestige_type;
 time: number DURATION | variable DURATION?;
@@ -64,7 +64,7 @@ black_hole: K_BLACK_HOLE on_off endline;
 notify: K_NOTIFY string endline;
 if_c: K_IF comparison block;
 while_c: K_WHILE comparison block;
-until: K_UNTIL comparison block;
+until: K_UNTIL (comparison | prestige_type) block;
 function_c: K_FUNCTION ID arguments? block;
 call: K_CALL ID argument_values? endline;
 raw: K_RAW string endline;
