@@ -1,2 +1,5 @@
-define constant $mystudytree 11,22-42,51
-studies purchase $mystudytree
+function a $a $b {
+    notify "$a:$b"
+}
+
+call a 1 5 a

@@ -32,7 +32,7 @@ const_number: INT | FLOAT | const_variable;
 variable: VARIABLE;
 variable_def: VARIABLE;
 variable_type:
-	study_tree
+	const_variable
 	| currency
 	| time
 	| number
@@ -41,7 +41,8 @@ variable_type:
 	| on_off
 	| rawstring
 	| ID
-	| K_NULL;
+	| K_NULL
+	| study_tree;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
 rawstring: string;
