@@ -15,6 +15,8 @@ import { NumberContext } from "./AutomatorPlusPlusParser";
 import { IntegerContext } from "./AutomatorPlusPlusParser";
 import { FeatureContext } from "./AutomatorPlusPlusParser";
 import { Prestige_typeContext } from "./AutomatorPlusPlusParser";
+import { Const_variableContext } from "./AutomatorPlusPlusParser";
+import { Const_numberContext } from "./AutomatorPlusPlusParser";
 import { VariableContext } from "./AutomatorPlusPlusParser";
 import { Variable_defContext } from "./AutomatorPlusPlusParser";
 import { Variable_typeContext } from "./AutomatorPlusPlusParser";
@@ -44,6 +46,7 @@ import { UntilContext } from "./AutomatorPlusPlusParser";
 import { Function_cContext } from "./AutomatorPlusPlusParser";
 import { CallContext } from "./AutomatorPlusPlusParser";
 import { RawContext } from "./AutomatorPlusPlusParser";
+import { DefineContext } from "./AutomatorPlusPlusParser";
 import { Studies_argsContext } from "./AutomatorPlusPlusParser";
 import { Prestige_argsContext } from "./AutomatorPlusPlusParser";
 import { Auto_settingContext } from "./AutomatorPlusPlusParser";
@@ -141,6 +144,20 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	 * @return the visitor result
 	 */
 	visitPrestige_type?: (ctx: Prestige_typeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.const_variable`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitConst_variable?: (ctx: Const_variableContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.const_number`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitConst_number?: (ctx: Const_numberContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.variable`.
@@ -344,6 +361,13 @@ export interface AutomatorPlusPlusVisitor<Result> extends ParseTreeVisitor<Resul
 	 * @return the visitor result
 	 */
 	visitRaw?: (ctx: RawContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `AutomatorPlusPlusParser.define`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitDefine?: (ctx: DefineContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `AutomatorPlusPlusParser.studies_args`.

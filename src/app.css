@@ -13,6 +13,7 @@
 }
 
 button,
+select,
 input[type="submit"],
 input[type="reset"] {
     background: none;
@@ -27,7 +28,8 @@ input[type="reset"] {
     background-color: var(--bg-light);
 }
 
-button:hover {
+button:hover,
+select:hover {
     background-color: var(--bg-hover);
 }
 

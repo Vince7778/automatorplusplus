@@ -1,6 +1,2 @@
-// hi
-function what {
-
-}
-
-call what ^$##$*GADF
+define constant $mystudytree 11,22-42,51
+studies purchase $mystudytree

@@ -2,16 +2,18 @@ TODO:
 
 [x] switch to better parser
 [x] add argument strings
-[ ] add defines
+[x] add defines
 [ ] add loops (constant number of times only)
-[ ] add importing/exporting
+[x] add importing/exporting
 [x] change function syntax
 [ ] add compile-time ifs
 [x] make docs look nicer
-[ ] add in-browser save/load slots
+[x] add in-browser save/load slots
 [ ] add "and" statements
+[ ] improve type system
 [ ] autocomplete
 [x] error checking
 [ ] add variables
 [ ] make importing and exporting compatible with AD
+[ ] add arrays
 [ ] vs code extension?

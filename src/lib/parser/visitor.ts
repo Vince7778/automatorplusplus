@@ -7,7 +7,10 @@ import type {
     BlockContext,
     CallContext,
     CommentContext,
+    Const_numberContext,
+    Const_variableContext,
     CurrencyContext,
+    DefineContext,
     Function_cContext,
     If_cContext,
     LineContext,
@@ -33,6 +36,7 @@ interface APPVariable {
     name: string;
     type: string;
     value: string | number;
+    isConstant?: boolean;
 }
 
 interface APPStackFrame {
@@ -84,6 +88,25 @@ function getVariable(state: ParserState, name: string) {
         state.globalVars.find((v) => v.name === name) ??
         null
     );
+}
+
+function getVariableValue(raw: string): string | number {
+    if (raw.toLowerCase() === "null") {
+        return "";
+    }
+    if (raw.startsWith('"') && raw.endsWith('"')) {
+        return raw.substring(1, raw.length - 1);
+    }
+
+    if (!isNumeric(raw)) return raw;
+
+    let parsed = parseFloat(raw);
+    if (!isFinite(parsed)) {
+        // TODO: add break infinity?? lmao
+        return raw;
+    } else {
+        return parsed;
+    }
 }
 
 export class TranspileVisitor
@@ -233,27 +256,7 @@ export class TranspileVisitor
 
         let varList: (string | number)[] = [];
         for (const arg of argList) {
-            if (arg.toLowerCase() === "null") {
-                varList.push("");
-                continue;
-            }
-            if (arg.startsWith('"') && arg.endsWith('"')) {
-                varList.push(arg.substring(1, arg.length - 1));
-                continue;
-            }
-
-            if (!isNumeric(arg)) {
-                varList.push(arg);
-                continue;
-            }
-
-            let parsed = parseFloat(arg);
-            if (!isFinite(parsed)) {
-                // TODO: add break infinity?? lmao
-                varList.push(arg);
-            } else {
-                varList.push(parsed);
-            }
+            varList.push(getVariableValue(arg));
         }
 
         if (varList.length !== func.args.length) {
@@ -300,6 +303,30 @@ export class TranspileVisitor
         return vari.value.toString();
     }
 
+    // used only in constant variables
+    visitVariableName(ctx: VariableContext): string {
+        const name = this.visit(ctx.VARIABLE());
+        return name;
+    }
+
+    visitConst_variable(ctx: Const_variableContext): string {
+        const name = this.visitVariableName(ctx.variable());
+        const vari = getVariable(this.state, name);
+        if (!vari) {
+            createError(
+                this.state,
+                `Variable ${name} doesn't exist`,
+                ctx.start
+            );
+            return "";
+        }
+        if (!vari.isConstant) {
+            // don't do anything special
+            return this.visitVariable(ctx.variable());
+        }
+        return name.substring(1); // can just return the identifier, AD supports constants here
+    }
+
     visitTime(ctx: TimeContext): string {
         if (!this.state.settings.minify || !ctx.DURATION())
             return this.visitChildren(ctx);
@@ -313,6 +340,9 @@ export class TranspileVisitor
     }
 
     visitNumber(ctx: NumberContext): string {
+        return this.visitChildren(ctx).replace("+", "");
+    }
+    visitConst_number(ctx: Const_numberContext): string {
         return this.visitChildren(ctx).replace("+", "");
     }
 
@@ -352,6 +382,40 @@ export class TranspileVisitor
     visitRaw(ctx: RawContext): string {
         let txt = this.visit(ctx.string());
         return txt.substring(1, txt.length - 1) + "\n";
+    }
+
+    visitDefine(ctx: DefineContext): string {
+        const name = this.visit(ctx.variable_def());
+        const value = getVariableValue(this.visit(ctx.variable_type()));
+        const isConstant = !!ctx.K_CONSTANT();
+        const isGlobal = !!ctx.K_GLOBAL();
+
+        let targetList =
+            isGlobal || isConstant || this.state.stack.length === 0
+                ? this.state.globalVars
+                : this.state.stack[this.state.stack.length - 1].vars;
+
+        let existing = targetList.find((v) => v.name === name);
+        if (existing) {
+            if (isConstant || existing.isConstant) {
+                createError(
+                    this.state,
+                    "Cannot redefine constant",
+                    ctx.variable_def().start
+                );
+                return "";
+            }
+            existing.type = typeof value;
+            existing.value = value;
+        } else {
+            targetList.push({
+                name,
+                type: typeof value,
+                value,
+                isConstant,
+            });
+        }
+        return "";
     }
 
     // a bunch here that only need to be space separated

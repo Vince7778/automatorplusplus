@@ -7,7 +7,12 @@ options {
 main: line+ EOF;
 line: command_c | NL | comment;
 comment: COMMENT;
-comparison: (currency | number) OPER (currency | number);
+
+// make sure const number is first here
+comparison: (const_number | currency) OPER (
+		const_number
+		| currency
+	);
 currency: CURRENCY | variable | ec_space_num K_COMPLETIONS;
 
 // needed to allow variables to change ec number
@@ -19,6 +24,11 @@ number: INT | FLOAT | variable;
 integer: INT | variable;
 feature: K_DILATION | ec_space_num | variable;
 prestige_type: K_INFINITY | K_ETERNITY | K_REALITY | variable;
+
+// used for defining the builtin AD constants
+const_variable: variable;
+const_number: INT | FLOAT | const_variable;
+
 variable: VARIABLE;
 variable_def: VARIABLE;
 variable_type:
@@ -30,7 +40,9 @@ variable_type:
 	| on_off
 	| rawstring
 	| ID
-	| K_NULL;
+	| K_NULL
+	| study_tree;
+
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
 rawstring: string;
@@ -39,7 +51,8 @@ block: LBRACE endline line*? RBRACE endline;
 arguments: variable_def arguments?;
 argument_values: variable_type argument_values?;
 
-study_tree: study_atom (','? study_atom)*;
+// const variable needs to be before study_atom
+study_tree: const_variable | study_atom (','? study_atom)*;
 study_atom: special_studies | integer | study_range | variable;
 study_range: integer '-' integer;
 special_studies:
@@ -68,6 +81,8 @@ until: K_UNTIL (comparison | prestige_type) block;
 function_c: K_FUNCTION ID arguments? block;
 call: K_CALL ID argument_values? endline;
 raw: K_RAW string endline;
+define:
+	K_DEFINE K_CONSTANT? K_GLOBAL? variable_def variable_type endline;
 
 studies_args:
 	K_RESPEC
@@ -95,7 +110,8 @@ command_c:
 	| until
 	| function_c
 	| call
-	| raw;
+	| raw
+	| define;
 
 COMMENT_START: '//' | '#';
 COMMENT: COMMENT_START ~('\n' | '\r')+ NL;
@@ -106,7 +122,7 @@ DURATION:
 	| H (O U R S?)?
 	| M S;
 
-INT: '0' | [1-9] [0-9]*;
+INT: '0' | '-'? [1-9] [0-9]*;
 FLOAT: INT ('.' [0-9]*)? (E [+-]? [0-9]+)?;
 
 OPER: [<>] '='?;
@@ -132,6 +148,7 @@ K_UNTIL: U N T I L;
 K_FUNCTION: F U N C T I O N;
 K_CALL: C A L L;
 K_RAW: R A W;
+K_DEFINE: D E F I N E;
 
 K_ANTIMATTER: A N T I M A T T E R;
 K_INFINITY: I N F I N I T Y;
@@ -149,6 +166,8 @@ K_OFF: O F F;
 K_XHIGHEST: X WS+ H I G H E S T;
 K_EC: E C;
 K_COMPLETIONS: C O M P L E T I O N S;
+K_CONSTANT: C O N S T A N T;
+K_GLOBAL: G L O B A L;
 
 EC_NUM: E C [1-9][0-9]?;
 

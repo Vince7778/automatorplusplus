@@ -53,33 +53,36 @@ export class AutomatorPlusPlusParser extends Parser {
     public static readonly K_FUNCTION = 26;
     public static readonly K_CALL = 27;
     public static readonly K_RAW = 28;
-    public static readonly K_ANTIMATTER = 29;
-    public static readonly K_INFINITY = 30;
-    public static readonly K_TIME = 31;
-    public static readonly K_ACTIVE = 32;
-    public static readonly K_PASSIVE = 33;
-    public static readonly K_IDLE = 34;
-    public static readonly K_LIGHT = 35;
-    public static readonly K_DARK = 36;
-    public static readonly K_ETERNITY = 37;
-    public static readonly K_REALITY = 38;
-    public static readonly K_DILATION = 39;
-    public static readonly K_ON = 40;
-    public static readonly K_OFF = 41;
-    public static readonly K_XHIGHEST = 42;
-    public static readonly K_EC = 43;
-    public static readonly K_COMPLETIONS = 44;
-    public static readonly EC_NUM = 45;
-    public static readonly CURRENCY = 46;
-    public static readonly VARIABLE = 47;
-    public static readonly K_NULL = 48;
-    public static readonly ID = 49;
-    public static readonly STRING = 50;
-    public static readonly LBRACE = 51;
-    public static readonly RBRACE = 52;
-    public static readonly NL = 53;
-    public static readonly WS = 54;
-    public static readonly CATCHALL = 55;
+    public static readonly K_DEFINE = 29;
+    public static readonly K_ANTIMATTER = 30;
+    public static readonly K_INFINITY = 31;
+    public static readonly K_TIME = 32;
+    public static readonly K_ACTIVE = 33;
+    public static readonly K_PASSIVE = 34;
+    public static readonly K_IDLE = 35;
+    public static readonly K_LIGHT = 36;
+    public static readonly K_DARK = 37;
+    public static readonly K_ETERNITY = 38;
+    public static readonly K_REALITY = 39;
+    public static readonly K_DILATION = 40;
+    public static readonly K_ON = 41;
+    public static readonly K_OFF = 42;
+    public static readonly K_XHIGHEST = 43;
+    public static readonly K_EC = 44;
+    public static readonly K_COMPLETIONS = 45;
+    public static readonly K_CONSTANT = 46;
+    public static readonly K_GLOBAL = 47;
+    public static readonly EC_NUM = 48;
+    public static readonly CURRENCY = 49;
+    public static readonly VARIABLE = 50;
+    public static readonly K_NULL = 51;
+    public static readonly ID = 52;
+    public static readonly STRING = 53;
+    public static readonly LBRACE = 54;
+    public static readonly RBRACE = 55;
+    public static readonly NL = 56;
+    public static readonly WS = 57;
+    public static readonly CATCHALL = 58;
     public static readonly RULE_main = 0;
     public static readonly RULE_line = 1;
     public static readonly RULE_comment = 2;
@@ -92,39 +95,42 @@ export class AutomatorPlusPlusParser extends Parser {
     public static readonly RULE_integer = 9;
     public static readonly RULE_feature = 10;
     public static readonly RULE_prestige_type = 11;
-    public static readonly RULE_variable = 12;
-    public static readonly RULE_variable_def = 13;
-    public static readonly RULE_variable_type = 14;
-    public static readonly RULE_on_off = 15;
-    public static readonly RULE_string = 16;
-    public static readonly RULE_rawstring = 17;
-    public static readonly RULE_endline = 18;
-    public static readonly RULE_block = 19;
-    public static readonly RULE_arguments = 20;
-    public static readonly RULE_argument_values = 21;
-    public static readonly RULE_study_tree = 22;
-    public static readonly RULE_study_atom = 23;
-    public static readonly RULE_study_range = 24;
-    public static readonly RULE_special_studies = 25;
-    public static readonly RULE_pause = 26;
-    public static readonly RULE_wait = 27;
-    public static readonly RULE_studies = 28;
-    public static readonly RULE_prestige = 29;
-    public static readonly RULE_unlock = 30;
-    public static readonly RULE_start_c = 31;
-    public static readonly RULE_auto = 32;
-    public static readonly RULE_black_hole = 33;
-    public static readonly RULE_notify = 34;
-    public static readonly RULE_if_c = 35;
-    public static readonly RULE_while_c = 36;
-    public static readonly RULE_until = 37;
-    public static readonly RULE_function_c = 38;
-    public static readonly RULE_call = 39;
-    public static readonly RULE_raw = 40;
-    public static readonly RULE_studies_args = 41;
-    public static readonly RULE_prestige_args = 42;
-    public static readonly RULE_auto_setting = 43;
-    public static readonly RULE_command_c = 44;
+    public static readonly RULE_const_variable = 12;
+    public static readonly RULE_const_number = 13;
+    public static readonly RULE_variable = 14;
+    public static readonly RULE_variable_def = 15;
+    public static readonly RULE_variable_type = 16;
+    public static readonly RULE_on_off = 17;
+    public static readonly RULE_string = 18;
+    public static readonly RULE_rawstring = 19;
+    public static readonly RULE_endline = 20;
+    public static readonly RULE_block = 21;
+    public static readonly RULE_arguments = 22;
+    public static readonly RULE_argument_values = 23;
+    public static readonly RULE_study_tree = 24;
+    public static readonly RULE_study_atom = 25;
+    public static readonly RULE_study_range = 26;
+    public static readonly RULE_special_studies = 27;
+    public static readonly RULE_pause = 28;
+    public static readonly RULE_wait = 29;
+    public static readonly RULE_studies = 30;
+    public static readonly RULE_prestige = 31;
+    public static readonly RULE_unlock = 32;
+    public static readonly RULE_start_c = 33;
+    public static readonly RULE_auto = 34;
+    public static readonly RULE_black_hole = 35;
+    public static readonly RULE_notify = 36;
+    public static readonly RULE_if_c = 37;
+    public static readonly RULE_while_c = 38;
+    public static readonly RULE_until = 39;
+    public static readonly RULE_function_c = 40;
+    public static readonly RULE_call = 41;
+    public static readonly RULE_raw = 42;
+    public static readonly RULE_define = 43;
+    public static readonly RULE_studies_args = 44;
+    public static readonly RULE_prestige_args = 45;
+    public static readonly RULE_auto_setting = 46;
+    public static readonly RULE_command_c = 47;
     // tslint:disable:no-trailing-whitespace
     public static readonly ruleNames: string[] = [
         "main",
@@ -139,6 +145,8 @@ export class AutomatorPlusPlusParser extends Parser {
         "integer",
         "feature",
         "prestige_type",
+        "const_variable",
+        "const_number",
         "variable",
         "variable_def",
         "variable_type",
@@ -168,6 +176,7 @@ export class AutomatorPlusPlusParser extends Parser {
         "function_c",
         "call",
         "raw",
+        "define",
         "studies_args",
         "prestige_args",
         "auto_setting",
@@ -178,6 +187,9 @@ export class AutomatorPlusPlusParser extends Parser {
         undefined,
         "','",
         "'-'",
+        undefined,
+        undefined,
+        undefined,
         undefined,
         undefined,
         undefined,
@@ -259,6 +271,7 @@ export class AutomatorPlusPlusParser extends Parser {
         "K_FUNCTION",
         "K_CALL",
         "K_RAW",
+        "K_DEFINE",
         "K_ANTIMATTER",
         "K_INFINITY",
         "K_TIME",
@@ -275,6 +288,8 @@ export class AutomatorPlusPlusParser extends Parser {
         "K_XHIGHEST",
         "K_EC",
         "K_COMPLETIONS",
+        "K_CONSTANT",
+        "K_GLOBAL",
         "EC_NUM",
         "CURRENCY",
         "VARIABLE",
@@ -337,17 +352,17 @@ export class AutomatorPlusPlusParser extends Parser {
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 91;
+                this.state = 97;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 do {
                     {
                         {
-                            this.state = 90;
+                            this.state = 96;
                             this.line();
                         }
                     }
-                    this.state = 93;
+                    this.state = 99;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
                 } while (
@@ -368,17 +383,18 @@ export class AutomatorPlusPlusParser extends Parser {
                                 (1 << AutomatorPlusPlusParser.K_FUNCTION) |
                                 (1 << AutomatorPlusPlusParser.K_CALL) |
                                 (1 << AutomatorPlusPlusParser.K_RAW) |
+                                (1 << AutomatorPlusPlusParser.K_DEFINE) |
                                 (1 << AutomatorPlusPlusParser.K_INFINITY))) !==
                             0) ||
-                    (((_la - 37) & ~0x1f) === 0 &&
-                        ((1 << (_la - 37)) &
-                            ((1 << (AutomatorPlusPlusParser.K_ETERNITY - 37)) |
+                    (((_la - 38) & ~0x1f) === 0 &&
+                        ((1 << (_la - 38)) &
+                            ((1 << (AutomatorPlusPlusParser.K_ETERNITY - 38)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_REALITY - 37)) |
-                                (1 << (AutomatorPlusPlusParser.NL - 37)))) !==
+                                    (AutomatorPlusPlusParser.K_REALITY - 38)) |
+                                (1 << (AutomatorPlusPlusParser.NL - 38)))) !==
                             0)
                 );
-                this.state = 95;
+                this.state = 101;
                 this.match(AutomatorPlusPlusParser.EOF);
             }
         } catch (re) {
@@ -399,7 +415,7 @@ export class AutomatorPlusPlusParser extends Parser {
         let _localctx: LineContext = new LineContext(this._ctx, this.state);
         this.enterRule(_localctx, 2, AutomatorPlusPlusParser.RULE_line);
         try {
-            this.state = 100;
+            this.state = 106;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.K_PAUSE:
@@ -416,26 +432,27 @@ export class AutomatorPlusPlusParser extends Parser {
                 case AutomatorPlusPlusParser.K_FUNCTION:
                 case AutomatorPlusPlusParser.K_CALL:
                 case AutomatorPlusPlusParser.K_RAW:
+                case AutomatorPlusPlusParser.K_DEFINE:
                 case AutomatorPlusPlusParser.K_INFINITY:
                 case AutomatorPlusPlusParser.K_ETERNITY:
                 case AutomatorPlusPlusParser.K_REALITY:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 97;
+                        this.state = 103;
                         this.command_c();
                     }
                     break;
                 case AutomatorPlusPlusParser.NL:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 98;
+                        this.state = 104;
                         this.match(AutomatorPlusPlusParser.NL);
                     }
                     break;
                 case AutomatorPlusPlusParser.COMMENT:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 99;
+                        this.state = 105;
                         this.comment();
                     }
                     break;
@@ -465,7 +482,7 @@ export class AutomatorPlusPlusParser extends Parser {
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 102;
+                this.state = 108;
                 this.match(AutomatorPlusPlusParser.COMMENT);
             }
         } catch (re) {
@@ -491,43 +508,43 @@ export class AutomatorPlusPlusParser extends Parser {
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 106;
+                this.state = 112;
                 this._errHandler.sync(this);
                 switch (
                     this.interpreter.adaptivePredict(this._input, 2, this._ctx)
                 ) {
                     case 1:
                         {
-                            this.state = 104;
-                            this.currency();
+                            this.state = 110;
+                            this.const_number();
                         }
                         break;
 
                     case 2:
                         {
-                            this.state = 105;
-                            this.number();
+                            this.state = 111;
+                            this.currency();
                         }
                         break;
                 }
-                this.state = 108;
+                this.state = 114;
                 this.match(AutomatorPlusPlusParser.OPER);
-                this.state = 111;
+                this.state = 117;
                 this._errHandler.sync(this);
                 switch (
                     this.interpreter.adaptivePredict(this._input, 3, this._ctx)
                 ) {
                     case 1:
                         {
-                            this.state = 109;
-                            this.currency();
+                            this.state = 115;
+                            this.const_number();
                         }
                         break;
 
                     case 2:
                         {
-                            this.state = 110;
-                            this.number();
+                            this.state = 116;
+                            this.currency();
                         }
                         break;
                 }
@@ -553,7 +570,7 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(_localctx, 8, AutomatorPlusPlusParser.RULE_currency);
         try {
-            this.state = 118;
+            this.state = 124;
             this._errHandler.sync(this);
             switch (
                 this.interpreter.adaptivePredict(this._input, 4, this._ctx)
@@ -561,7 +578,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 113;
+                        this.state = 119;
                         this.match(AutomatorPlusPlusParser.CURRENCY);
                     }
                     break;
@@ -569,7 +586,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 114;
+                        this.state = 120;
                         this.variable();
                     }
                     break;
@@ -577,9 +594,9 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 3:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 115;
+                        this.state = 121;
                         this.ec_space_num();
-                        this.state = 116;
+                        this.state = 122;
                         this.match(AutomatorPlusPlusParser.K_COMPLETIONS);
                     }
                     break;
@@ -609,29 +626,29 @@ export class AutomatorPlusPlusParser extends Parser {
             AutomatorPlusPlusParser.RULE_ec_space_num
         );
         try {
-            this.state = 124;
+            this.state = 130;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.EC_NUM:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 120;
+                        this.state = 126;
                         this.match(AutomatorPlusPlusParser.EC_NUM);
                     }
                     break;
                 case AutomatorPlusPlusParser.K_EC:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 121;
+                        this.state = 127;
                         this.match(AutomatorPlusPlusParser.K_EC);
-                        this.state = 122;
+                        this.state = 128;
                         this.integer();
                     }
                     break;
                 case AutomatorPlusPlusParser.VARIABLE:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 123;
+                        this.state = 129;
                         this.variable();
                     }
                     break;
@@ -659,7 +676,7 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(_localctx, 12, AutomatorPlusPlusParser.RULE_condition);
         try {
-            this.state = 128;
+            this.state = 134;
             this._errHandler.sync(this);
             switch (
                 this.interpreter.adaptivePredict(this._input, 6, this._ctx)
@@ -667,7 +684,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 126;
+                        this.state = 132;
                         this.comparison();
                     }
                     break;
@@ -675,7 +692,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 127;
+                        this.state = 133;
                         this.prestige_type();
                     }
                     break;
@@ -699,7 +716,7 @@ export class AutomatorPlusPlusParser extends Parser {
         this.enterRule(_localctx, 14, AutomatorPlusPlusParser.RULE_time);
         let _la: number;
         try {
-            this.state = 137;
+            this.state = 143;
             this._errHandler.sync(this);
             switch (
                 this.interpreter.adaptivePredict(this._input, 8, this._ctx)
@@ -707,9 +724,9 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 130;
+                        this.state = 136;
                         this.number();
-                        this.state = 131;
+                        this.state = 137;
                         this.match(AutomatorPlusPlusParser.DURATION);
                     }
                     break;
@@ -717,14 +734,14 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 133;
+                        this.state = 139;
                         this.variable();
-                        this.state = 135;
+                        this.state = 141;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
                         if (_la === AutomatorPlusPlusParser.DURATION) {
                             {
-                                this.state = 134;
+                                this.state = 140;
                                 this.match(AutomatorPlusPlusParser.DURATION);
                             }
                         }
@@ -749,27 +766,27 @@ export class AutomatorPlusPlusParser extends Parser {
         let _localctx: NumberContext = new NumberContext(this._ctx, this.state);
         this.enterRule(_localctx, 16, AutomatorPlusPlusParser.RULE_number);
         try {
-            this.state = 142;
+            this.state = 148;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.INT:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 139;
+                        this.state = 145;
                         this.match(AutomatorPlusPlusParser.INT);
                     }
                     break;
                 case AutomatorPlusPlusParser.FLOAT:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 140;
+                        this.state = 146;
                         this.match(AutomatorPlusPlusParser.FLOAT);
                     }
                     break;
                 case AutomatorPlusPlusParser.VARIABLE:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 141;
+                        this.state = 147;
                         this.variable();
                     }
                     break;
@@ -797,20 +814,20 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(_localctx, 18, AutomatorPlusPlusParser.RULE_integer);
         try {
-            this.state = 146;
+            this.state = 152;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.INT:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 144;
+                        this.state = 150;
                         this.match(AutomatorPlusPlusParser.INT);
                     }
                     break;
                 case AutomatorPlusPlusParser.VARIABLE:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 145;
+                        this.state = 151;
                         this.variable();
                     }
                     break;
@@ -838,7 +855,7 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(_localctx, 20, AutomatorPlusPlusParser.RULE_feature);
         try {
-            this.state = 151;
+            this.state = 157;
             this._errHandler.sync(this);
             switch (
                 this.interpreter.adaptivePredict(this._input, 11, this._ctx)
@@ -846,7 +863,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 148;
+                        this.state = 154;
                         this.match(AutomatorPlusPlusParser.K_DILATION);
                     }
                     break;
@@ -854,7 +871,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 149;
+                        this.state = 155;
                         this.ec_space_num();
                     }
                     break;
@@ -862,7 +879,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 3:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 150;
+                        this.state = 156;
                         this.variable();
                     }
                     break;
@@ -892,35 +909,117 @@ export class AutomatorPlusPlusParser extends Parser {
             AutomatorPlusPlusParser.RULE_prestige_type
         );
         try {
-            this.state = 157;
+            this.state = 163;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.K_INFINITY:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 153;
+                        this.state = 159;
                         this.match(AutomatorPlusPlusParser.K_INFINITY);
                     }
                     break;
                 case AutomatorPlusPlusParser.K_ETERNITY:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 154;
+                        this.state = 160;
                         this.match(AutomatorPlusPlusParser.K_ETERNITY);
                     }
                     break;
                 case AutomatorPlusPlusParser.K_REALITY:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 155;
+                        this.state = 161;
                         this.match(AutomatorPlusPlusParser.K_REALITY);
                     }
                     break;
                 case AutomatorPlusPlusParser.VARIABLE:
                     this.enterOuterAlt(_localctx, 4);
                     {
-                        this.state = 156;
+                        this.state = 162;
                         this.variable();
+                    }
+                    break;
+                default:
+                    throw new NoViableAltException(this);
+            }
+        } catch (re) {
+            if (re instanceof RecognitionException) {
+                _localctx.exception = re;
+                this._errHandler.reportError(this, re);
+                this._errHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        } finally {
+            this.exitRule();
+        }
+        return _localctx;
+    }
+    // @RuleVersion(0)
+    public const_variable(): Const_variableContext {
+        let _localctx: Const_variableContext = new Const_variableContext(
+            this._ctx,
+            this.state
+        );
+        this.enterRule(
+            _localctx,
+            24,
+            AutomatorPlusPlusParser.RULE_const_variable
+        );
+        try {
+            this.enterOuterAlt(_localctx, 1);
+            {
+                this.state = 165;
+                this.variable();
+            }
+        } catch (re) {
+            if (re instanceof RecognitionException) {
+                _localctx.exception = re;
+                this._errHandler.reportError(this, re);
+                this._errHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        } finally {
+            this.exitRule();
+        }
+        return _localctx;
+    }
+    // @RuleVersion(0)
+    public const_number(): Const_numberContext {
+        let _localctx: Const_numberContext = new Const_numberContext(
+            this._ctx,
+            this.state
+        );
+        this.enterRule(
+            _localctx,
+            26,
+            AutomatorPlusPlusParser.RULE_const_number
+        );
+        try {
+            this.state = 170;
+            this._errHandler.sync(this);
+            switch (this._input.LA(1)) {
+                case AutomatorPlusPlusParser.INT:
+                    this.enterOuterAlt(_localctx, 1);
+                    {
+                        this.state = 167;
+                        this.match(AutomatorPlusPlusParser.INT);
+                    }
+                    break;
+                case AutomatorPlusPlusParser.FLOAT:
+                    this.enterOuterAlt(_localctx, 2);
+                    {
+                        this.state = 168;
+                        this.match(AutomatorPlusPlusParser.FLOAT);
+                    }
+                    break;
+                case AutomatorPlusPlusParser.VARIABLE:
+                    this.enterOuterAlt(_localctx, 3);
+                    {
+                        this.state = 169;
+                        this.const_variable();
                     }
                     break;
                 default:
@@ -945,11 +1044,11 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 24, AutomatorPlusPlusParser.RULE_variable);
+        this.enterRule(_localctx, 28, AutomatorPlusPlusParser.RULE_variable);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 159;
+                this.state = 172;
                 this.match(AutomatorPlusPlusParser.VARIABLE);
             }
         } catch (re) {
@@ -973,13 +1072,13 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            26,
+            30,
             AutomatorPlusPlusParser.RULE_variable_def
         );
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 161;
+                this.state = 174;
                 this.match(AutomatorPlusPlusParser.VARIABLE);
             }
         } catch (re) {
@@ -1003,19 +1102,19 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            28,
+            32,
             AutomatorPlusPlusParser.RULE_variable_type
         );
         try {
-            this.state = 172;
+            this.state = 186;
             this._errHandler.sync(this);
             switch (
-                this.interpreter.adaptivePredict(this._input, 13, this._ctx)
+                this.interpreter.adaptivePredict(this._input, 14, this._ctx)
             ) {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 163;
+                        this.state = 176;
                         this.currency();
                     }
                     break;
@@ -1023,7 +1122,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 164;
+                        this.state = 177;
                         this.time();
                     }
                     break;
@@ -1031,7 +1130,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 3:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 165;
+                        this.state = 178;
                         this.number();
                     }
                     break;
@@ -1039,7 +1138,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 4:
                     this.enterOuterAlt(_localctx, 4);
                     {
-                        this.state = 166;
+                        this.state = 179;
                         this.feature();
                     }
                     break;
@@ -1047,7 +1146,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 5:
                     this.enterOuterAlt(_localctx, 5);
                     {
-                        this.state = 167;
+                        this.state = 180;
                         this.prestige_type();
                     }
                     break;
@@ -1055,7 +1154,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 6:
                     this.enterOuterAlt(_localctx, 6);
                     {
-                        this.state = 168;
+                        this.state = 181;
                         this.on_off();
                     }
                     break;
@@ -1063,7 +1162,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 7:
                     this.enterOuterAlt(_localctx, 7);
                     {
-                        this.state = 169;
+                        this.state = 182;
                         this.rawstring();
                     }
                     break;
@@ -1071,7 +1170,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 8:
                     this.enterOuterAlt(_localctx, 8);
                     {
-                        this.state = 170;
+                        this.state = 183;
                         this.match(AutomatorPlusPlusParser.ID);
                     }
                     break;
@@ -1079,8 +1178,16 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 9:
                     this.enterOuterAlt(_localctx, 9);
                     {
-                        this.state = 171;
+                        this.state = 184;
                         this.match(AutomatorPlusPlusParser.K_NULL);
+                    }
+                    break;
+
+                case 10:
+                    this.enterOuterAlt(_localctx, 10);
+                    {
+                        this.state = 185;
+                        this.study_tree();
                     }
                     break;
             }
@@ -1100,29 +1207,29 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public on_off(): On_offContext {
         let _localctx: On_offContext = new On_offContext(this._ctx, this.state);
-        this.enterRule(_localctx, 30, AutomatorPlusPlusParser.RULE_on_off);
+        this.enterRule(_localctx, 34, AutomatorPlusPlusParser.RULE_on_off);
         try {
-            this.state = 177;
+            this.state = 191;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.K_ON:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 174;
+                        this.state = 188;
                         this.match(AutomatorPlusPlusParser.K_ON);
                     }
                     break;
                 case AutomatorPlusPlusParser.K_OFF:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 175;
+                        this.state = 189;
                         this.match(AutomatorPlusPlusParser.K_OFF);
                     }
                     break;
                 case AutomatorPlusPlusParser.VARIABLE:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 176;
+                        this.state = 190;
                         this.variable();
                     }
                     break;
@@ -1145,22 +1252,22 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public string(): StringContext {
         let _localctx: StringContext = new StringContext(this._ctx, this.state);
-        this.enterRule(_localctx, 32, AutomatorPlusPlusParser.RULE_string);
+        this.enterRule(_localctx, 36, AutomatorPlusPlusParser.RULE_string);
         try {
-            this.state = 181;
+            this.state = 195;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.VARIABLE:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 179;
+                        this.state = 193;
                         this.variable();
                     }
                     break;
                 case AutomatorPlusPlusParser.STRING:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 180;
+                        this.state = 194;
                         this.match(AutomatorPlusPlusParser.STRING);
                     }
                     break;
@@ -1186,11 +1293,11 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 34, AutomatorPlusPlusParser.RULE_rawstring);
+        this.enterRule(_localctx, 38, AutomatorPlusPlusParser.RULE_rawstring);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 183;
+                this.state = 197;
                 this.string();
             }
         } catch (re) {
@@ -1212,22 +1319,22 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 36, AutomatorPlusPlusParser.RULE_endline);
+        this.enterRule(_localctx, 40, AutomatorPlusPlusParser.RULE_endline);
         try {
-            this.state = 187;
+            this.state = 201;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.COMMENT:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 185;
+                        this.state = 199;
                         this.comment();
                     }
                     break;
                 case AutomatorPlusPlusParser.NL:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 186;
+                        this.state = 200;
                         this.match(AutomatorPlusPlusParser.NL);
                     }
                     break;
@@ -1250,42 +1357,42 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public block(): BlockContext {
         let _localctx: BlockContext = new BlockContext(this._ctx, this.state);
-        this.enterRule(_localctx, 38, AutomatorPlusPlusParser.RULE_block);
+        this.enterRule(_localctx, 42, AutomatorPlusPlusParser.RULE_block);
         try {
             let _alt: number;
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 189;
+                this.state = 203;
                 this.match(AutomatorPlusPlusParser.LBRACE);
-                this.state = 190;
+                this.state = 204;
                 this.endline();
-                this.state = 194;
+                this.state = 208;
                 this._errHandler.sync(this);
                 _alt = this.interpreter.adaptivePredict(
                     this._input,
-                    17,
+                    18,
                     this._ctx
                 );
                 while (_alt !== 1 && _alt !== ATN.INVALID_ALT_NUMBER) {
                     if (_alt === 1 + 1) {
                         {
                             {
-                                this.state = 191;
+                                this.state = 205;
                                 this.line();
                             }
                         }
                     }
-                    this.state = 196;
+                    this.state = 210;
                     this._errHandler.sync(this);
                     _alt = this.interpreter.adaptivePredict(
                         this._input,
-                        17,
+                        18,
                         this._ctx
                     );
                 }
-                this.state = 197;
+                this.state = 211;
                 this.match(AutomatorPlusPlusParser.RBRACE);
-                this.state = 198;
+                this.state = 212;
                 this.endline();
             }
         } catch (re) {
@@ -1307,19 +1414,19 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 40, AutomatorPlusPlusParser.RULE_arguments);
+        this.enterRule(_localctx, 44, AutomatorPlusPlusParser.RULE_arguments);
         let _la: number;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 200;
+                this.state = 214;
                 this.variable_def();
-                this.state = 202;
+                this.state = 216;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 if (_la === AutomatorPlusPlusParser.VARIABLE) {
                     {
-                        this.state = 201;
+                        this.state = 215;
                         this.arguments();
                     }
                 }
@@ -1345,16 +1452,16 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            42,
+            46,
             AutomatorPlusPlusParser.RULE_argument_values
         );
         let _la: number;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 204;
+                this.state = 218;
                 this.variable_type();
-                this.state = 206;
+                this.state = 220;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 if (
@@ -1362,29 +1469,38 @@ export class AutomatorPlusPlusParser extends Parser {
                         ((1 << _la) &
                             ((1 << AutomatorPlusPlusParser.INT) |
                                 (1 << AutomatorPlusPlusParser.FLOAT) |
+                                (1 << AutomatorPlusPlusParser.K_ANTIMATTER) |
                                 (1 << AutomatorPlusPlusParser.K_INFINITY))) !==
                             0) ||
-                    (((_la - 37) & ~0x1f) === 0 &&
-                        ((1 << (_la - 37)) &
-                            ((1 << (AutomatorPlusPlusParser.K_ETERNITY - 37)) |
+                    (((_la - 32) & ~0x1f) === 0 &&
+                        ((1 << (_la - 32)) &
+                            ((1 << (AutomatorPlusPlusParser.K_TIME - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_ACTIVE - 32)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_REALITY - 37)) |
+                                    (AutomatorPlusPlusParser.K_PASSIVE - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_IDLE - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_LIGHT - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_DARK - 32)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_DILATION - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_ON - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_OFF - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_EC - 37)) |
-                                (1 << (AutomatorPlusPlusParser.EC_NUM - 37)) |
-                                (1 << (AutomatorPlusPlusParser.CURRENCY - 37)) |
-                                (1 << (AutomatorPlusPlusParser.VARIABLE - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_NULL - 37)) |
-                                (1 << (AutomatorPlusPlusParser.ID - 37)) |
+                                    (AutomatorPlusPlusParser.K_ETERNITY - 32)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.STRING - 37)))) !==
+                                    (AutomatorPlusPlusParser.K_REALITY - 32)) |
+                                (1 <<
+                                    (AutomatorPlusPlusParser.K_DILATION - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_ON - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_OFF - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_EC - 32)) |
+                                (1 << (AutomatorPlusPlusParser.EC_NUM - 32)) |
+                                (1 << (AutomatorPlusPlusParser.CURRENCY - 32)) |
+                                (1 << (AutomatorPlusPlusParser.VARIABLE - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_NULL - 32)) |
+                                (1 << (AutomatorPlusPlusParser.ID - 32)) |
+                                (1 <<
+                                    (AutomatorPlusPlusParser.STRING - 32)))) !==
                             0)
                 ) {
                     {
-                        this.state = 205;
+                        this.state = 219;
                         this.argument_values();
                     }
                 }
@@ -1408,58 +1524,68 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 44, AutomatorPlusPlusParser.RULE_study_tree);
+        this.enterRule(_localctx, 48, AutomatorPlusPlusParser.RULE_study_tree);
         let _la: number;
         try {
-            this.enterOuterAlt(_localctx, 1);
-            {
-                this.state = 208;
-                this.study_atom();
-                this.state = 215;
-                this._errHandler.sync(this);
-                _la = this._input.LA(1);
-                while (
-                    ((_la & ~0x1f) === 0 &&
-                        ((1 << _la) &
-                            ((1 << AutomatorPlusPlusParser.T__0) |
-                                (1 << AutomatorPlusPlusParser.INT) |
-                                (1 << AutomatorPlusPlusParser.K_ANTIMATTER) |
-                                (1 << AutomatorPlusPlusParser.K_INFINITY) |
-                                (1 << AutomatorPlusPlusParser.K_TIME))) !==
-                            0) ||
-                    (((_la - 32) & ~0x1f) === 0 &&
-                        ((1 << (_la - 32)) &
-                            ((1 << (AutomatorPlusPlusParser.K_ACTIVE - 32)) |
-                                (1 <<
-                                    (AutomatorPlusPlusParser.K_PASSIVE - 32)) |
-                                (1 << (AutomatorPlusPlusParser.K_IDLE - 32)) |
-                                (1 << (AutomatorPlusPlusParser.K_LIGHT - 32)) |
-                                (1 << (AutomatorPlusPlusParser.K_DARK - 32)) |
-                                (1 <<
-                                    (AutomatorPlusPlusParser.VARIABLE -
-                                        32)))) !==
-                            0)
-                ) {
+            let _alt: number;
+            this.state = 233;
+            this._errHandler.sync(this);
+            switch (
+                this.interpreter.adaptivePredict(this._input, 23, this._ctx)
+            ) {
+                case 1:
+                    this.enterOuterAlt(_localctx, 1);
                     {
-                        {
-                            this.state = 210;
-                            this._errHandler.sync(this);
-                            _la = this._input.LA(1);
-                            if (_la === AutomatorPlusPlusParser.T__0) {
+                        this.state = 222;
+                        this.const_variable();
+                    }
+                    break;
+
+                case 2:
+                    this.enterOuterAlt(_localctx, 2);
+                    {
+                        this.state = 223;
+                        this.study_atom();
+                        this.state = 230;
+                        this._errHandler.sync(this);
+                        _alt = this.interpreter.adaptivePredict(
+                            this._input,
+                            22,
+                            this._ctx
+                        );
+                        while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
+                            if (_alt === 1) {
                                 {
-                                    this.state = 209;
-                                    this.match(AutomatorPlusPlusParser.T__0);
+                                    {
+                                        this.state = 225;
+                                        this._errHandler.sync(this);
+                                        _la = this._input.LA(1);
+                                        if (
+                                            _la === AutomatorPlusPlusParser.T__0
+                                        ) {
+                                            {
+                                                this.state = 224;
+                                                this.match(
+                                                    AutomatorPlusPlusParser.T__0
+                                                );
+                                            }
+                                        }
+
+                                        this.state = 227;
+                                        this.study_atom();
+                                    }
                                 }
                             }
-
-                            this.state = 212;
-                            this.study_atom();
+                            this.state = 232;
+                            this._errHandler.sync(this);
+                            _alt = this.interpreter.adaptivePredict(
+                                this._input,
+                                22,
+                                this._ctx
+                            );
                         }
                     }
-                    this.state = 217;
-                    this._errHandler.sync(this);
-                    _la = this._input.LA(1);
-                }
+                    break;
             }
         } catch (re) {
             if (re instanceof RecognitionException) {
@@ -1480,17 +1606,17 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 46, AutomatorPlusPlusParser.RULE_study_atom);
+        this.enterRule(_localctx, 50, AutomatorPlusPlusParser.RULE_study_atom);
         try {
-            this.state = 222;
+            this.state = 239;
             this._errHandler.sync(this);
             switch (
-                this.interpreter.adaptivePredict(this._input, 22, this._ctx)
+                this.interpreter.adaptivePredict(this._input, 24, this._ctx)
             ) {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 218;
+                        this.state = 235;
                         this.special_studies();
                     }
                     break;
@@ -1498,7 +1624,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 219;
+                        this.state = 236;
                         this.integer();
                     }
                     break;
@@ -1506,7 +1632,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 3:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 220;
+                        this.state = 237;
                         this.study_range();
                     }
                     break;
@@ -1514,7 +1640,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 4:
                     this.enterOuterAlt(_localctx, 4);
                     {
-                        this.state = 221;
+                        this.state = 238;
                         this.variable();
                     }
                     break;
@@ -1538,15 +1664,15 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 48, AutomatorPlusPlusParser.RULE_study_range);
+        this.enterRule(_localctx, 52, AutomatorPlusPlusParser.RULE_study_range);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 224;
+                this.state = 241;
                 this.integer();
-                this.state = 225;
+                this.state = 242;
                 this.match(AutomatorPlusPlusParser.T__1);
-                this.state = 226;
+                this.state = 243;
                 this.integer();
             }
         } catch (re) {
@@ -1570,31 +1696,31 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            50,
+            54,
             AutomatorPlusPlusParser.RULE_special_studies
         );
         let _la: number;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 228;
+                this.state = 245;
                 _la = this._input.LA(1);
                 if (
                     !(
-                        ((_la - 29) & ~0x1f) === 0 &&
-                        ((1 << (_la - 29)) &
+                        ((_la - 30) & ~0x1f) === 0 &&
+                        ((1 << (_la - 30)) &
                             ((1 <<
-                                (AutomatorPlusPlusParser.K_ANTIMATTER - 29)) |
+                                (AutomatorPlusPlusParser.K_ANTIMATTER - 30)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_INFINITY - 29)) |
-                                (1 << (AutomatorPlusPlusParser.K_TIME - 29)) |
-                                (1 << (AutomatorPlusPlusParser.K_ACTIVE - 29)) |
+                                    (AutomatorPlusPlusParser.K_INFINITY - 30)) |
+                                (1 << (AutomatorPlusPlusParser.K_TIME - 30)) |
+                                (1 << (AutomatorPlusPlusParser.K_ACTIVE - 30)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_PASSIVE - 29)) |
-                                (1 << (AutomatorPlusPlusParser.K_IDLE - 29)) |
-                                (1 << (AutomatorPlusPlusParser.K_LIGHT - 29)) |
+                                    (AutomatorPlusPlusParser.K_PASSIVE - 30)) |
+                                (1 << (AutomatorPlusPlusParser.K_IDLE - 30)) |
+                                (1 << (AutomatorPlusPlusParser.K_LIGHT - 30)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_DARK - 29)))) !==
+                                    (AutomatorPlusPlusParser.K_DARK - 30)))) !==
                             0
                     )
                 ) {
@@ -1624,15 +1750,15 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public pause(): PauseContext {
         let _localctx: PauseContext = new PauseContext(this._ctx, this.state);
-        this.enterRule(_localctx, 52, AutomatorPlusPlusParser.RULE_pause);
+        this.enterRule(_localctx, 56, AutomatorPlusPlusParser.RULE_pause);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 230;
+                this.state = 247;
                 this.match(AutomatorPlusPlusParser.K_PAUSE);
-                this.state = 231;
+                this.state = 248;
                 this.time();
-                this.state = 232;
+                this.state = 249;
                 this.endline();
             }
         } catch (re) {
@@ -1651,15 +1777,15 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public wait(): WaitContext {
         let _localctx: WaitContext = new WaitContext(this._ctx, this.state);
-        this.enterRule(_localctx, 54, AutomatorPlusPlusParser.RULE_wait);
+        this.enterRule(_localctx, 58, AutomatorPlusPlusParser.RULE_wait);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 234;
+                this.state = 251;
                 this.match(AutomatorPlusPlusParser.K_WAIT);
-                this.state = 235;
+                this.state = 252;
                 this.condition();
-                this.state = 236;
+                this.state = 253;
                 this.endline();
             }
         } catch (re) {
@@ -1681,15 +1807,15 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 56, AutomatorPlusPlusParser.RULE_studies);
+        this.enterRule(_localctx, 60, AutomatorPlusPlusParser.RULE_studies);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 238;
+                this.state = 255;
                 this.match(AutomatorPlusPlusParser.K_STUDIES);
-                this.state = 239;
+                this.state = 256;
                 this.studies_args();
-                this.state = 240;
+                this.state = 257;
                 this.endline();
             }
         } catch (re) {
@@ -1711,13 +1837,13 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 58, AutomatorPlusPlusParser.RULE_prestige);
+        this.enterRule(_localctx, 62, AutomatorPlusPlusParser.RULE_prestige);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 242;
+                this.state = 259;
                 this.prestige_args();
-                this.state = 243;
+                this.state = 260;
                 this.endline();
             }
         } catch (re) {
@@ -1736,26 +1862,26 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public unlock(): UnlockContext {
         let _localctx: UnlockContext = new UnlockContext(this._ctx, this.state);
-        this.enterRule(_localctx, 60, AutomatorPlusPlusParser.RULE_unlock);
+        this.enterRule(_localctx, 64, AutomatorPlusPlusParser.RULE_unlock);
         let _la: number;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 245;
+                this.state = 262;
                 this.match(AutomatorPlusPlusParser.K_UNLOCK);
-                this.state = 247;
+                this.state = 264;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 if (_la === AutomatorPlusPlusParser.K_NOWAIT) {
                     {
-                        this.state = 246;
+                        this.state = 263;
                         this.match(AutomatorPlusPlusParser.K_NOWAIT);
                     }
                 }
 
-                this.state = 249;
+                this.state = 266;
                 this.feature();
-                this.state = 250;
+                this.state = 267;
                 this.endline();
             }
         } catch (re) {
@@ -1777,15 +1903,15 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 62, AutomatorPlusPlusParser.RULE_start_c);
+        this.enterRule(_localctx, 66, AutomatorPlusPlusParser.RULE_start_c);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 252;
+                this.state = 269;
                 this.match(AutomatorPlusPlusParser.K_START);
-                this.state = 253;
+                this.state = 270;
                 this.feature();
-                this.state = 254;
+                this.state = 271;
                 this.endline();
             }
         } catch (re) {
@@ -1804,17 +1930,17 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public auto(): AutoContext {
         let _localctx: AutoContext = new AutoContext(this._ctx, this.state);
-        this.enterRule(_localctx, 64, AutomatorPlusPlusParser.RULE_auto);
+        this.enterRule(_localctx, 68, AutomatorPlusPlusParser.RULE_auto);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 256;
+                this.state = 273;
                 this.match(AutomatorPlusPlusParser.K_AUTO);
-                this.state = 257;
+                this.state = 274;
                 this.prestige_type();
-                this.state = 258;
+                this.state = 275;
                 this.auto_setting();
-                this.state = 259;
+                this.state = 276;
                 this.endline();
             }
         } catch (re) {
@@ -1836,15 +1962,15 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 66, AutomatorPlusPlusParser.RULE_black_hole);
+        this.enterRule(_localctx, 70, AutomatorPlusPlusParser.RULE_black_hole);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 261;
+                this.state = 278;
                 this.match(AutomatorPlusPlusParser.K_BLACK_HOLE);
-                this.state = 262;
+                this.state = 279;
                 this.on_off();
-                this.state = 263;
+                this.state = 280;
                 this.endline();
             }
         } catch (re) {
@@ -1863,15 +1989,15 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public notify(): NotifyContext {
         let _localctx: NotifyContext = new NotifyContext(this._ctx, this.state);
-        this.enterRule(_localctx, 68, AutomatorPlusPlusParser.RULE_notify);
+        this.enterRule(_localctx, 72, AutomatorPlusPlusParser.RULE_notify);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 265;
+                this.state = 282;
                 this.match(AutomatorPlusPlusParser.K_NOTIFY);
-                this.state = 266;
+                this.state = 283;
                 this.string();
-                this.state = 267;
+                this.state = 284;
                 this.endline();
             }
         } catch (re) {
@@ -1890,15 +2016,15 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public if_c(): If_cContext {
         let _localctx: If_cContext = new If_cContext(this._ctx, this.state);
-        this.enterRule(_localctx, 70, AutomatorPlusPlusParser.RULE_if_c);
+        this.enterRule(_localctx, 74, AutomatorPlusPlusParser.RULE_if_c);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 269;
+                this.state = 286;
                 this.match(AutomatorPlusPlusParser.K_IF);
-                this.state = 270;
+                this.state = 287;
                 this.comparison();
-                this.state = 271;
+                this.state = 288;
                 this.block();
             }
         } catch (re) {
@@ -1920,15 +2046,15 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 72, AutomatorPlusPlusParser.RULE_while_c);
+        this.enterRule(_localctx, 76, AutomatorPlusPlusParser.RULE_while_c);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 273;
+                this.state = 290;
                 this.match(AutomatorPlusPlusParser.K_WHILE);
-                this.state = 274;
+                this.state = 291;
                 this.comparison();
-                this.state = 275;
+                this.state = 292;
                 this.block();
             }
         } catch (re) {
@@ -1947,32 +2073,32 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public until(): UntilContext {
         let _localctx: UntilContext = new UntilContext(this._ctx, this.state);
-        this.enterRule(_localctx, 74, AutomatorPlusPlusParser.RULE_until);
+        this.enterRule(_localctx, 78, AutomatorPlusPlusParser.RULE_until);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 277;
+                this.state = 294;
                 this.match(AutomatorPlusPlusParser.K_UNTIL);
-                this.state = 280;
+                this.state = 297;
                 this._errHandler.sync(this);
                 switch (
-                    this.interpreter.adaptivePredict(this._input, 24, this._ctx)
+                    this.interpreter.adaptivePredict(this._input, 26, this._ctx)
                 ) {
                     case 1:
                         {
-                            this.state = 278;
+                            this.state = 295;
                             this.comparison();
                         }
                         break;
 
                     case 2:
                         {
-                            this.state = 279;
+                            this.state = 296;
                             this.prestige_type();
                         }
                         break;
                 }
-                this.state = 282;
+                this.state = 299;
                 this.block();
             }
         } catch (re) {
@@ -1994,26 +2120,26 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 76, AutomatorPlusPlusParser.RULE_function_c);
+        this.enterRule(_localctx, 80, AutomatorPlusPlusParser.RULE_function_c);
         let _la: number;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 284;
+                this.state = 301;
                 this.match(AutomatorPlusPlusParser.K_FUNCTION);
-                this.state = 285;
+                this.state = 302;
                 this.match(AutomatorPlusPlusParser.ID);
-                this.state = 287;
+                this.state = 304;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 if (_la === AutomatorPlusPlusParser.VARIABLE) {
                     {
-                        this.state = 286;
+                        this.state = 303;
                         this.arguments();
                     }
                 }
 
-                this.state = 289;
+                this.state = 306;
                 this.block();
             }
         } catch (re) {
@@ -2032,16 +2158,16 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public call(): CallContext {
         let _localctx: CallContext = new CallContext(this._ctx, this.state);
-        this.enterRule(_localctx, 78, AutomatorPlusPlusParser.RULE_call);
+        this.enterRule(_localctx, 82, AutomatorPlusPlusParser.RULE_call);
         let _la: number;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 291;
+                this.state = 308;
                 this.match(AutomatorPlusPlusParser.K_CALL);
-                this.state = 292;
+                this.state = 309;
                 this.match(AutomatorPlusPlusParser.ID);
-                this.state = 294;
+                this.state = 311;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 if (
@@ -2049,34 +2175,43 @@ export class AutomatorPlusPlusParser extends Parser {
                         ((1 << _la) &
                             ((1 << AutomatorPlusPlusParser.INT) |
                                 (1 << AutomatorPlusPlusParser.FLOAT) |
+                                (1 << AutomatorPlusPlusParser.K_ANTIMATTER) |
                                 (1 << AutomatorPlusPlusParser.K_INFINITY))) !==
                             0) ||
-                    (((_la - 37) & ~0x1f) === 0 &&
-                        ((1 << (_la - 37)) &
-                            ((1 << (AutomatorPlusPlusParser.K_ETERNITY - 37)) |
+                    (((_la - 32) & ~0x1f) === 0 &&
+                        ((1 << (_la - 32)) &
+                            ((1 << (AutomatorPlusPlusParser.K_TIME - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_ACTIVE - 32)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_REALITY - 37)) |
+                                    (AutomatorPlusPlusParser.K_PASSIVE - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_IDLE - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_LIGHT - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_DARK - 32)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.K_DILATION - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_ON - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_OFF - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_EC - 37)) |
-                                (1 << (AutomatorPlusPlusParser.EC_NUM - 37)) |
-                                (1 << (AutomatorPlusPlusParser.CURRENCY - 37)) |
-                                (1 << (AutomatorPlusPlusParser.VARIABLE - 37)) |
-                                (1 << (AutomatorPlusPlusParser.K_NULL - 37)) |
-                                (1 << (AutomatorPlusPlusParser.ID - 37)) |
+                                    (AutomatorPlusPlusParser.K_ETERNITY - 32)) |
                                 (1 <<
-                                    (AutomatorPlusPlusParser.STRING - 37)))) !==
+                                    (AutomatorPlusPlusParser.K_REALITY - 32)) |
+                                (1 <<
+                                    (AutomatorPlusPlusParser.K_DILATION - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_ON - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_OFF - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_EC - 32)) |
+                                (1 << (AutomatorPlusPlusParser.EC_NUM - 32)) |
+                                (1 << (AutomatorPlusPlusParser.CURRENCY - 32)) |
+                                (1 << (AutomatorPlusPlusParser.VARIABLE - 32)) |
+                                (1 << (AutomatorPlusPlusParser.K_NULL - 32)) |
+                                (1 << (AutomatorPlusPlusParser.ID - 32)) |
+                                (1 <<
+                                    (AutomatorPlusPlusParser.STRING - 32)))) !==
                             0)
                 ) {
                     {
-                        this.state = 293;
+                        this.state = 310;
                         this.argument_values();
                     }
                 }
 
-                this.state = 296;
+                this.state = 313;
                 this.endline();
             }
         } catch (re) {
@@ -2095,15 +2230,65 @@ export class AutomatorPlusPlusParser extends Parser {
     // @RuleVersion(0)
     public raw(): RawContext {
         let _localctx: RawContext = new RawContext(this._ctx, this.state);
-        this.enterRule(_localctx, 80, AutomatorPlusPlusParser.RULE_raw);
+        this.enterRule(_localctx, 84, AutomatorPlusPlusParser.RULE_raw);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
-                this.state = 298;
+                this.state = 315;
                 this.match(AutomatorPlusPlusParser.K_RAW);
-                this.state = 299;
+                this.state = 316;
                 this.string();
-                this.state = 300;
+                this.state = 317;
+                this.endline();
+            }
+        } catch (re) {
+            if (re instanceof RecognitionException) {
+                _localctx.exception = re;
+                this._errHandler.reportError(this, re);
+                this._errHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        } finally {
+            this.exitRule();
+        }
+        return _localctx;
+    }
+    // @RuleVersion(0)
+    public define(): DefineContext {
+        let _localctx: DefineContext = new DefineContext(this._ctx, this.state);
+        this.enterRule(_localctx, 86, AutomatorPlusPlusParser.RULE_define);
+        let _la: number;
+        try {
+            this.enterOuterAlt(_localctx, 1);
+            {
+                this.state = 319;
+                this.match(AutomatorPlusPlusParser.K_DEFINE);
+                this.state = 321;
+                this._errHandler.sync(this);
+                _la = this._input.LA(1);
+                if (_la === AutomatorPlusPlusParser.K_CONSTANT) {
+                    {
+                        this.state = 320;
+                        this.match(AutomatorPlusPlusParser.K_CONSTANT);
+                    }
+                }
+
+                this.state = 324;
+                this._errHandler.sync(this);
+                _la = this._input.LA(1);
+                if (_la === AutomatorPlusPlusParser.K_GLOBAL) {
+                    {
+                        this.state = 323;
+                        this.match(AutomatorPlusPlusParser.K_GLOBAL);
+                    }
+                }
+
+                this.state = 326;
+                this.variable_def();
+                this.state = 327;
+                this.variable_type();
+                this.state = 328;
                 this.endline();
             }
         } catch (re) {
@@ -2127,18 +2312,18 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            82,
+            88,
             AutomatorPlusPlusParser.RULE_studies_args
         );
         let _la: number;
         try {
-            this.state = 326;
+            this.state = 354;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.K_RESPEC:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 302;
+                        this.state = 330;
                         this.match(AutomatorPlusPlusParser.K_RESPEC);
                     }
                     break;
@@ -2147,38 +2332,38 @@ export class AutomatorPlusPlusParser extends Parser {
                 case AutomatorPlusPlusParser.K_NOWAIT:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 304;
+                        this.state = 332;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
                         if (_la === AutomatorPlusPlusParser.K_NOWAIT) {
                             {
-                                this.state = 303;
+                                this.state = 331;
                                 this.match(AutomatorPlusPlusParser.K_NOWAIT);
                             }
                         }
 
-                        this.state = 324;
+                        this.state = 352;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case AutomatorPlusPlusParser.K_LOAD:
                                 {
-                                    this.state = 306;
+                                    this.state = 334;
                                     this.match(AutomatorPlusPlusParser.K_LOAD);
-                                    this.state = 317;
+                                    this.state = 345;
                                     this._errHandler.sync(this);
                                     switch (this._input.LA(1)) {
                                         case AutomatorPlusPlusParser.K_ID:
                                             {
-                                                this.state = 307;
+                                                this.state = 335;
                                                 this.match(
                                                     AutomatorPlusPlusParser.K_ID
                                                 );
-                                                this.state = 310;
+                                                this.state = 338;
                                                 this._errHandler.sync(this);
                                                 switch (this._input.LA(1)) {
                                                     case AutomatorPlusPlusParser.INT:
                                                         {
-                                                            this.state = 308;
+                                                            this.state = 336;
                                                             this.match(
                                                                 AutomatorPlusPlusParser.INT
                                                             );
@@ -2186,7 +2371,7 @@ export class AutomatorPlusPlusParser extends Parser {
                                                         break;
                                                     case AutomatorPlusPlusParser.VARIABLE:
                                                         {
-                                                            this.state = 309;
+                                                            this.state = 337;
                                                             this.variable();
                                                         }
                                                         break;
@@ -2199,16 +2384,16 @@ export class AutomatorPlusPlusParser extends Parser {
                                             break;
                                         case AutomatorPlusPlusParser.K_NAME:
                                             {
-                                                this.state = 312;
+                                                this.state = 340;
                                                 this.match(
                                                     AutomatorPlusPlusParser.K_NAME
                                                 );
-                                                this.state = 315;
+                                                this.state = 343;
                                                 this._errHandler.sync(this);
                                                 switch (this._input.LA(1)) {
                                                     case AutomatorPlusPlusParser.ID:
                                                         {
-                                                            this.state = 313;
+                                                            this.state = 341;
                                                             this.match(
                                                                 AutomatorPlusPlusParser.ID
                                                             );
@@ -2216,7 +2401,7 @@ export class AutomatorPlusPlusParser extends Parser {
                                                         break;
                                                     case AutomatorPlusPlusParser.VARIABLE:
                                                         {
-                                                            this.state = 314;
+                                                            this.state = 342;
                                                             this.variable();
                                                         }
                                                         break;
@@ -2236,11 +2421,11 @@ export class AutomatorPlusPlusParser extends Parser {
                                 break;
                             case AutomatorPlusPlusParser.K_PURCHASE:
                                 {
-                                    this.state = 319;
+                                    this.state = 347;
                                     this.match(
                                         AutomatorPlusPlusParser.K_PURCHASE
                                     );
-                                    this.state = 322;
+                                    this.state = 350;
                                     this._errHandler.sync(this);
                                     switch (this._input.LA(1)) {
                                         case AutomatorPlusPlusParser.INT:
@@ -2254,13 +2439,13 @@ export class AutomatorPlusPlusParser extends Parser {
                                         case AutomatorPlusPlusParser.K_DARK:
                                         case AutomatorPlusPlusParser.VARIABLE:
                                             {
-                                                this.state = 320;
+                                                this.state = 348;
                                                 this.study_tree();
                                             }
                                             break;
                                         case AutomatorPlusPlusParser.ID:
                                             {
-                                                this.state = 321;
+                                                this.state = 349;
                                                 this.match(
                                                     AutomatorPlusPlusParser.ID
                                                 );
@@ -2302,25 +2487,25 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            84,
+            90,
             AutomatorPlusPlusParser.RULE_prestige_args
         );
         let _la: number;
         try {
-            this.state = 339;
+            this.state = 367;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.K_INFINITY:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 328;
+                        this.state = 356;
                         this.match(AutomatorPlusPlusParser.K_INFINITY);
-                        this.state = 330;
+                        this.state = 358;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
                         if (_la === AutomatorPlusPlusParser.K_NOWAIT) {
                             {
-                                this.state = 329;
+                                this.state = 357;
                                 this.match(AutomatorPlusPlusParser.K_NOWAIT);
                             }
                         }
@@ -2330,7 +2515,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case AutomatorPlusPlusParser.K_REALITY:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 332;
+                        this.state = 360;
                         _la = this._input.LA(1);
                         if (
                             !(
@@ -2347,22 +2532,22 @@ export class AutomatorPlusPlusParser extends Parser {
                             this._errHandler.reportMatch(this);
                             this.consume();
                         }
-                        this.state = 334;
+                        this.state = 362;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
                         if (_la === AutomatorPlusPlusParser.K_NOWAIT) {
                             {
-                                this.state = 333;
+                                this.state = 361;
                                 this.match(AutomatorPlusPlusParser.K_NOWAIT);
                             }
                         }
 
-                        this.state = 337;
+                        this.state = 365;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
                         if (_la === AutomatorPlusPlusParser.K_RESPEC) {
                             {
-                                this.state = 336;
+                                this.state = 364;
                                 this.match(AutomatorPlusPlusParser.K_RESPEC);
                             }
                         }
@@ -2392,19 +2577,19 @@ export class AutomatorPlusPlusParser extends Parser {
         );
         this.enterRule(
             _localctx,
-            86,
+            92,
             AutomatorPlusPlusParser.RULE_auto_setting
         );
         try {
-            this.state = 348;
+            this.state = 376;
             this._errHandler.sync(this);
             switch (
-                this.interpreter.adaptivePredict(this._input, 39, this._ctx)
+                this.interpreter.adaptivePredict(this._input, 43, this._ctx)
             ) {
                 case 1:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 341;
+                        this.state = 369;
                         this.on_off();
                     }
                     break;
@@ -2412,7 +2597,7 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 342;
+                        this.state = 370;
                         this.time();
                     }
                     break;
@@ -2420,14 +2605,14 @@ export class AutomatorPlusPlusParser extends Parser {
                 case 3:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 343;
+                        this.state = 371;
                         this.number();
-                        this.state = 346;
+                        this.state = 374;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case AutomatorPlusPlusParser.K_XHIGHEST:
                                 {
-                                    this.state = 344;
+                                    this.state = 372;
                                     this.match(
                                         AutomatorPlusPlusParser.K_XHIGHEST
                                     );
@@ -2438,7 +2623,7 @@ export class AutomatorPlusPlusParser extends Parser {
                             case AutomatorPlusPlusParser.CURRENCY:
                             case AutomatorPlusPlusParser.VARIABLE:
                                 {
-                                    this.state = 345;
+                                    this.state = 373;
                                     this.currency();
                                 }
                                 break;
@@ -2467,29 +2652,29 @@ export class AutomatorPlusPlusParser extends Parser {
             this._ctx,
             this.state
         );
-        this.enterRule(_localctx, 88, AutomatorPlusPlusParser.RULE_command_c);
+        this.enterRule(_localctx, 94, AutomatorPlusPlusParser.RULE_command_c);
         try {
-            this.state = 365;
+            this.state = 394;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
                 case AutomatorPlusPlusParser.K_WAIT:
                     this.enterOuterAlt(_localctx, 1);
                     {
-                        this.state = 350;
+                        this.state = 378;
                         this.wait();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_PAUSE:
                     this.enterOuterAlt(_localctx, 2);
                     {
-                        this.state = 351;
+                        this.state = 379;
                         this.pause();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_STUDIES:
                     this.enterOuterAlt(_localctx, 3);
                     {
-                        this.state = 352;
+                        this.state = 380;
                         this.studies();
                     }
                     break;
@@ -2498,85 +2683,92 @@ export class AutomatorPlusPlusParser extends Parser {
                 case AutomatorPlusPlusParser.K_REALITY:
                     this.enterOuterAlt(_localctx, 4);
                     {
-                        this.state = 353;
+                        this.state = 381;
                         this.prestige();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_UNLOCK:
                     this.enterOuterAlt(_localctx, 5);
                     {
-                        this.state = 354;
+                        this.state = 382;
                         this.unlock();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_START:
                     this.enterOuterAlt(_localctx, 6);
                     {
-                        this.state = 355;
+                        this.state = 383;
                         this.start_c();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_AUTO:
                     this.enterOuterAlt(_localctx, 7);
                     {
-                        this.state = 356;
+                        this.state = 384;
                         this.auto();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_BLACK_HOLE:
                     this.enterOuterAlt(_localctx, 8);
                     {
-                        this.state = 357;
+                        this.state = 385;
                         this.black_hole();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_NOTIFY:
                     this.enterOuterAlt(_localctx, 9);
                     {
-                        this.state = 358;
+                        this.state = 386;
                         this.notify();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_IF:
                     this.enterOuterAlt(_localctx, 10);
                     {
-                        this.state = 359;
+                        this.state = 387;
                         this.if_c();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_WHILE:
                     this.enterOuterAlt(_localctx, 11);
                     {
-                        this.state = 360;
+                        this.state = 388;
                         this.while_c();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_UNTIL:
                     this.enterOuterAlt(_localctx, 12);
                     {
-                        this.state = 361;
+                        this.state = 389;
                         this.until();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_FUNCTION:
                     this.enterOuterAlt(_localctx, 13);
                     {
-                        this.state = 362;
+                        this.state = 390;
                         this.function_c();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_CALL:
                     this.enterOuterAlt(_localctx, 14);
                     {
-                        this.state = 363;
+                        this.state = 391;
                         this.call();
                     }
                     break;
                 case AutomatorPlusPlusParser.K_RAW:
                     this.enterOuterAlt(_localctx, 15);
                     {
-                        this.state = 364;
+                        this.state = 392;
                         this.raw();
+                    }
+                    break;
+                case AutomatorPlusPlusParser.K_DEFINE:
+                    this.enterOuterAlt(_localctx, 16);
+                    {
+                        this.state = 393;
+                        this.define();
                     }
                     break;
                 default:
@@ -2597,7 +2789,7 @@ export class AutomatorPlusPlusParser extends Parser {
     }
 
     public static readonly _serializedATN: string =
-        "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x039\u0172\x04\x02" +
+        "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03<\u018F\x04\x02" +
         "\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
         "\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
         "\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -2605,171 +2797,187 @@ export class AutomatorPlusPlusParser extends Parser {
         "\x18\t\x18\x04\x19\t\x19\x04\x1A\t\x1A\x04\x1B\t\x1B\x04\x1C\t\x1C\x04" +
         '\x1D\t\x1D\x04\x1E\t\x1E\x04\x1F\t\x1F\x04 \t \x04!\t!\x04"\t"\x04#' +
         "\t#\x04$\t$\x04%\t%\x04&\t&\x04'\t'\x04(\t(\x04)\t)\x04*\t*\x04+\t+" +
-        "\x04,\t,\x04-\t-\x04.\t.\x03\x02\x06\x02^\n\x02\r\x02\x0E\x02_\x03\x02" +
-        "\x03\x02\x03\x03\x03\x03\x03\x03\x05\x03g\n\x03\x03\x04\x03\x04\x03\x05" +
-        "\x03\x05\x05\x05m\n\x05\x03\x05\x03\x05\x03\x05\x05\x05r\n\x05\x03\x06" +
-        "\x03\x06\x03\x06\x03\x06\x03\x06\x05\x06y\n\x06\x03\x07\x03\x07\x03\x07" +
-        "\x03\x07\x05\x07\x7F\n\x07\x03\b\x03\b\x05\b\x83\n\b\x03\t\x03\t\x03\t" +
-        "\x03\t\x03\t\x05\t\x8A\n\t\x05\t\x8C\n\t\x03\n\x03\n\x03\n\x05\n\x91\n" +
-        "\n\x03\v\x03\v\x05\v\x95\n\v\x03\f\x03\f\x03\f\x05\f\x9A\n\f\x03\r\x03" +
-        "\r\x03\r\x03\r\x05\r\xA0\n\r\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x10\x03" +
-        "\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x05\x10\xAF" +
-        "\n\x10\x03\x11\x03\x11\x03\x11\x05\x11\xB4\n\x11\x03\x12\x03\x12\x05\x12" +
-        "\xB8\n\x12\x03\x13\x03\x13\x03\x14\x03\x14\x05\x14\xBE\n\x14\x03\x15\x03" +
-        "\x15\x03\x15\x07\x15\xC3\n\x15\f\x15\x0E\x15\xC6\v\x15\x03\x15\x03\x15" +
-        "\x03\x15\x03\x16\x03\x16\x05\x16\xCD\n\x16\x03\x17\x03\x17\x05\x17\xD1" +
-        "\n\x17\x03\x18\x03\x18\x05\x18\xD5\n\x18\x03\x18\x07\x18\xD8\n\x18\f\x18" +
-        "\x0E\x18\xDB\v\x18\x03\x19\x03\x19\x03\x19\x03\x19\x05\x19\xE1\n\x19\x03" +
-        "\x1A\x03\x1A\x03\x1A\x03\x1A\x03\x1B\x03\x1B\x03\x1C\x03\x1C\x03\x1C\x03" +
-        "\x1C\x03\x1D\x03\x1D\x03\x1D\x03\x1D\x03\x1E\x03\x1E\x03\x1E\x03\x1E\x03" +
-        "\x1F\x03\x1F\x03\x1F\x03 \x03 \x05 \xFA\n \x03 \x03 \x03 \x03!\x03!\x03" +
-        '!\x03!\x03"\x03"\x03"\x03"\x03"\x03#\x03#\x03#\x03#\x03$\x03$\x03' +
-        "$\x03$\x03%\x03%\x03%\x03%\x03&\x03&\x03&\x03&\x03'\x03'\x03'\x05'" +
-        "\u011B\n'\x03'\x03'\x03(\x03(\x03(\x05(\u0122\n(\x03(\x03(\x03)\x03" +
-        ")\x03)\x05)\u0129\n)\x03)\x03)\x03*\x03*\x03*\x03*\x03+\x03+\x05+\u0133" +
-        "\n+\x03+\x03+\x03+\x03+\x05+\u0139\n+\x03+\x03+\x03+\x05+\u013E\n+\x05" +
-        "+\u0140\n+\x03+\x03+\x03+\x05+\u0145\n+\x05+\u0147\n+\x05+\u0149\n+\x03" +
-        ",\x03,\x05,\u014D\n,\x03,\x03,\x05,\u0151\n,\x03,\x05,\u0154\n,\x05,\u0156" +
-        "\n,\x03-\x03-\x03-\x03-\x03-\x05-\u015D\n-\x05-\u015F\n-\x03.\x03.\x03" +
-        ".\x03.\x03.\x03.\x03.\x03.\x03.\x03.\x03.\x03.\x03.\x03.\x03.\x05.\u0170" +
-        "\n.\x03.\x03\xC4\x02\x02/\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E" +
-        "\x02\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 " +
-        '\x02"\x02$\x02&\x02(\x02*\x02,\x02.\x020\x022\x024\x026\x028\x02:\x02' +
-        "<\x02>\x02@\x02B\x02D\x02F\x02H\x02J\x02L\x02N\x02P\x02R\x02T\x02V\x02" +
-        "X\x02Z\x02\x02\x04\x03\x02\x1F&\x03\x02'(\x02\u018C\x02]\x03\x02\x02" +
-        "\x02\x04f\x03\x02\x02\x02\x06h\x03\x02\x02\x02\bl\x03\x02\x02\x02\nx\x03" +
-        "\x02\x02\x02\f~\x03\x02\x02\x02\x0E\x82\x03\x02\x02\x02\x10\x8B\x03\x02" +
-        "\x02\x02\x12\x90\x03\x02\x02\x02\x14\x94\x03\x02\x02\x02\x16\x99\x03\x02" +
-        "\x02\x02\x18\x9F\x03\x02\x02\x02\x1A\xA1\x03\x02\x02\x02\x1C\xA3\x03\x02" +
-        '\x02\x02\x1E\xAE\x03\x02\x02\x02 \xB3\x03\x02\x02\x02"\xB7\x03\x02\x02' +
-        "\x02$\xB9\x03\x02\x02\x02&\xBD\x03\x02\x02\x02(\xBF\x03\x02\x02\x02*\xCA" +
-        "\x03\x02\x02\x02,\xCE\x03\x02\x02\x02.\xD2\x03\x02\x02\x020\xE0\x03\x02" +
-        "\x02\x022\xE2\x03\x02\x02\x024\xE6\x03\x02\x02\x026\xE8\x03\x02\x02\x02" +
-        "8\xEC\x03\x02\x02\x02:\xF0\x03\x02\x02\x02<\xF4\x03\x02\x02\x02>\xF7\x03" +
-        "\x02\x02\x02@\xFE\x03\x02\x02\x02B\u0102\x03\x02\x02\x02D\u0107\x03\x02" +
-        "\x02\x02F\u010B\x03\x02\x02\x02H\u010F\x03\x02\x02\x02J\u0113\x03\x02" +
-        "\x02\x02L\u0117\x03\x02\x02\x02N\u011E\x03\x02\x02\x02P\u0125\x03\x02" +
-        "\x02\x02R\u012C\x03\x02\x02\x02T\u0148\x03\x02\x02\x02V\u0155\x03\x02" +
-        "\x02\x02X\u015E\x03\x02\x02\x02Z\u016F\x03\x02\x02\x02\\^\x05\x04\x03" +
-        "\x02]\\\x03\x02\x02\x02^_\x03\x02\x02\x02_]\x03\x02\x02\x02_`\x03\x02" +
-        "\x02\x02`a\x03\x02\x02\x02ab\x07\x02\x02\x03b\x03\x03\x02\x02\x02cg\x05" +
-        "Z.\x02dg\x077\x02\x02eg\x05\x06\x04\x02fc\x03\x02\x02\x02fd\x03\x02\x02" +
-        "\x02fe\x03\x02\x02\x02g\x05\x03\x02\x02\x02hi\x07\x06\x02\x02i\x07\x03" +
-        "\x02\x02\x02jm\x05\n\x06\x02km\x05\x12\n\x02lj\x03\x02\x02\x02lk\x03\x02" +
-        "\x02\x02mn\x03\x02\x02\x02nq\x07\n\x02\x02or\x05\n\x06\x02pr\x05\x12\n" +
-        "\x02qo\x03\x02\x02\x02qp\x03\x02\x02\x02r\t\x03\x02\x02\x02sy\x070\x02" +
-        "\x02ty\x05\x1A\x0E\x02uv\x05\f\x07\x02vw\x07.\x02\x02wy\x03\x02\x02\x02" +
-        "xs\x03\x02\x02\x02xt\x03\x02\x02\x02xu\x03\x02\x02\x02y\v\x03\x02\x02" +
-        "\x02z\x7F\x07/\x02\x02{|\x07-\x02\x02|\x7F\x05\x14\v\x02}\x7F\x05\x1A" +
-        "\x0E\x02~z\x03\x02\x02\x02~{\x03\x02\x02\x02~}\x03\x02\x02\x02\x7F\r\x03" +
-        "\x02\x02\x02\x80\x83\x05\b\x05\x02\x81\x83\x05\x18\r\x02\x82\x80\x03\x02" +
-        "\x02\x02\x82\x81\x03\x02\x02\x02\x83\x0F\x03\x02\x02\x02\x84\x85\x05\x12" +
-        "\n\x02\x85\x86\x07\x07\x02\x02\x86\x8C\x03\x02\x02\x02\x87\x89\x05\x1A" +
-        "\x0E\x02\x88\x8A\x07\x07\x02\x02\x89\x88\x03\x02\x02\x02\x89\x8A\x03\x02" +
-        "\x02\x02\x8A\x8C\x03\x02\x02\x02\x8B\x84\x03\x02\x02\x02\x8B\x87\x03\x02" +
-        "\x02\x02\x8C\x11\x03\x02\x02\x02\x8D\x91\x07\b\x02\x02\x8E\x91\x07\t\x02" +
-        "\x02\x8F\x91\x05\x1A\x0E\x02\x90\x8D\x03\x02\x02\x02\x90\x8E\x03\x02\x02" +
-        "\x02\x90\x8F\x03\x02\x02\x02\x91\x13\x03\x02\x02\x02\x92\x95\x07\b\x02" +
-        "\x02\x93\x95\x05\x1A\x0E\x02\x94\x92\x03\x02\x02\x02\x94\x93\x03\x02\x02" +
-        "\x02\x95\x15\x03\x02\x02\x02\x96\x9A\x07)\x02\x02\x97\x9A\x05\f\x07\x02" +
-        "\x98\x9A\x05\x1A\x0E\x02\x99\x96\x03\x02\x02\x02\x99\x97\x03\x02\x02\x02" +
-        "\x99\x98\x03\x02\x02\x02\x9A\x17\x03\x02\x02\x02\x9B\xA0\x07 \x02\x02" +
-        "\x9C\xA0\x07'\x02\x02\x9D\xA0\x07(\x02\x02\x9E\xA0\x05\x1A\x0E\x02\x9F" +
-        "\x9B\x03\x02\x02\x02\x9F\x9C\x03\x02\x02\x02\x9F\x9D\x03\x02\x02\x02\x9F" +
-        "\x9E\x03\x02\x02\x02\xA0\x19\x03\x02\x02\x02\xA1\xA2\x071\x02\x02\xA2" +
-        "\x1B\x03\x02\x02\x02\xA3\xA4\x071\x02\x02\xA4\x1D\x03\x02\x02\x02\xA5" +
-        "\xAF\x05\n\x06\x02\xA6\xAF\x05\x10\t\x02\xA7\xAF\x05\x12\n\x02\xA8\xAF" +
-        "\x05\x16\f\x02\xA9\xAF\x05\x18\r\x02\xAA\xAF\x05 \x11\x02\xAB\xAF\x05" +
-        "$\x13\x02\xAC\xAF\x073\x02\x02\xAD\xAF\x072\x02\x02\xAE\xA5\x03\x02\x02" +
-        "\x02\xAE\xA6\x03\x02\x02\x02\xAE\xA7\x03\x02\x02\x02\xAE\xA8\x03\x02\x02" +
-        "\x02\xAE\xA9\x03\x02\x02\x02\xAE\xAA\x03\x02\x02\x02\xAE\xAB\x03\x02\x02" +
-        "\x02\xAE\xAC\x03\x02\x02\x02\xAE\xAD\x03\x02\x02\x02\xAF\x1F\x03\x02\x02" +
-        "\x02\xB0\xB4\x07*\x02\x02\xB1\xB4\x07+\x02\x02\xB2\xB4\x05\x1A\x0E\x02" +
-        "\xB3\xB0\x03\x02\x02\x02\xB3\xB1\x03\x02\x02\x02\xB3\xB2\x03\x02\x02\x02" +
-        "\xB4!\x03\x02\x02\x02\xB5\xB8\x05\x1A\x0E\x02\xB6\xB8\x074\x02\x02\xB7" +
-        "\xB5\x03\x02\x02\x02\xB7\xB6\x03\x02\x02\x02\xB8#\x03\x02\x02\x02\xB9" +
-        '\xBA\x05"\x12\x02\xBA%\x03\x02\x02\x02\xBB\xBE\x05\x06\x04\x02\xBC\xBE' +
-        "\x077\x02\x02\xBD\xBB\x03\x02\x02\x02\xBD\xBC\x03\x02\x02\x02\xBE'\x03" +
-        "\x02\x02\x02\xBF\xC0\x075\x02\x02\xC0\xC4\x05&\x14\x02\xC1\xC3\x05\x04" +
-        "\x03\x02\xC2\xC1\x03\x02\x02\x02\xC3\xC6\x03\x02\x02\x02\xC4\xC5\x03\x02" +
-        "\x02\x02\xC4\xC2\x03\x02\x02\x02\xC5\xC7\x03\x02\x02\x02\xC6\xC4\x03\x02" +
-        "\x02\x02\xC7\xC8\x076\x02\x02\xC8\xC9\x05&\x14\x02\xC9)\x03\x02\x02\x02" +
-        "\xCA\xCC\x05\x1C\x0F\x02\xCB\xCD\x05*\x16\x02\xCC\xCB\x03\x02\x02\x02" +
-        "\xCC\xCD\x03\x02\x02\x02\xCD+\x03\x02\x02\x02\xCE\xD0\x05\x1E\x10\x02" +
-        "\xCF\xD1\x05,\x17\x02\xD0\xCF\x03\x02\x02\x02\xD0\xD1\x03\x02\x02\x02" +
-        "\xD1-\x03\x02\x02\x02\xD2\xD9\x050\x19\x02\xD3\xD5\x07\x03\x02\x02\xD4" +
-        "\xD3\x03\x02\x02\x02\xD4\xD5\x03\x02\x02\x02\xD5\xD6\x03\x02\x02\x02\xD6" +
-        "\xD8\x050\x19\x02\xD7\xD4\x03\x02\x02\x02\xD8\xDB\x03\x02\x02\x02\xD9" +
-        "\xD7\x03\x02\x02\x02\xD9\xDA\x03\x02\x02\x02\xDA/\x03\x02\x02\x02\xDB" +
-        "\xD9\x03\x02\x02\x02\xDC\xE1\x054\x1B\x02\xDD\xE1\x05\x14\v\x02\xDE\xE1" +
-        "\x052\x1A\x02\xDF\xE1\x05\x1A\x0E\x02\xE0\xDC\x03\x02\x02\x02\xE0\xDD" +
-        "\x03\x02\x02\x02\xE0\xDE\x03\x02\x02\x02\xE0\xDF\x03\x02\x02\x02\xE11" +
-        "\x03\x02\x02\x02\xE2\xE3\x05\x14\v\x02\xE3\xE4\x07\x04\x02\x02\xE4\xE5" +
-        "\x05\x14\v\x02\xE53\x03\x02\x02\x02\xE6\xE7\t\x02\x02\x02\xE75\x03\x02" +
-        "\x02\x02\xE8\xE9\x07\v\x02\x02\xE9\xEA\x05\x10\t\x02\xEA\xEB\x05&\x14" +
-        "\x02\xEB7\x03\x02\x02\x02\xEC\xED\x07\f\x02\x02\xED\xEE\x05\x0E\b\x02" +
-        "\xEE\xEF\x05&\x14\x02\xEF9\x03\x02\x02\x02\xF0\xF1\x07\r\x02\x02\xF1\xF2" +
-        "\x05T+\x02\xF2\xF3\x05&\x14\x02\xF3;\x03\x02\x02\x02\xF4\xF5\x05V,\x02" +
-        "\xF5\xF6\x05&\x14\x02\xF6=\x03\x02\x02\x02\xF7\xF9\x07\x14\x02\x02\xF8" +
-        "\xFA\x07\x13\x02\x02\xF9\xF8\x03\x02\x02\x02\xF9\xFA\x03\x02\x02\x02\xFA" +
-        "\xFB\x03\x02\x02\x02\xFB\xFC\x05\x16\f\x02\xFC\xFD\x05&\x14\x02\xFD?\x03" +
-        "\x02\x02\x02\xFE\xFF\x07\x15\x02\x02\xFF\u0100\x05\x16\f\x02\u0100\u0101" +
-        "\x05&\x14\x02\u0101A\x03\x02\x02\x02\u0102\u0103\x07\x16\x02\x02\u0103" +
-        "\u0104\x05\x18\r\x02\u0104\u0105\x05X-\x02\u0105\u0106\x05&\x14\x02\u0106" +
-        "C\x03\x02\x02\x02\u0107\u0108\x07\x17\x02\x02\u0108\u0109\x05 \x11\x02" +
-        "\u0109\u010A\x05&\x14\x02\u010AE\x03\x02\x02\x02\u010B\u010C\x07\x18\x02" +
-        '\x02\u010C\u010D\x05"\x12\x02\u010D\u010E\x05&\x14\x02\u010EG\x03\x02' +
-        "\x02\x02\u010F\u0110\x07\x19\x02\x02\u0110\u0111\x05\b\x05\x02\u0111\u0112" +
-        "\x05(\x15\x02\u0112I\x03\x02\x02\x02\u0113\u0114\x07\x1A\x02\x02\u0114" +
-        "\u0115\x05\b\x05\x02\u0115\u0116\x05(\x15\x02\u0116K\x03\x02\x02\x02\u0117" +
-        "\u011A\x07\x1B\x02\x02\u0118\u011B\x05\b\x05\x02\u0119\u011B\x05\x18\r" +
-        "\x02\u011A\u0118\x03\x02\x02\x02\u011A\u0119\x03\x02\x02\x02\u011B\u011C" +
-        "\x03\x02\x02\x02\u011C\u011D\x05(\x15\x02\u011DM\x03\x02\x02\x02\u011E" +
-        "\u011F\x07\x1C\x02\x02\u011F\u0121\x073\x02\x02\u0120\u0122\x05*\x16\x02" +
-        "\u0121\u0120\x03\x02\x02\x02\u0121\u0122\x03\x02\x02\x02\u0122\u0123\x03" +
-        "\x02\x02\x02\u0123\u0124\x05(\x15\x02\u0124O\x03\x02\x02\x02\u0125\u0126" +
-        "\x07\x1D\x02\x02\u0126\u0128\x073\x02\x02\u0127\u0129\x05,\x17\x02\u0128" +
-        "\u0127\x03\x02\x02\x02\u0128\u0129\x03\x02\x02\x02\u0129\u012A\x03\x02" +
-        "\x02\x02\u012A\u012B\x05&\x14\x02\u012BQ\x03\x02\x02\x02\u012C\u012D\x07" +
-        '\x1E\x02\x02\u012D\u012E\x05"\x12\x02\u012E\u012F\x05&\x14\x02\u012F' +
-        "S\x03\x02\x02\x02\u0130\u0149\x07\x0E\x02\x02\u0131\u0133\x07\x13\x02" +
-        "\x02\u0132\u0131\x03\x02\x02\x02\u0132\u0133\x03\x02\x02\x02\u0133\u0146" +
-        "\x03\x02\x02\x02\u0134\u013F\x07\x0F\x02\x02\u0135\u0138\x07\x11\x02\x02" +
-        "\u0136\u0139\x07\b\x02\x02\u0137\u0139\x05\x1A\x0E\x02\u0138\u0136\x03" +
-        "\x02\x02\x02\u0138\u0137\x03\x02\x02\x02\u0139\u0140\x03\x02\x02\x02\u013A" +
-        "\u013D\x07\x12\x02\x02\u013B\u013E\x073\x02\x02\u013C\u013E\x05\x1A\x0E" +
-        "\x02\u013D\u013B\x03\x02\x02\x02\u013D\u013C\x03\x02\x02\x02\u013E\u0140" +
-        "\x03\x02\x02\x02\u013F\u0135\x03\x02\x02\x02\u013F\u013A\x03\x02\x02\x02" +
-        "\u0140\u0147\x03\x02\x02\x02\u0141\u0144\x07\x10\x02\x02\u0142\u0145\x05" +
-        ".\x18\x02\u0143\u0145\x073\x02\x02\u0144\u0142\x03\x02\x02\x02\u0144\u0143" +
-        "\x03\x02\x02\x02\u0145\u0147\x03\x02\x02\x02\u0146\u0134\x03\x02\x02\x02" +
-        "\u0146\u0141\x03\x02\x02\x02\u0147\u0149\x03\x02\x02\x02\u0148\u0130\x03" +
-        "\x02\x02\x02\u0148\u0132\x03\x02\x02\x02\u0149U\x03\x02\x02\x02\u014A" +
-        "\u014C\x07 \x02\x02\u014B\u014D\x07\x13\x02\x02\u014C\u014B\x03\x02\x02" +
-        "\x02\u014C\u014D\x03\x02\x02\x02\u014D\u0156\x03\x02\x02\x02\u014E\u0150" +
-        "\t\x03\x02\x02\u014F\u0151\x07\x13\x02\x02\u0150\u014F\x03\x02\x02\x02" +
-        "\u0150\u0151\x03\x02\x02\x02\u0151\u0153\x03\x02\x02\x02\u0152\u0154\x07" +
-        "\x0E\x02\x02\u0153\u0152\x03\x02\x02\x02\u0153\u0154\x03\x02\x02\x02\u0154" +
-        "\u0156\x03\x02\x02\x02\u0155\u014A\x03\x02\x02\x02\u0155\u014E\x03\x02" +
-        "\x02\x02\u0156W\x03\x02\x02\x02\u0157\u015F\x05 \x11\x02\u0158\u015F\x05" +
-        "\x10\t\x02\u0159\u015C\x05\x12\n\x02\u015A\u015D\x07,\x02\x02\u015B\u015D" +
-        "\x05\n\x06\x02\u015C\u015A\x03\x02\x02\x02\u015C\u015B\x03\x02\x02\x02" +
-        "\u015D\u015F\x03\x02\x02\x02\u015E\u0157\x03\x02\x02\x02\u015E\u0158\x03" +
-        "\x02\x02\x02\u015E\u0159\x03\x02\x02\x02\u015FY\x03\x02\x02\x02\u0160" +
-        "\u0170\x058\x1D\x02\u0161\u0170\x056\x1C\x02\u0162\u0170\x05:\x1E\x02" +
-        "\u0163\u0170\x05<\x1F\x02\u0164\u0170\x05> \x02\u0165\u0170\x05@!\x02" +
-        '\u0166\u0170\x05B"\x02\u0167\u0170\x05D#\x02\u0168\u0170\x05F$\x02\u0169' +
-        "\u0170\x05H%\x02\u016A\u0170\x05J&\x02\u016B\u0170\x05L'\x02\u016C\u0170" +
-        "\x05N(\x02\u016D\u0170\x05P)\x02\u016E\u0170\x05R*\x02\u016F\u0160\x03" +
-        "\x02\x02\x02\u016F\u0161\x03\x02\x02\x02\u016F\u0162\x03\x02\x02\x02\u016F" +
-        "\u0163\x03\x02\x02\x02\u016F\u0164\x03\x02\x02\x02\u016F\u0165\x03\x02" +
-        "\x02\x02\u016F\u0166\x03\x02\x02\x02\u016F\u0167\x03\x02\x02\x02\u016F" +
-        "\u0168\x03\x02\x02\x02\u016F\u0169\x03\x02\x02\x02\u016F\u016A\x03\x02" +
-        "\x02\x02\u016F\u016B\x03\x02\x02\x02\u016F\u016C\x03\x02\x02\x02\u016F" +
-        "\u016D\x03\x02\x02\x02\u016F\u016E\x03\x02\x02\x02\u0170[\x03\x02\x02" +
-        "\x02+_flqx~\x82\x89\x8B\x90\x94\x99\x9F\xAE\xB3\xB7\xBD\xC4\xCC\xD0\xD4" +
-        "\xD9\xE0\xF9\u011A\u0121\u0128\u0132\u0138\u013D\u013F\u0144\u0146\u0148" +
-        "\u014C\u0150\u0153\u0155\u015C\u015E\u016F";
+        "\x04,\t,\x04-\t-\x04.\t.\x04/\t/\x040\t0\x041\t1\x03\x02\x06\x02d\n\x02" +
+        "\r\x02\x0E\x02e\x03\x02\x03\x02\x03\x03\x03\x03\x03\x03\x05\x03m\n\x03" +
+        "\x03\x04\x03\x04\x03\x05\x03\x05\x05\x05s\n\x05\x03\x05\x03\x05\x03\x05" +
+        "\x05\x05x\n\x05\x03\x06\x03\x06\x03\x06\x03\x06\x03\x06\x05\x06\x7F\n" +
+        "\x06\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07\x85\n\x07\x03\b\x03\b\x05" +
+        "\b\x89\n\b\x03\t\x03\t\x03\t\x03\t\x03\t\x05\t\x90\n\t\x05\t\x92\n\t\x03" +
+        "\n\x03\n\x03\n\x05\n\x97\n\n\x03\v\x03\v\x05\v\x9B\n\v\x03\f\x03\f\x03" +
+        "\f\x05\f\xA0\n\f\x03\r\x03\r\x03\r\x03\r\x05\r\xA6\n\r\x03\x0E\x03\x0E" +
+        "\x03\x0F\x03\x0F\x03\x0F\x05\x0F\xAD\n\x0F\x03\x10\x03\x10\x03\x11\x03" +
+        "\x11\x03\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03" +
+        "\x12\x03\x12\x05\x12\xBD\n\x12\x03\x13\x03\x13\x03\x13\x05\x13\xC2\n\x13" +
+        "\x03\x14\x03\x14\x05\x14\xC6\n\x14\x03\x15\x03\x15\x03\x16\x03\x16\x05" +
+        "\x16\xCC\n\x16\x03\x17\x03\x17\x03\x17\x07\x17\xD1\n\x17\f\x17\x0E\x17" +
+        "\xD4\v\x17\x03\x17\x03\x17\x03\x17\x03\x18\x03\x18\x05\x18\xDB\n\x18\x03" +
+        "\x19\x03\x19\x05\x19\xDF\n\x19\x03\x1A\x03\x1A\x03\x1A\x05\x1A\xE4\n\x1A" +
+        "\x03\x1A\x07\x1A\xE7\n\x1A\f\x1A\x0E\x1A\xEA\v\x1A\x05\x1A\xEC\n\x1A\x03" +
+        "\x1B\x03\x1B\x03\x1B\x03\x1B\x05\x1B\xF2\n\x1B\x03\x1C\x03\x1C\x03\x1C" +
+        "\x03\x1C\x03\x1D\x03\x1D\x03\x1E\x03\x1E\x03\x1E\x03\x1E\x03\x1F\x03\x1F" +
+        '\x03\x1F\x03\x1F\x03 \x03 \x03 \x03 \x03!\x03!\x03!\x03"\x03"\x05"' +
+        '\u010B\n"\x03"\x03"\x03"\x03#\x03#\x03#\x03#\x03$\x03$\x03$\x03$\x03' +
+        "$\x03%\x03%\x03%\x03%\x03&\x03&\x03&\x03&\x03'\x03'\x03'\x03'\x03" +
+        "(\x03(\x03(\x03(\x03)\x03)\x03)\x05)\u012C\n)\x03)\x03)\x03*\x03*\x03" +
+        "*\x05*\u0133\n*\x03*\x03*\x03+\x03+\x03+\x05+\u013A\n+\x03+\x03+\x03," +
+        "\x03,\x03,\x03,\x03-\x03-\x05-\u0144\n-\x03-\x05-\u0147\n-\x03-\x03-\x03" +
+        "-\x03-\x03.\x03.\x05.\u014F\n.\x03.\x03.\x03.\x03.\x05.\u0155\n.\x03." +
+        "\x03.\x03.\x05.\u015A\n.\x05.\u015C\n.\x03.\x03.\x03.\x05.\u0161\n.\x05" +
+        ".\u0163\n.\x05.\u0165\n.\x03/\x03/\x05/\u0169\n/\x03/\x03/\x05/\u016D" +
+        "\n/\x03/\x05/\u0170\n/\x05/\u0172\n/\x030\x030\x030\x030\x030\x050\u0179" +
+        "\n0\x050\u017B\n0\x031\x031\x031\x031\x031\x031\x031\x031\x031\x031\x03" +
+        "1\x031\x031\x031\x031\x031\x051\u018D\n1\x031\x03\xD2\x02\x022\x02\x02" +
+        "\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16" +
+        '\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02"\x02$\x02&\x02(\x02*\x02,\x02' +
+        ".\x020\x022\x024\x026\x028\x02:\x02<\x02>\x02@\x02B\x02D\x02F\x02H\x02" +
+        "J\x02L\x02N\x02P\x02R\x02T\x02V\x02X\x02Z\x02\\\x02^\x02`\x02\x02\x04" +
+        "\x03\x02 '\x03\x02()\x02\u01AD\x02c\x03\x02\x02\x02\x04l\x03\x02\x02" +
+        "\x02\x06n\x03\x02\x02\x02\br\x03\x02\x02\x02\n~\x03\x02\x02\x02\f\x84" +
+        "\x03\x02\x02\x02\x0E\x88\x03\x02\x02\x02\x10\x91\x03\x02\x02\x02\x12\x96" +
+        "\x03\x02\x02\x02\x14\x9A\x03\x02\x02\x02\x16\x9F\x03\x02\x02\x02\x18\xA5" +
+        "\x03\x02\x02\x02\x1A\xA7\x03\x02\x02\x02\x1C\xAC\x03\x02\x02\x02\x1E\xAE" +
+        '\x03\x02\x02\x02 \xB0\x03\x02\x02\x02"\xBC\x03\x02\x02\x02$\xC1\x03\x02' +
+        "\x02\x02&\xC5\x03\x02\x02\x02(\xC7\x03\x02\x02\x02*\xCB\x03\x02\x02\x02" +
+        ",\xCD\x03\x02\x02\x02.\xD8\x03\x02\x02\x020\xDC\x03\x02\x02\x022\xEB\x03" +
+        "\x02\x02\x024\xF1\x03\x02\x02\x026\xF3\x03\x02\x02\x028\xF7\x03\x02\x02" +
+        "\x02:\xF9\x03\x02\x02\x02<\xFD\x03\x02\x02\x02>\u0101\x03\x02\x02\x02" +
+        "@\u0105\x03\x02\x02\x02B\u0108\x03\x02\x02\x02D\u010F\x03\x02\x02\x02" +
+        "F\u0113\x03\x02\x02\x02H\u0118\x03\x02\x02\x02J\u011C\x03\x02\x02\x02" +
+        "L\u0120\x03\x02\x02\x02N\u0124\x03\x02\x02\x02P\u0128\x03\x02\x02\x02" +
+        "R\u012F\x03\x02\x02\x02T\u0136\x03\x02\x02\x02V\u013D\x03\x02\x02\x02" +
+        "X\u0141\x03\x02\x02\x02Z\u0164\x03\x02\x02\x02\\\u0171\x03\x02\x02\x02" +
+        "^\u017A\x03\x02\x02\x02`\u018C\x03\x02\x02\x02bd\x05\x04\x03\x02cb\x03" +
+        "\x02\x02\x02de\x03\x02\x02\x02ec\x03\x02\x02\x02ef\x03\x02\x02\x02fg\x03" +
+        "\x02\x02\x02gh\x07\x02\x02\x03h\x03\x03\x02\x02\x02im\x05`1\x02jm\x07" +
+        ":\x02\x02km\x05\x06\x04\x02li\x03\x02\x02\x02lj\x03\x02\x02\x02lk\x03" +
+        "\x02\x02\x02m\x05\x03\x02\x02\x02no\x07\x06\x02\x02o\x07\x03\x02\x02\x02" +
+        "ps\x05\x1C\x0F\x02qs\x05\n\x06\x02rp\x03\x02\x02\x02rq\x03\x02\x02\x02" +
+        "st\x03\x02\x02\x02tw\x07\n\x02\x02ux\x05\x1C\x0F\x02vx\x05\n\x06\x02w" +
+        "u\x03\x02\x02\x02wv\x03\x02\x02\x02x\t\x03\x02\x02\x02y\x7F\x073\x02\x02" +
+        "z\x7F\x05\x1E\x10\x02{|\x05\f\x07\x02|}\x07/\x02\x02}\x7F\x03\x02\x02" +
+        "\x02~y\x03\x02\x02\x02~z\x03\x02\x02\x02~{\x03\x02\x02\x02\x7F\v\x03\x02" +
+        "\x02\x02\x80\x85\x072\x02\x02\x81\x82\x07.\x02\x02\x82\x85\x05\x14\v\x02" +
+        "\x83\x85\x05\x1E\x10\x02\x84\x80\x03\x02\x02\x02\x84\x81\x03\x02\x02\x02" +
+        "\x84\x83\x03\x02\x02\x02\x85\r\x03\x02\x02\x02\x86\x89\x05\b\x05\x02\x87" +
+        "\x89\x05\x18\r\x02\x88\x86\x03\x02\x02\x02\x88\x87\x03\x02\x02\x02\x89" +
+        "\x0F\x03\x02\x02\x02\x8A\x8B\x05\x12\n\x02\x8B\x8C\x07\x07\x02\x02\x8C" +
+        "\x92\x03\x02\x02\x02\x8D\x8F\x05\x1E\x10\x02\x8E\x90\x07\x07\x02\x02\x8F" +
+        "\x8E\x03\x02\x02\x02\x8F\x90\x03\x02\x02\x02\x90\x92\x03\x02\x02\x02\x91" +
+        "\x8A\x03\x02\x02\x02\x91\x8D\x03\x02\x02\x02\x92\x11\x03\x02\x02\x02\x93" +
+        "\x97\x07\b\x02\x02\x94\x97\x07\t\x02\x02\x95\x97\x05\x1E\x10\x02\x96\x93" +
+        "\x03\x02\x02\x02\x96\x94\x03\x02\x02\x02\x96\x95\x03\x02\x02\x02\x97\x13" +
+        "\x03\x02\x02\x02\x98\x9B\x07\b\x02\x02\x99\x9B\x05\x1E\x10\x02\x9A\x98" +
+        "\x03\x02\x02\x02\x9A\x99\x03\x02\x02\x02\x9B\x15\x03\x02\x02\x02\x9C\xA0" +
+        "\x07*\x02\x02\x9D\xA0\x05\f\x07\x02\x9E\xA0\x05\x1E\x10\x02\x9F\x9C\x03" +
+        "\x02\x02\x02\x9F\x9D\x03\x02\x02\x02\x9F\x9E\x03\x02\x02\x02\xA0\x17\x03" +
+        "\x02\x02\x02\xA1\xA6\x07!\x02\x02\xA2\xA6\x07(\x02\x02\xA3\xA6\x07)\x02" +
+        "\x02\xA4\xA6\x05\x1E\x10\x02\xA5\xA1\x03\x02\x02\x02\xA5\xA2\x03\x02\x02" +
+        "\x02\xA5\xA3\x03\x02\x02\x02\xA5\xA4\x03\x02\x02\x02\xA6\x19\x03\x02\x02" +
+        "\x02\xA7\xA8\x05\x1E\x10\x02\xA8\x1B\x03\x02\x02\x02\xA9\xAD\x07\b\x02" +
+        "\x02\xAA\xAD\x07\t\x02\x02\xAB\xAD\x05\x1A\x0E\x02\xAC\xA9\x03\x02\x02" +
+        "\x02\xAC\xAA\x03\x02\x02\x02\xAC\xAB\x03\x02\x02\x02\xAD\x1D\x03\x02\x02" +
+        "\x02\xAE\xAF\x074\x02\x02\xAF\x1F\x03\x02\x02\x02\xB0\xB1\x074\x02\x02" +
+        "\xB1!\x03\x02\x02\x02\xB2\xBD\x05\n\x06\x02\xB3\xBD\x05\x10\t\x02\xB4" +
+        "\xBD\x05\x12\n\x02\xB5\xBD\x05\x16\f\x02\xB6\xBD\x05\x18\r\x02\xB7\xBD" +
+        "\x05$\x13\x02\xB8\xBD\x05(\x15\x02\xB9\xBD\x076\x02\x02\xBA\xBD\x075\x02" +
+        "\x02\xBB\xBD\x052\x1A\x02\xBC\xB2\x03\x02\x02\x02\xBC\xB3\x03\x02\x02" +
+        "\x02\xBC\xB4\x03\x02\x02\x02\xBC\xB5\x03\x02\x02\x02\xBC\xB6\x03\x02\x02" +
+        "\x02\xBC\xB7\x03\x02\x02\x02\xBC\xB8\x03\x02\x02\x02\xBC\xB9\x03\x02\x02" +
+        "\x02\xBC\xBA\x03\x02\x02\x02\xBC\xBB\x03\x02\x02\x02\xBD#\x03\x02\x02" +
+        "\x02\xBE\xC2\x07+\x02\x02\xBF\xC2\x07,\x02\x02\xC0\xC2\x05\x1E\x10\x02" +
+        "\xC1\xBE\x03\x02\x02\x02\xC1\xBF\x03\x02\x02\x02\xC1\xC0\x03\x02\x02\x02" +
+        "\xC2%\x03\x02\x02\x02\xC3\xC6\x05\x1E\x10\x02\xC4\xC6\x077\x02\x02\xC5" +
+        "\xC3\x03\x02\x02\x02\xC5\xC4\x03\x02\x02\x02\xC6'\x03\x02\x02\x02\xC7" +
+        "\xC8\x05&\x14\x02\xC8)\x03\x02\x02\x02\xC9\xCC\x05\x06\x04\x02\xCA\xCC" +
+        "\x07:\x02\x02\xCB\xC9\x03\x02\x02\x02\xCB\xCA\x03\x02\x02\x02\xCC+\x03" +
+        "\x02\x02\x02\xCD\xCE\x078\x02\x02\xCE\xD2\x05*\x16\x02\xCF\xD1\x05\x04" +
+        "\x03\x02\xD0\xCF\x03\x02\x02\x02\xD1\xD4\x03\x02\x02\x02\xD2\xD3\x03\x02" +
+        "\x02\x02\xD2\xD0\x03\x02\x02\x02\xD3\xD5\x03\x02\x02\x02\xD4\xD2\x03\x02" +
+        "\x02\x02\xD5\xD6\x079\x02\x02\xD6\xD7\x05*\x16\x02\xD7-\x03\x02\x02\x02" +
+        "\xD8\xDA\x05 \x11\x02\xD9\xDB\x05.\x18\x02\xDA\xD9\x03\x02\x02\x02\xDA" +
+        '\xDB\x03\x02\x02\x02\xDB/\x03\x02\x02\x02\xDC\xDE\x05"\x12\x02\xDD\xDF' +
+        "\x050\x19\x02\xDE\xDD\x03\x02\x02\x02\xDE\xDF\x03\x02\x02\x02\xDF1\x03" +
+        "\x02\x02\x02\xE0\xEC\x05\x1A\x0E\x02\xE1\xE8\x054\x1B\x02\xE2\xE4\x07" +
+        "\x03\x02\x02\xE3\xE2\x03\x02\x02\x02\xE3\xE4\x03\x02\x02\x02\xE4\xE5\x03" +
+        "\x02\x02\x02\xE5\xE7\x054\x1B\x02\xE6\xE3\x03\x02\x02\x02\xE7\xEA\x03" +
+        "\x02\x02\x02\xE8\xE6\x03\x02\x02\x02\xE8\xE9\x03\x02\x02\x02\xE9\xEC\x03" +
+        "\x02\x02\x02\xEA\xE8\x03\x02\x02\x02\xEB\xE0\x03\x02\x02\x02\xEB\xE1\x03" +
+        "\x02\x02\x02\xEC3\x03\x02\x02\x02\xED\xF2\x058\x1D\x02\xEE\xF2\x05\x14" +
+        "\v\x02\xEF\xF2\x056\x1C\x02\xF0\xF2\x05\x1E\x10\x02\xF1\xED\x03\x02\x02" +
+        "\x02\xF1\xEE\x03\x02\x02\x02\xF1\xEF\x03\x02\x02\x02\xF1\xF0\x03\x02\x02" +
+        "\x02\xF25\x03\x02\x02\x02\xF3\xF4\x05\x14\v\x02\xF4\xF5\x07\x04\x02\x02" +
+        "\xF5\xF6\x05\x14\v\x02\xF67\x03\x02\x02\x02\xF7\xF8\t\x02\x02\x02\xF8" +
+        "9\x03\x02\x02\x02\xF9\xFA\x07\v\x02\x02\xFA\xFB\x05\x10\t\x02\xFB\xFC" +
+        "\x05*\x16\x02\xFC;\x03\x02\x02\x02\xFD\xFE\x07\f\x02\x02\xFE\xFF\x05\x0E" +
+        "\b\x02\xFF\u0100\x05*\x16\x02\u0100=\x03\x02\x02\x02\u0101\u0102\x07\r" +
+        "\x02\x02\u0102\u0103\x05Z.\x02\u0103\u0104\x05*\x16\x02\u0104?\x03\x02" +
+        "\x02\x02\u0105\u0106\x05\\/\x02\u0106\u0107\x05*\x16\x02\u0107A\x03\x02" +
+        "\x02\x02\u0108\u010A\x07\x14\x02\x02\u0109\u010B\x07\x13\x02\x02\u010A" +
+        "\u0109\x03\x02\x02\x02\u010A\u010B\x03\x02\x02\x02\u010B\u010C\x03\x02" +
+        "\x02\x02\u010C\u010D\x05\x16\f\x02\u010D\u010E\x05*\x16\x02\u010EC\x03" +
+        "\x02\x02\x02\u010F\u0110\x07\x15\x02\x02\u0110\u0111\x05\x16\f\x02\u0111" +
+        "\u0112\x05*\x16\x02\u0112E\x03\x02\x02\x02\u0113\u0114\x07\x16\x02\x02" +
+        "\u0114\u0115\x05\x18\r\x02\u0115\u0116\x05^0\x02\u0116\u0117\x05*\x16" +
+        "\x02\u0117G\x03\x02\x02\x02\u0118\u0119\x07\x17\x02\x02\u0119\u011A\x05" +
+        "$\x13\x02\u011A\u011B\x05*\x16\x02\u011BI\x03\x02\x02\x02\u011C\u011D" +
+        "\x07\x18\x02\x02\u011D\u011E\x05&\x14\x02\u011E\u011F\x05*\x16\x02\u011F" +
+        "K\x03\x02\x02\x02\u0120\u0121\x07\x19\x02\x02\u0121\u0122\x05\b\x05\x02" +
+        "\u0122\u0123\x05,\x17\x02\u0123M\x03\x02\x02\x02\u0124\u0125\x07\x1A\x02" +
+        "\x02\u0125\u0126\x05\b\x05\x02\u0126\u0127\x05,\x17\x02\u0127O\x03\x02" +
+        "\x02\x02\u0128\u012B\x07\x1B\x02\x02\u0129\u012C\x05\b\x05\x02\u012A\u012C" +
+        "\x05\x18\r\x02\u012B\u0129\x03\x02\x02\x02\u012B\u012A\x03\x02\x02\x02" +
+        "\u012C\u012D\x03\x02\x02\x02\u012D\u012E\x05,\x17\x02\u012EQ\x03\x02\x02" +
+        "\x02\u012F\u0130\x07\x1C\x02\x02\u0130\u0132\x076\x02\x02\u0131\u0133" +
+        "\x05.\x18\x02\u0132\u0131\x03\x02\x02\x02\u0132\u0133\x03\x02\x02\x02" +
+        "\u0133\u0134\x03\x02\x02\x02\u0134\u0135\x05,\x17\x02\u0135S\x03\x02\x02" +
+        "\x02\u0136\u0137\x07\x1D\x02\x02\u0137\u0139\x076\x02\x02\u0138\u013A" +
+        "\x050\x19\x02\u0139\u0138\x03\x02\x02\x02\u0139\u013A\x03\x02\x02\x02" +
+        "\u013A\u013B\x03\x02\x02\x02\u013B\u013C\x05*\x16\x02\u013CU\x03\x02\x02" +
+        "\x02\u013D\u013E\x07\x1E\x02\x02\u013E\u013F\x05&\x14\x02\u013F\u0140" +
+        "\x05*\x16\x02\u0140W\x03\x02\x02\x02\u0141\u0143\x07\x1F\x02\x02\u0142" +
+        "\u0144\x070\x02\x02\u0143\u0142\x03\x02\x02\x02\u0143\u0144\x03\x02\x02" +
+        "\x02\u0144\u0146\x03\x02\x02\x02\u0145\u0147\x071\x02\x02\u0146\u0145" +
+        "\x03\x02\x02\x02\u0146\u0147\x03\x02\x02\x02\u0147\u0148\x03\x02\x02\x02" +
+        '\u0148\u0149\x05 \x11\x02\u0149\u014A\x05"\x12\x02\u014A\u014B\x05*\x16' +
+        "\x02\u014BY\x03\x02\x02\x02\u014C\u0165\x07\x0E\x02\x02\u014D\u014F\x07" +
+        "\x13\x02\x02\u014E\u014D\x03\x02\x02\x02\u014E\u014F\x03\x02\x02\x02\u014F" +
+        "\u0162\x03\x02\x02\x02\u0150\u015B\x07\x0F\x02\x02\u0151\u0154\x07\x11" +
+        "\x02\x02\u0152\u0155\x07\b\x02\x02\u0153\u0155\x05\x1E\x10\x02\u0154\u0152" +
+        "\x03\x02\x02\x02\u0154\u0153\x03\x02\x02\x02\u0155\u015C\x03\x02\x02\x02" +
+        "\u0156\u0159\x07\x12\x02\x02\u0157\u015A\x076\x02\x02\u0158\u015A\x05" +
+        "\x1E\x10\x02\u0159\u0157\x03\x02\x02\x02\u0159\u0158\x03\x02\x02\x02\u015A" +
+        "\u015C\x03\x02\x02\x02\u015B\u0151\x03\x02\x02\x02\u015B\u0156\x03\x02" +
+        "\x02\x02\u015C\u0163\x03\x02\x02\x02\u015D\u0160\x07\x10\x02\x02\u015E" +
+        "\u0161\x052\x1A\x02\u015F\u0161\x076\x02\x02\u0160\u015E\x03\x02\x02\x02" +
+        "\u0160\u015F\x03\x02\x02\x02\u0161\u0163\x03\x02\x02\x02\u0162\u0150\x03" +
+        "\x02\x02\x02\u0162\u015D\x03\x02\x02\x02\u0163\u0165\x03\x02\x02\x02\u0164" +
+        "\u014C\x03\x02\x02\x02\u0164\u014E\x03\x02\x02\x02\u0165[\x03\x02\x02" +
+        "\x02\u0166\u0168\x07!\x02\x02\u0167\u0169\x07\x13\x02\x02\u0168\u0167" +
+        "\x03\x02\x02\x02\u0168\u0169\x03\x02\x02\x02\u0169\u0172\x03\x02\x02\x02" +
+        "\u016A\u016C\t\x03\x02\x02\u016B\u016D\x07\x13\x02\x02\u016C\u016B\x03" +
+        "\x02\x02\x02\u016C\u016D\x03\x02\x02\x02\u016D\u016F\x03\x02\x02\x02\u016E" +
+        "\u0170\x07\x0E\x02\x02\u016F\u016E\x03\x02\x02\x02\u016F\u0170\x03\x02" +
+        "\x02\x02\u0170\u0172\x03\x02\x02\x02\u0171\u0166\x03\x02\x02\x02\u0171" +
+        "\u016A\x03\x02\x02\x02\u0172]\x03\x02\x02\x02\u0173\u017B\x05$\x13\x02" +
+        "\u0174\u017B\x05\x10\t\x02\u0175\u0178\x05\x12\n\x02\u0176\u0179\x07-" +
+        "\x02\x02\u0177\u0179\x05\n\x06\x02\u0178\u0176\x03\x02\x02\x02\u0178\u0177" +
+        "\x03\x02\x02\x02\u0179\u017B\x03\x02\x02\x02\u017A\u0173\x03\x02\x02\x02" +
+        "\u017A\u0174\x03\x02\x02\x02\u017A\u0175\x03\x02\x02\x02\u017B_\x03\x02" +
+        "\x02\x02\u017C\u018D\x05<\x1F\x02\u017D\u018D\x05:\x1E\x02\u017E\u018D" +
+        '\x05> \x02\u017F\u018D\x05@!\x02\u0180\u018D\x05B"\x02\u0181\u018D\x05' +
+        "D#\x02\u0182\u018D\x05F$\x02\u0183\u018D\x05H%\x02\u0184\u018D\x05J&\x02" +
+        "\u0185\u018D\x05L'\x02\u0186\u018D\x05N(\x02\u0187\u018D\x05P)\x02\u0188" +
+        "\u018D\x05R*\x02\u0189\u018D\x05T+\x02\u018A\u018D\x05V,\x02\u018B\u018D" +
+        "\x05X-\x02\u018C\u017C\x03\x02\x02\x02\u018C\u017D\x03\x02\x02\x02\u018C" +
+        "\u017E\x03\x02\x02\x02\u018C\u017F\x03\x02\x02\x02\u018C\u0180\x03\x02" +
+        "\x02\x02\u018C\u0181\x03\x02\x02\x02\u018C\u0182\x03\x02\x02\x02\u018C" +
+        "\u0183\x03\x02\x02\x02\u018C\u0184\x03\x02\x02\x02\u018C\u0185\x03\x02" +
+        "\x02\x02\u018C\u0186\x03\x02\x02\x02\u018C\u0187\x03\x02\x02\x02\u018C" +
+        "\u0188\x03\x02\x02\x02\u018C\u0189\x03\x02\x02\x02\u018C\u018A\x03\x02" +
+        "\x02\x02\u018C\u018B\x03\x02\x02\x02\u018Da\x03\x02\x02\x02/elrw~\x84" +
+        "\x88\x8F\x91\x96\x9A\x9F\xA5\xAC\xBC\xC1\xC5\xCB\xD2\xDA\xDE\xE3\xE8\xEB" +
+        "\xF1\u010A\u012B\u0132\u0139\u0143\u0146\u014E\u0154\u0159\u015B\u0160" +
+        "\u0162\u0164\u0168\u016C\u016F\u0171\u0178\u017A\u018C";
     public static __ATN: ATN;
     public static get _ATN(): ATN {
         if (!AutomatorPlusPlusParser.__ATN) {
@@ -2864,6 +3072,17 @@ export class ComparisonContext extends ParserRuleContext {
     public OPER(): TerminalNode {
         return this.getToken(AutomatorPlusPlusParser.OPER, 0);
     }
+    public const_number(): Const_numberContext[];
+    public const_number(i: number): Const_numberContext;
+    public const_number(
+        i?: number
+    ): Const_numberContext | Const_numberContext[] {
+        if (i === undefined) {
+            return this.getRuleContexts(Const_numberContext);
+        } else {
+            return this.getRuleContext(i, Const_numberContext);
+        }
+    }
     public currency(): CurrencyContext[];
     public currency(i: number): CurrencyContext;
     public currency(i?: number): CurrencyContext | CurrencyContext[] {
@@ -2871,15 +3090,6 @@ export class ComparisonContext extends ParserRuleContext {
             return this.getRuleContexts(CurrencyContext);
         } else {
             return this.getRuleContext(i, CurrencyContext);
-        }
-    }
-    public number(): NumberContext[];
-    public number(i: number): NumberContext;
-    public number(i?: number): NumberContext | NumberContext[] {
-        if (i === undefined) {
-            return this.getRuleContexts(NumberContext);
-        } else {
-            return this.getRuleContext(i, NumberContext);
         }
     }
     constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -3118,6 +3328,54 @@ export class Prestige_typeContext extends ParserRuleContext {
     }
 }
 
+export class Const_variableContext extends ParserRuleContext {
+    public variable(): VariableContext {
+        return this.getRuleContext(0, VariableContext);
+    }
+    constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+        super(parent, invokingState);
+    }
+    // @Override
+    public get ruleIndex(): number {
+        return AutomatorPlusPlusParser.RULE_const_variable;
+    }
+    // @Override
+    public accept<Result>(visitor: AutomatorPlusPlusVisitor<Result>): Result {
+        if (visitor.visitConst_variable) {
+            return visitor.visitConst_variable(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+export class Const_numberContext extends ParserRuleContext {
+    public INT(): TerminalNode | undefined {
+        return this.tryGetToken(AutomatorPlusPlusParser.INT, 0);
+    }
+    public FLOAT(): TerminalNode | undefined {
+        return this.tryGetToken(AutomatorPlusPlusParser.FLOAT, 0);
+    }
+    public const_variable(): Const_variableContext | undefined {
+        return this.tryGetRuleContext(0, Const_variableContext);
+    }
+    constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+        super(parent, invokingState);
+    }
+    // @Override
+    public get ruleIndex(): number {
+        return AutomatorPlusPlusParser.RULE_const_number;
+    }
+    // @Override
+    public accept<Result>(visitor: AutomatorPlusPlusVisitor<Result>): Result {
+        if (visitor.visitConst_number) {
+            return visitor.visitConst_number(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
 export class VariableContext extends ParserRuleContext {
     public VARIABLE(): TerminalNode {
         return this.getToken(AutomatorPlusPlusParser.VARIABLE, 0);
@@ -3187,6 +3445,9 @@ export class Variable_typeContext extends ParserRuleContext {
     }
     public K_NULL(): TerminalNode | undefined {
         return this.tryGetToken(AutomatorPlusPlusParser.K_NULL, 0);
+    }
+    public study_tree(): Study_treeContext | undefined {
+        return this.tryGetRuleContext(0, Study_treeContext);
     }
     constructor(parent: ParserRuleContext | undefined, invokingState: number) {
         super(parent, invokingState);
@@ -3392,6 +3653,9 @@ export class Argument_valuesContext extends ParserRuleContext {
 }
 
 export class Study_treeContext extends ParserRuleContext {
+    public const_variable(): Const_variableContext | undefined {
+        return this.tryGetRuleContext(0, Const_variableContext);
+    }
     public study_atom(): Study_atomContext[];
     public study_atom(i: number): Study_atomContext;
     public study_atom(i?: number): Study_atomContext | Study_atomContext[] {
@@ -3934,6 +4198,42 @@ export class RawContext extends ParserRuleContext {
     }
 }
 
+export class DefineContext extends ParserRuleContext {
+    public K_DEFINE(): TerminalNode {
+        return this.getToken(AutomatorPlusPlusParser.K_DEFINE, 0);
+    }
+    public variable_def(): Variable_defContext {
+        return this.getRuleContext(0, Variable_defContext);
+    }
+    public variable_type(): Variable_typeContext {
+        return this.getRuleContext(0, Variable_typeContext);
+    }
+    public endline(): EndlineContext {
+        return this.getRuleContext(0, EndlineContext);
+    }
+    public K_CONSTANT(): TerminalNode | undefined {
+        return this.tryGetToken(AutomatorPlusPlusParser.K_CONSTANT, 0);
+    }
+    public K_GLOBAL(): TerminalNode | undefined {
+        return this.tryGetToken(AutomatorPlusPlusParser.K_GLOBAL, 0);
+    }
+    constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+        super(parent, invokingState);
+    }
+    // @Override
+    public get ruleIndex(): number {
+        return AutomatorPlusPlusParser.RULE_define;
+    }
+    // @Override
+    public accept<Result>(visitor: AutomatorPlusPlusVisitor<Result>): Result {
+        if (visitor.visitDefine) {
+            return visitor.visitDefine(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
 export class Studies_argsContext extends ParserRuleContext {
     public K_RESPEC(): TerminalNode | undefined {
         return this.tryGetToken(AutomatorPlusPlusParser.K_RESPEC, 0);
@@ -4093,6 +4393,9 @@ export class Command_cContext extends ParserRuleContext {
     }
     public raw(): RawContext | undefined {
         return this.tryGetRuleContext(0, RawContext);
+    }
+    public define(): DefineContext | undefined {
+        return this.tryGetRuleContext(0, DefineContext);
     }
     constructor(parent: ParserRuleContext | undefined, invokingState: number) {
         super(parent, invokingState);
