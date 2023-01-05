@@ -32,7 +32,8 @@ const_number: INT | FLOAT | const_variable;
 variable: VARIABLE;
 variable_def: VARIABLE;
 variable_type:
-	currency
+	study_tree
+	| currency
 	| time
 	| number
 	| feature
@@ -40,9 +41,7 @@ variable_type:
 	| on_off
 	| rawstring
 	| ID
-	| K_NULL
-	| study_tree;
-
+	| K_NULL;
 on_off: K_ON | K_OFF | variable;
 string: variable | STRING;
 rawstring: string;
@@ -53,7 +52,12 @@ argument_values: variable_type argument_values?;
 
 // const variable needs to be before study_atom
 study_tree: const_variable | study_atom (','? study_atom)*;
-study_atom: special_studies | integer | study_range | variable;
+study_atom:
+	special_studies
+	| integer
+	| study_range
+	| variable
+	| STUDY_CHALLENGE;
 study_range: integer '-' integer;
 special_studies:
 	K_ANTIMATTER
@@ -170,6 +174,7 @@ K_CONSTANT: C O N S T A N T;
 K_GLOBAL: G L O B A L;
 
 EC_NUM: E C [1-9][0-9]?;
+STUDY_CHALLENGE: '|' INT;
 
 CURRENCY: (P E N D I N G WS)? ([iIeEtT] P | R M)
 	| A M

@@ -46,11 +46,17 @@
         selectedScript = getSelectedScript();
     }
 
+    const scriptNameRegex = /^[a-zA-Z0-9_-]{1,32}$/;
     function renameScript() {
         let name = prompt("New name?", "myscript.app");
         if (!name) return;
         if (name.endsWith(".app")) name = name.slice(0, -4);
         // scripts with the same name are actually fine, as long as IDs are different
+        if (!name.match(scriptNameRegex)) {
+            errorText =
+                "Invalid script name (letters must be alphanumeric, -, or _, 32 letters max)";
+            return;
+        }
         let curScript = getCurrentScript();
         curScript.name = name;
         scripts = getScripts();

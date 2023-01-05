@@ -4,7 +4,14 @@
 
 <div style="min-width: 300px; width: 60%;">
     <Collapsible header="Changelog" headerElem="h2">
-        <Collapsible header="0.2.1 (current)">
+        <Collapsible header="0.3.0 (current)">
+            <ul>
+                <li>Added <code>define</code> command</li>
+                <li>Added multiple save slots</li>
+                <li>Added importing and exporting Automator++ scripts</li>
+            </ul>
+        </Collapsible>
+        <Collapsible header="0.2.1">
             <ul>
                 <li>Fixed <code>until (prestige)</code></li>
                 <li>

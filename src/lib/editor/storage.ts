@@ -62,6 +62,7 @@ export function load(): SaveData {
             ],
             selectedScript: randID,
         };
+        localStorage.removeItem(OLD_STORAGE_KEY);
     }
 
     let saveDataFull: SaveData = {

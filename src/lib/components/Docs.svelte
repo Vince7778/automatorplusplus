@@ -63,6 +63,38 @@
                 gives an error, use the <code>raw</code> command to include it anyways.
             </p>
         </Collapsible>
+
+        <Collapsible header={'"define" command'}>
+            <div class="mb-s">Usage:</div>
+            <pre>define [constant] [global] $&lt;name&gt; &lt;value&gt;</pre>
+            <p>
+                Sets the value of variable <code>$name</code> to be
+                <code>value</code>.
+            </p>
+            <p>
+                This doesn't work in the same way as C defines. These are more
+                like variable definitions. Variables only exist after their
+                definition, and non-constant variables can be redefined. When a
+                variable is used in the code, it is expanded out to its full
+                value, except in certain cases with constant variables.
+            </p>
+            <p>
+                By default, variables are not constant, and they are not global.
+                Non-global variables only apply within the function that
+                contains them (their scope). To modify a global variable from
+                within a function, use the <code>global</code> keyword. This keyword
+                is not required outside of functions. Local variables override global
+                variables with the same name. Constant variables are always global.
+            </p>
+            <p>
+                Constant variables are a special kind of variable meant to be
+                used with the in-game Automator "constants" tab. The compiler
+                avoids expanding these when possible, including when used as a
+                study tree in <code>studies purchase</code>, and when used in
+                comparisons. These variables cannot be modified, and it is
+                recommended to define them at the start of the code.
+            </p>
+        </Collapsible>
     </Collapsible>
 </div>
 
