@@ -5,10 +5,13 @@ TODO:
 [x] add defines
 [ ] add loops (constant number of times only)
 [x] add importing/exporting
+[ ] export all
 [x] change function syntax
 [ ] add compile-time ifs
 [x] make docs look nicer
 [x] add in-browser save/load slots
+[ ] add "libraries" for functions
+[ ] sample script library
 [ ] add "and" statements
 [ ] improve type system
 [ ] autocomplete
