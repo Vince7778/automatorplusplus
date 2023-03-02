@@ -1,6 +1,8 @@
 <script lang="ts">
-    import { getEditorValue } from "../editor/editor";
+    import { decodeScript } from "../converter";
+    import { addScript, createImportScript, getEditorValue } from "../editor/editor";
     import { compile, type ParserSettings } from "../parser/compile";
+    import { GameSaveSerializer } from "../serializer";
     import Editor from "./Editor.svelte";
     import ScriptManager from "./ScriptManager.svelte";
 
@@ -10,6 +12,8 @@
 
     let shouldBeRed = false;
     $: shouldBeRed = charCount > 10000;
+
+    let refreshManager: () => {};
 
     let settings: ParserSettings = {
         minify: false,
@@ -22,10 +26,18 @@
         const compiled = compile(editorValue, settings);
         textareaValue = compiled;
     }
+
+    function runImport() {
+        let decompiled = decodeScript(textareaValue);
+        if (decompiled) {
+            addScript(decompiled, true);
+            refreshManager();
+        }
+    }
 </script>
 
 <div class="wrapper">
-    <ScriptManager />
+    <ScriptManager bind:refresh={refreshManager}/>
     <div class="app-body">
         <Editor />
         <div class="button-container">
@@ -33,6 +45,7 @@
                 <p class:red={shouldBeRed}>Characters: {charCount}/10000</p>
                 <div class="buttons">
                     <button on:click={runCompile}>Compile &#8594;</button>
+                    <button on:click={runImport}>&#8592; Import from AD</button>
                     <div style="margin-top: 5px;">
                         <input
                             id="minify-input"

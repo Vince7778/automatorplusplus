@@ -26,12 +26,14 @@
     "vite-plugin-monaco-editor": "^1.1.0"
   },
   "dependencies": {
+    "@types/pako": "^2.0.0",
     "antlr4": "4.9.1",
     "antlr4ts": "^0.5.0-alpha.4",
     "assert": "^2.0.0",
     "gh-pages": "^4.0.0",
     "lz-string": "^1.4.4",
     "monaco-editor": "^0.34.1",
+    "pako": "^2.1.0",
     "process": "^0.11.10",
     "util": "^0.12.5"
   },

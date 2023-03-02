@@ -80,7 +80,7 @@ export function startSaveInterval() {
     saveInterval = setInterval(() => save(getSaveData()), SAVE_INTERVAL_MS);
 }
 
-const prefix = "AutomatorPlusPlusScript";
+export const prefix = "AutomatorPlusPlusScript";
 const suffix = "EndScript";
 const optionalSuffix = " https://vince7778.github.io/automatorplusplus/";
 export function getScriptExport(script: Script) {

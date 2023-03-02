@@ -16,6 +16,11 @@
 
     let errorText = "";
 
+    export const refresh = () => {
+        scripts = getScripts();
+        selectedScript = getSelectedScript();
+    }
+
     function updateScript() {
         setSelectedScript(selectedScript);
         scripts = getScripts();
@@ -113,8 +118,8 @@
         <button on:click={createScript}>Create new</button>
         <button on:click={renameScript}>Rename</button>
         <button on:click={deleteSelectedScript}>Delete</button>
-        <button on:click={exportScript}>Export</button>
-        <button on:click={importScript}>Import</button>
+        <button on:click={exportScript}>Export A++</button>
+        <button on:click={importScript}>Import A++</button>
         <span id="info-span">{errorText}</span>
     </div>
 </div>

@@ -107,10 +107,16 @@ export function deleteScript(id: number) {
 }
 
 export function addScript(script: Script, switchScript: boolean = true) {
+    // refuse to add script if its id already exists
+    if (scripts.find((s) => s.id === script.id)) {
+        return false;
+    }
+
     scripts.push(script);
     if (switchScript) {
         setSelectedScript(script.id);
     }
+    return true;
 }
 
 export function getEditorValue() {
@@ -123,4 +129,16 @@ export function getSaveData(): SaveData {
         scripts,
         selectedScript: selectedScriptID,
     };
+}
+
+// Creates a new script from an import.
+export function createImportScript(text: string) {
+    const randomName = "imported" + (Math.floor(Math.random() * 900) + 100); // 3 digit #
+
+    const script: Script = {
+        name: randomName,
+        id: randomID(),
+        text: text,
+    };
+    addScript(script, true);
 }
